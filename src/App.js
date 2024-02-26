@@ -9,15 +9,16 @@ import { handleSetSavingsData } from "./utils/savingsUtils";
 function App() {
   const dispatch = useDispatch();
   const numberList = useSelector((state) => state.savings.numberList);
-  
+
   const [sumNumbers, setSumNumbers] = useState(0);
-  const target = useSelector((state) => state.target.amount)
-  const targetAmount = 1000
+  const targetAmount = useSelector((state) => state.target.amount) || 1000;
+  const target = useSelector((state) => state.target)
+  // const targetAmount = 1000
   const numberOfWeeks = 52;
 
   useEffect(() => {
-    handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setNumberList)
-  }, []);
+    handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setNumberList);
+  }, [targetAmount, dispatch]); // not sure of the dispatch dependency #TODO
 
   useEffect(() => {
     if (numberList.length > 0) {
@@ -31,7 +32,13 @@ function App() {
       <header className="app-header">
         <h1>MONEY SAVING CHART</h1>
         <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3>
-        {target && <h2>Target: {target}</h2>}
+        {targetAmount && targetAmount !== 1000 && (
+          <div>
+            <h2>Target: {target.amount}</h2>
+            <span>Name: {target.savingsName}</span>
+            <p>Date: {target.dateCreated}</p>
+          </div>
+        )}
       </header>
       <TargetAmountForm />
 
