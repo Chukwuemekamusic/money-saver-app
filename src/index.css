@@ -38,6 +38,7 @@ code {
 
 button {
   width: 100%;
+  cursor: pointer;
 }
 
 .last-button {
@@ -48,4 +49,12 @@ button {
 
 .last-button:hover {
   background-color: initial;
+}
+
+.not-selected{
+  background-color: gainsboro;
+}
+
+.selected{
+  background-color: rgba(234, 200, 255, 1);
 }
