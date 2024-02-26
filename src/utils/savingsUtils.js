@@ -1,3 +1,6 @@
+// import { useDispatch, useSelector } from "react-redux";
+
+// const numberList = useSelector((state) => state.savings.numberList);
 
 export function generateRandomAmounts(totalAmount, numberOfWeeks) {
     // Generate random rates for each week
@@ -20,3 +23,22 @@ export function generateRandomAmounts(totalAmount, numberOfWeeks) {
 
     return amounts;
   }
+
+  export const handleSetSavingsData = (totalAmount, numberOfWeeks, dispatch, setNumberList) => {
+    const randomAmounts = generateRandomAmounts(totalAmount, numberOfWeeks)
+    const payload = randomAmounts.map((number) => ({
+      amount: number,
+      selected: false,
+      // weekNoIndex: null, #TODO this will index the week number of the savings made.
+      // payDate: null
+    }));
+    dispatch(setNumberList(payload));
+  }
+
+  // const payload = randomAmounts.map((number) => ({
+  //   amount: number,
+  //   selected: false,
+  //   // weekNoIndex: null, #TODO this will index the week number of the savings made.
+  //   // date: null
+  // }));
+  // dispatch(setNumberList(payload));
