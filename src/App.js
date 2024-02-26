@@ -4,7 +4,7 @@ import TargetAmountForm from "./components/TargetAmountForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setNumberList } from "./features/savings/savingsSlice";
 
-import { generateRandomAmounts } from "./utils/savingsUtils";
+import { handleSetSavingsData } from "./utils/savingsUtils";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,12 +16,7 @@ function App() {
   const numberOfWeeks = 52;
 
   useEffect(() => {
-    const randomAmounts = generateRandomAmounts(targetAmount, numberOfWeeks);
-    const payload = randomAmounts.map((number) => ({
-      amount: number,
-      selected: false,
-    }));
-    dispatch(setNumberList(payload));
+    handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setNumberList)
   }, []);
 
   useEffect(() => {
