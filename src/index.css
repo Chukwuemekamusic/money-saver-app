@@ -41,6 +41,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: azure;
+}
+
 .last-button {
   grid-column: span 4;
   cursor: not-allowed;
@@ -51,10 +55,14 @@ button {
   background-color: initial;
 }
 
-.not-selected{
+.not-selected {
   background-color: gainsboro;
 }
 
-.selected{
+/* .selected:hover {
+  background-color: rgba(234, 200, 255, 1);
+} */
+
+.selected, .selected:hover{
   background-color: rgba(234, 200, 255, 1);
 }

@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    savingsName: null,
     amount: null,
-    // date: null
+    // dateCreated: null
+    
 }
 
 const targetSlice = createSlice({
@@ -11,7 +13,10 @@ const targetSlice = createSlice({
     reducers: {
         setTarget: (state, action) => {
             // state.amount = action.payload
-            state.amount = action.payload
+            const dateCreated = new Date().toLocaleString()
+            state.amount = action.payload.amount
+            state.savingsName = action.payload.savingsName
+            state.dateCreated = dateCreated
         }
     }
 })
