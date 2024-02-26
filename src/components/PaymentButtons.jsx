@@ -1,28 +1,21 @@
 import React from "react";
 import PaymentButton from "./PaymentButton";
+import {
+  setNumberList,
+  toggleSelection,
+} from "../features/savings/savingsSlice";
+import { useDispatch } from "react-redux";
 
 const PaymentButtons = ({ noList, setNoList }) => {
-  const handleSelected = (index) => {
-    setNoList((prev) => {
-      const newList = [...prev];
-      newList[index].selected = !newList[index].selected;
-      return newList;
-    });
-  };
+  const dispatch = useDispatch()
 
   return (
     <div className="button-container">
       {noList.map((number, index) => (
-        // <React.Fragment key={index}>
-        //   <button className={number.selected ? "selected" : "not-selected"}
-        //   onClick={() => handleSelected(index)}>
-        //     £{number.amount}
-        //   </button>
-        // </React.Fragment>
         <PaymentButton
           key={index}
           number={number}
-          handleSelect={() => handleSelected(index)}
+          handleSelect={() => dispatch(toggleSelection(index))}
         />
       ))}
       <button className="last-button">Save One Box Per Week... </button>
