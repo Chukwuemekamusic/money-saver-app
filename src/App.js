@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-// import "./App.css";
 import PaymentButtons from "./components/PaymentButtons";
 
 function App() {
   const [numberList, setNumberList] = useState([]);
   const [sumNumbers, setSumNumbers] = useState(0);
-  const [moneyList, setMoneyList] = useState([])
   // const NO_OF_WEEKS = 52
 
   useEffect(() => {
@@ -35,14 +33,15 @@ function App() {
     const numberOfWeeks = 52;
 
     const randomAmounts = generateRandomAmounts(targetAmount, numberOfWeeks);
-    setNumberList(randomAmounts);
+    setNumberList(
+      randomAmounts.map((number) => ({ amount: number, selected: false }))
+    );
+    
   }, []);
 
   useEffect(() => {
     if (numberList.length > 0) {
-      const sums = numberList.reduce((sum, amount) => {
-        return sum + amount;
-      });
+      const sums = numberList.reduce((sum, item) => (sum + item.amount),0)
       setSumNumbers(sums);
     }
   }, [numberList]);
@@ -54,7 +53,7 @@ function App() {
         <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3>
       </header>
 
-      <PaymentButtons noList={numberList} />
+      <PaymentButtons noList={numberList} setNoList={setNumberList}/>
     </div>
   );
 }

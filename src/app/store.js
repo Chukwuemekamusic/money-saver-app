@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import savingsReducer from '../features/savings/savingsSlice'
 
-
-import React from 'react'
 
 const store = configureStore({
     reducer: {
-
+        savings: savingsReducer,
     }
 })
 

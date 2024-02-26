@@ -1,16 +1,31 @@
-import React from 'react'
+import React from "react";
+import PaymentButton from "./PaymentButton";
 
-const PaymentButtons = ({noList}) => {
-  // const MAX_ROW = 7
-  // const isStartOfRow = (index) =>  (index % MAX_ROW === 0)
+const PaymentButtons = ({ noList, setNoList }) => {
+  const handleSelected = (index) => {
+    setNoList((prev) => {
+      const newList = [...prev];
+      newList[index].selected = !newList[index].selected;
+      return newList;
+    });
+  };
+
   return (
     <div className="button-container">
       {noList.map((number, index) => (
-        <React.Fragment key={index} >
-          <button>£{number}</button>
-        </React.Fragment>
+        // <React.Fragment key={index}>
+        //   <button className={number.selected ? "selected" : "not-selected"}
+        //   onClick={() => handleSelected(index)}>
+        //     £{number.amount}
+        //   </button>
+        // </React.Fragment>
+        <PaymentButton
+          key={index}
+          number={number}
+          handleSelect={() => handleSelected(index)}
+        />
       ))}
-      <button className='last-button'>Save One Box Per Week... </button>
+      <button className="last-button">Save One Box Per Week... </button>
     </div>
   );
 };
