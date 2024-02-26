@@ -1,47 +1,32 @@
 import { useEffect, useState } from "react";
 import PaymentButtons from "./components/PaymentButtons";
+import TargetAmountForm from "./components/TargetAmountForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setNumberList } from "./features/savings/savingsSlice";
+
+import { generateRandomAmounts } from "./utils/savingsUtils";
 
 function App() {
-  const [numberList, setNumberList] = useState([]);
+  const dispatch = useDispatch();
+  const numberList = useSelector((state) => state.savings.numberList);
+  
   const [sumNumbers, setSumNumbers] = useState(0);
-  // const NO_OF_WEEKS = 52
+  const target = useSelector((state) => state.target.amount)
+  const targetAmount = 1000
+  const numberOfWeeks = 52;
 
   useEffect(() => {
-    function generateRandomAmounts(totalAmount, numberOfWeeks) {
-      // Generate random rates for each week
-      const randomRates = Array.from({ length: numberOfWeeks }, () =>
-        Math.floor(Math.random() * 10 + 1)
-      ); // Adjust the range of rates as needed
-
-      // Calculate the total sum of rates
-      const totalRates = randomRates.reduce((sum, rate) => sum + rate, 0);
-
-      // Calculate amounts based on rates and round to integers
-      const amounts = randomRates.map((rate) =>
-        Math.round((rate / totalRates) * totalAmount)
-      );
-
-      // Adjust the last amount to ensure the total is exactly the target amount
-      const adjustment =
-        totalAmount - amounts.reduce((sum, amount) => sum + amount, 0);
-      amounts[amounts.length - 1] += adjustment;
-
-      return amounts;
-    }
-
-    const targetAmount = 1000;
-    const numberOfWeeks = 52;
-
     const randomAmounts = generateRandomAmounts(targetAmount, numberOfWeeks);
-    setNumberList(
-      randomAmounts.map((number) => ({ amount: number, selected: false }))
-    );
-    
+    const payload = randomAmounts.map((number) => ({
+      amount: number,
+      selected: false,
+    }));
+    dispatch(setNumberList(payload));
   }, []);
 
   useEffect(() => {
     if (numberList.length > 0) {
-      const sums = numberList.reduce((sum, item) => (sum + item.amount),0)
+      const sums = numberList.reduce((sum, item) => sum + item.amount, 0);
       setSumNumbers(sums);
     }
   }, [numberList]);
@@ -51,9 +36,11 @@ function App() {
       <header className="app-header">
         <h1>MONEY SAVING CHART</h1>
         <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3>
+        {target && <h2>Target: {target}</h2>}
       </header>
+      <TargetAmountForm />
 
-      <PaymentButtons noList={numberList} setNoList={setNumberList}/>
+      <PaymentButtons noList={numberList} setNoList={setNumberList} />
     </div>
   );
 }
