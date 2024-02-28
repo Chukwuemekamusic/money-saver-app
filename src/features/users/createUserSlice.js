@@ -8,14 +8,17 @@ const initialState = {
 
 // #TODO TO BE EDITED TO createAsyncThunk
 const createUserSlice = createSlice({
-    name: createUser,
+    name: 'createUser',
     initialState,
     reducers: {
         addUser: (state, action) => {
             const { firstName, lastName, password } = action.payload
             state.firstName = firstName
-            state.lastName = lastName,
+            state.lastName = lastName
             state.password = password
         }
     }
 })
+
+export default createUserSlice.reducer
+export const { addUser } = createUserSlice.actions
