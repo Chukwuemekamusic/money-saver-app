@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PaymentButtons from "./components/PaymentButtons";
 import TargetAmountForm from "./components/TargetAmountForm";
+import CreateUserForm from "./features/users/components/CreateUserForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setNumberList } from "./features/savings/savingsSlice";
 import { selectAllSavings } from "./features/savings/savingsSlice";
@@ -47,6 +48,7 @@ function App() {
       <TargetAmountForm />
 
       <PaymentButtons noList={numberList} setNoList={setNumberList} />
+      <CreateUserForm />
     </div>
   );
 }
