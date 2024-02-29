@@ -12,12 +12,6 @@ const TargetAmountForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (canSubmit) {
-      //   dispatch(
-      //     setTarget({
-      //       savingsName,
-      //       amount,
-      //     })
-      //   );
       dispatch(
         setSavings({
           savingsName,

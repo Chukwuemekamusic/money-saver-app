@@ -29,6 +29,7 @@ export function generateRandomAmounts(totalAmount, numberOfWeeks) {
     const payload = randomAmounts.map((number) => ({
       amount: number,
       selected: false,
+      weekIndex: 0,
       // weekNoIndex: null, #TODO this will index the week number of the savings made.
       // payDate: null
     }));
