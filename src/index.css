@@ -66,3 +66,9 @@ button:hover {
 .selected, .selected:hover{
   background-color: rgba(234, 200, 255, 1);
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;  
+}

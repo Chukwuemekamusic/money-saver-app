@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PaymentButtons from "./components/PaymentButtons";
 import TargetAmountForm from "./components/TargetAmountForm";
 import CreateUserForm from "./features/users/components/CreateUserForm";
+import SavingSummary from "./components/SavingSummary";
 import { useDispatch, useSelector } from "react-redux";
 import { setNumberList } from "./features/savings/savingsSlice";
 import { selectAllSavings } from "./features/savings/savingsSlice";
@@ -46,8 +47,13 @@ function App() {
         )}
       </header>
       <TargetAmountForm />
-
+      
+      <div className="flex-container">
       <PaymentButtons noList={numberList} setNoList={setNumberList} />
+      <SavingSummary />
+
+      </div>
+      
       <CreateUserForm />
     </div>
   );
