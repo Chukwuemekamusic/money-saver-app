@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// initialState = {
-//     amount: null,
-//     selected: null
-// }
 const initialState = {
     savingsName: null,
     amount: null,
     dateCreated: null,
     numberList: [],
+    selection_process: false
 
 }
 
