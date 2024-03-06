@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { setTarget } from "../features/target/targetSlice";
 import { setSavings } from "../features/savings/savingsSlice";
+import useCustomNavigation from "../utils/useCustomNavigation";
 
-const TargetAmountForm = () => {
+const SavingPlanForm = () => {
+  const {navigateSavingPlanDetail} = useCustomNavigation()
   const [amount, setAmount] = useState("");
   const [savingsName, setSavingsName] = useState("");
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const TargetAmountForm = () => {
       );
       setAmount("");
       setSavingsName("");
+      navigateSavingPlanDetail() // #TODO set id
     }
   };
 
@@ -50,4 +53,4 @@ const TargetAmountForm = () => {
   );
 };
 
-export default TargetAmountForm;
+export default SavingPlanForm;

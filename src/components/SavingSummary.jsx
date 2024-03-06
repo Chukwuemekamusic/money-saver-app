@@ -1,9 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectAllSavings,
-  selectAllSelectedSavings,
-} from "../features/savings/savingsSlice";
+import { useSelector } from "react-redux";
+import { selectAllSelectedSavings } from "../features/savings/savingsSlice";
 
 const SavingSummary = () => {
   const savings = useSelector(selectAllSelectedSavings);
@@ -18,8 +15,9 @@ const SavingSummary = () => {
             </p>
           ))}
           <div className="total-sum">
-            <h3>Total: £{savings.reduce((sum, item) => sum + item.amount, 0)}</h3>
-            
+            <h3>
+              Total: £{savings.reduce((sum, item) => sum + item.amount, 0)}
+            </h3>
           </div>
         </div>
       )}

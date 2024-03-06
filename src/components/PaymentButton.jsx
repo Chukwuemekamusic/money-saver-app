@@ -1,10 +1,19 @@
 import React from "react";
 
-const PaymentButton = ({ handleSelect, number }) => {
+const PaymentButton = ({ handleSelect, number, processing }) => {
+  let btnStyle;
+  if (number.selected){
+    btnStyle = 'selected'
+  } else if (processing) {
+    btnStyle = 'pending-selection'
+  } else {
+    btnStyle = 'not-selected'
+  }
   return (
     <>
       <button
-        className={number.selected ? "selected" : "not-selected"}
+        // className={number.selected ? "selected" : "not-selected"}
+        className={btnStyle}
         onClick={handleSelect}
       >
         £{number.amount}

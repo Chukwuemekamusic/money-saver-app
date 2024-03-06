@@ -65,6 +65,11 @@ button:hover {
 
 .selected, .selected:hover{
   background-color: rgba(234, 200, 255, 1);
+  cursor: not-allowed;
+}
+
+.pending-selection {
+  background-color: skyblue;
 }
 
 .flex-container {
