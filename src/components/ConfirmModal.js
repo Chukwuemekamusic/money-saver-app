@@ -29,7 +29,7 @@ const ConfirmModal = ({ isOpen, onRequestClose, onConfirm, amount }) => {
       style={customStyles}
     >
       <div>
-        <p>Are you sure you want to save <b>£{amount}</b> for the week?</p>
+        <p style={{color:'red'}}>Are you sure you want to save <b>£{amount}</b> for the week?</p>
         <button onClick={onConfirm}>Yes</button>
         <button onClick={onRequestClose}>No</button>
       </div>

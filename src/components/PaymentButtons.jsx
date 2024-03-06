@@ -20,11 +20,16 @@ const PaymentButtons = ({ noList }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [amount, setAmount] = useState(0)
+  const [selectionProcess, setSelectionProcess] = useState(-1)
 
   const handleButtonSelection = (index,number) => {
-    setAmount(number.amount)
-    setSelectedIndex(index);
-    setConfirmModalOpen(true);
+    if (!number.selected) {
+      setSelectionProcess(index)
+      setAmount(number.amount)
+      setSelectedIndex(index);
+      setConfirmModalOpen(true);
+    } 
+   
   };
 
   const handleConfirm = () => {
@@ -33,7 +38,9 @@ const PaymentButtons = ({ noList }) => {
   };
 
   const handleModalClose = () => {
+    setSelectionProcess(-1)
     setConfirmModalOpen(false);
+    
   };
 
   return (
@@ -45,6 +52,7 @@ const PaymentButtons = ({ noList }) => {
               key={index}
               number={number}
               handleSelect={() => handleButtonSelection(index, number)}
+              processing={selectionProcess===index}
             />
           ))}
           <button className="last-button">Save One Box Per Week... </button>
