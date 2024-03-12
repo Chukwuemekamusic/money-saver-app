@@ -1,27 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { listSavingPlan, getSavingPlanDetail } from "./savingAction";
 
-// const initialState = {
-//     savingsName: null,
-//     amount: null,
-//     dateCreated: null,
-//     numberList: [],
-//     selection_process: false
-
-// }
 const initialState = {
-    isLoading: false,
-    isSuccess: null,
-    savings: null,
-    error: null
+    savingsName: null,
+    amount: null,
+    dateCreated: null,
+    numberList: [],
+    selection_process: false
+
 }
 
-// "id": 7,
-//     "user": 6,
-//         "savings_name": "fire on the mountain",
-//             "amount": "1200.00",
-//                 "date_created": "2024-03-03T22:39:42.681903Z",
-//                     "amount_list": []
 const savingsSlice = createSlice({
     name: 'savings',
     initialState,
@@ -53,25 +40,6 @@ const savingsSlice = createSlice({
         //     const { userId, planIndex, numberList } = action.payload;
         //     state[userId].savingsPlans[planIndex].numberList = numberList;
         // },
-    },
-    extraReducers: builder => {
-        builder
-            .addCase(listSavingPlan.pending, (state) => {
-                state.isLoading = true
-                state.error = null
-            })
-            .addCase(listSavingPlan.fulfilled, (state, {payload}) => {
-                state.isLoading = false
-                state.savings = payload
-                state.isSuccess = true
-                state.error = null
-            })
-            .addCase(listSavingPlan.rejected, (state, {payload}) => {
-                state.isLoading = false
-                state.savings = null
-                state.error = payload
-                state.isSuccess = false
-            })
     }
 })
 

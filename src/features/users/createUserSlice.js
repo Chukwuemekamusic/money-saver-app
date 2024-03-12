@@ -1,11 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { regsiterURL, loginURL } from "../../api/axiosUtil";
 
 const initialState = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: null,
+    // firstName: '',
+    // lastName: '',
+    // email: '',
+    // password: null,
+    user: [],
+    status: 'idle',
+    error: null,
 }
+
+const fetchUser = createAsyncThunk('createUser/fetchUser', async (data) => {
+    const response = await axios.get(loginURL,
+        { email: data.email, password: data.password },);
+    return response.data
+},
+)
 
 // #TODO TO BE EDITED TO createAsyncThunk
 const createUserSlice = createSlice({
@@ -19,6 +31,20 @@ const createUserSlice = createSlice({
             state.password = password
             state.email = email
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchUser.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.user = action.payload
+            })
+            .addCase(fetchUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            })
     }
 })
 

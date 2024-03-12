@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import useCustomNavigation from "../../../utils/useCustomNavigation";
+import { loginUser } from "../../auth/authActions";
+import { SelectUserInfo } from "../../auth/authSlice";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+  const userInfo = useSelector(SelectUserInfo);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,13 +15,20 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here, e.g., make an API request to authenticate the user
+
+    dispatch(loginUser({ email, password }));
     console.log("Login submitted:", { email, password });
     // Clear form fields after submission if needed
     setEmail("");
     setPassword("");
     navigateHome();
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigateHome();
+    }
+  }, [userInfo]);
 
   return (
     <form onSubmit={handleSubmit}>
