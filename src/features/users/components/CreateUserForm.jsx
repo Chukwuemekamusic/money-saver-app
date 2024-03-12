@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, loginUser } from "../../auth/authActions";
+import useCustomNavigation from "../../../utils/useCustomNavigation";
+import CustomError from '../../../components/CustomError'
+
 const CreateUserForm = () => {
+  const dispatch = useDispatch();
+  const { navigateHome } = useCustomNavigation();
+  const { loading, userInfo, error, success } = useSelector(
+    (state) => state.auth
+  );
   const validationSchema = yup.object().shape({
-    firstName: yup.string().required("First Name is required"),
-    lastName: yup.string().required("Last Name is required"),
+    first_name: yup.string().required("First Name is required"),
+    last_name: yup.string().required("Last Name is required"),
+    email: yup.string().required("Email is required"),
     password: yup.string().required("Password is required"),
-    repeatPassword: yup
+    confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "Passwords must match")
-      .required("Repeat Password is required"),
+      .required("confirm Password is required"),
   });
 
   const {
@@ -23,33 +34,60 @@ const CreateUserForm = () => {
   });
 
   const onSubmit = (data) => {
+    dispatch(registerUser(data));
+    if (success) {
+      dispatch(loginUser(data))
+    }
     // Handle form submission logic here
     console.log(data);
   };
 
+  // useEffect(() => {
+  //   if (success) {
+  //     navigateHome()
+  //   }
+
+  //   return () => {};
+  // }, [success]);
+
   return (
     <div>
+      {error && <CustomError error={error} />}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="first-name"> First Name: </label>
+        <label htmlFor="first_name"> First Name: </label>
         <input
           type="text"
-          id="first-name"
-          {...register("firstName")}
+          id="first_name"
+          {...register("first_name")}
           placeholder="first name..."
         />
-        {errors.firstName && (
-          <span style={{ color: "red" }}>{errors.firstName.message}</span>
+        {errors.first_name && (
+          // <span style={{ color: "red" }}>{errors.first_name.message}</span>
+          <CustomError error={errors.first_name.message} />
         )}
 
-        <label htmlFor="last-name"> Last Name: </label>
+        <label htmlFor="last_name"> Last Name: </label>
         <input
           type="text"
-          id="last-name"
-          {...register("lastName")}
+          id="last_name"
+          {...register("last_name")}
           placeholder="last name..."
         />
-        {errors.lastName && (
-          <span style={{ color: "red" }}>{errors.lastName.message}</span>
+        {errors.last_name && (
+          // <span style={{ color: "red" }}>{errors.last_name.message}</span>
+          <CustomError error={errors.last_name.message} />
+        )}
+
+        <label htmlFor="email"> Email: </label>
+        <input
+          type="email"
+          id="email"
+          {...register("email")}
+          placeholder="email..."
+        />
+        {errors.email && (
+          // <span style={{ color: "red" }}>{errors.email.message}</span>
+          <CustomError error={errors.email.message} />
         )}
 
         <label htmlFor="password"> Password: </label>
@@ -60,18 +98,20 @@ const CreateUserForm = () => {
           placeholder="password..."
         />
         {errors.password && (
-          <span style={{ color: "red" }}>{errors.password.message}</span>
+          // <span style={{ color: "red" }}>{errors.password.message}</span>
+          <CustomError error={errors.password.message} />
         )}
 
-        <label htmlFor="repeat-password"> Repeat Password: </label>
+        <label htmlFor="confirm-password"> Confirm Password: </label>
         <input
           type="password"
-          id="repeat-password"
-          {...register("repeatPassword")}
-          placeholder="repeat password..."
+          id="confirm-password"
+          {...register("confirmPassword")}
+          placeholder="confirm password..."
         />
-        {errors.repeatPassword && (
-          <span style={{ color: "red" }}>{errors.repeatPassword.message}</span>
+        {errors.confirmPassword && (
+          // <span style={{ color: "red" }}>{errors.confirmPassword.message}</span>
+          <CustomError error={errors.confirmPassword.message} />
         )}
 
         <button type="submit">Register</button>

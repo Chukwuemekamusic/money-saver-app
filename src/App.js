@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import CreateUserForm from "./features/users/components/CreateUserForm";
 import Home from "./components/HomePage";
 
-import LoginForm from "./features/users/components/LoginForm";
+// import LoginForm from "./features/users/components/LoginForm";
+import LoginForm  from "./features/users/components/LoginForm2";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setNumberList } from "./features/savings/savingsSlice";
@@ -62,7 +63,7 @@ function App() {
         <Route element={<LoginForm />} path="/login" />
         <Route element={<LandingPage />} path="/landing" />
         <Route element={<Home />} path="/" />
-        <Route element={<SavingPlanDetail />} path="/saving_plan/" />
+        {/* <Route element={<SavingPlanDetail />} path="/saving_plan/" /> */}
       </Routes>
     </div>
   );
