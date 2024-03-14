@@ -1,30 +1,44 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { setTarget } from "../features/target/targetSlice";
-import { setSavings } from "../features/newSavingsSlice/newSavingsSlice";
+import {
+  setSavings,
+  setAmountList,
+} from "../features/newSavingsSlice/newSavingsSlice";
 import useCustomNavigation from "../utils/useCustomNavigation";
+import useSavePlan from "../features/newSavingsSlice/utils/useSavePlan";
+import { handleSetSavingsData } from "../utils/savingsUtils";
 
 const SavingPlanForm = () => {
-  const {navigateSavingPlanDetail} = useCustomNavigation()
+  const { navigateSavingPlanDetail } = useCustomNavigation();
   const [amount, setAmount] = useState("");
   const [savingsName, setSavingsName] = useState("");
   const dispatch = useDispatch();
+  const savePlan = useSavePlan();
   const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
+  const numberOfWeeks = 52;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (canSubmit) {
-      dispatch(
-        setSavings({
-          savingsName,
-          amount,
-        })
-      );
-      setAmount("");
-      setSavingsName("");
-      navigateSavingPlanDetail() // #TODO set id
-    }
+    // if (canSubmit) {
+    await dispatch(
+      setSavings({
+        savingsName,
+        amount,
+      })
+    );
+
+    await handleSetSavingsData(amount, numberOfWeeks, dispatch, setAmountList);
+    setAmount("");
+    setSavingsName("");
+
+    handleSavePlan()
+    // }
   };
+  const handleSavePlan = async() => {
+    await savePlan();
+    navigateSavingPlanDetail(); // #TODO set id
+  }
 
   return (
     <div>

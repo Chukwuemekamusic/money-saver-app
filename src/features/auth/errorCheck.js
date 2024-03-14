@@ -1,4 +1,6 @@
-export const errorCheck = (error) => {
+import { logoutUser } from "./authActions";
+
+export const errorCheck = (error, dispatch = null) => {
     let message;
     if (error.response) {
         // Invalid Email
@@ -10,10 +12,12 @@ export const errorCheck = (error) => {
         }
         // Handle API error (status code 4xx or 5xx)
         console.error(error.response.data);
-        //   if (error.response.data.detail === "Invalid token.") {
-        //     handleLogout();
-        //   } else if (
-        if (
+          if (error.response.data.detail === "Invalid token.") {
+            if (dispatch) {
+                dispatch(logoutUser())
+            }
+          } else if (
+        // if (
             error.response.data.email &&
             error.response.data.email[0] === "user with this email already exists."
         ) {
