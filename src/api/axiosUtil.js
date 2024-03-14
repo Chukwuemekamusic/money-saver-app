@@ -9,3 +9,7 @@ export const createSavingPlanURL = baseURL + 'user/savingplan/create/'
 export const listSavingPlanURL = baseURL + 'user/savingplan/'
 
 export const savingPlanDetailURL = (id) => baseURL + `user/savingplan/${id}/`
+
+export const getUserURL = baseURL + 'user/get/'
+
+export const logoutUserURL =  baseURL + 'user/logout-now/'
