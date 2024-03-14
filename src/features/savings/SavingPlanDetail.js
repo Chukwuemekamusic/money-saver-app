@@ -3,36 +3,33 @@ import PaymentButtons from '../../components/PaymentButtons'
 import SavingSummary from '../../components/SavingSummary'
 
 import { useDispatch, useSelector } from "react-redux";
-import { setAmountList, selectNewSavings } from '../newSavingsSlice/newSavingsSlice';
+import { setAmountList, selectNewSavings} from '../newSavingsSlice/newSavingsSlice';
 // import { selectAllSavings } from "./savingsSlice";
+import { saveSavingPlan } from '../newSavingsSlice/newSavingsAction';
 
-import { handleSetSavingsData } from '../../utils/savingsUtils';
+import useSavePlan from '../newSavingsSlice/utils/useSavePlan';
+
 
 const SavingPlanDetail = () => {
     const dispatch = useDispatch();
-    // const numberList = useSelector((state) => state.savings.numberList);
-    // const savings = useSelector(selectAllSavings);
-    // const numberList = useSelector(selectNewSavings)
     const savings = useSelector(selectNewSavings)
-    const { 
-        amount_list: numberList, amount, savings_name: savingsName, 
-        date_created: dateCreated } = savings
-    const targetAmount = savings.amount || 1000;
-
+    const targetAmount = savings.amount
+    
+    const {
+        amount_list: numberList, amount, savings_name: savingsName,
+    } = savings //date_created: dateCreated 
+    
     const [sumNumbers, setSumNumbers] = useState(0);
-    // const targetAmount = 1000
-    const numberOfWeeks = 52;
 
-    useEffect(() => {
-        handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setAmountList);
-    }, [targetAmount, dispatch]); // not sure of the dispatch dependency #TODO
+
 
     useEffect(() => {
         if (numberList.length > 0) {
             const sums = numberList.reduce((sum, item) => sum + item.amount, 0);
             setSumNumbers(sums);
         }
-    }, [numberList]);
+        // savePlan()
+    }, [numberList, dispatch]);
     return (
         <div>
             <header className="app-header">
@@ -42,7 +39,7 @@ const SavingPlanDetail = () => {
                     <div>
                         <h2>Target: {amount}</h2>
                         <span>Name: {savingsName}</span>
-                        <p>Date: {dateCreated.toLocaleString()}</p>
+                        {/* <p>Date: {dateCreated.toLocaleString()}</p> */}
                     </div>
                 )}
             </header>

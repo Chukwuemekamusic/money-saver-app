@@ -28,13 +28,13 @@ export const loginUser = createAsyncThunk('auth/login',
     })
 
 export const getUser = createAsyncThunk('auth/getUser',
-    async (_, { rejectWithValue }) => {
+    async (_, { dispatch,rejectWithValue }) => {
         try {
             const token = JSON.parse(localStorage.getItem("userToken")) ?? ""
             const { data } = await axios.get(getUserURL, getHeaders(token))
             return data;
         } catch (error) {
-            return rejectWithValue(errorCheck(error))
+            return rejectWithValue(errorCheck(error, dispatch))
         }
     })
 
@@ -54,6 +54,7 @@ export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, r
         return { success: true }
 
     } catch (error) {
+        localStorage.removeItem("userToken");
         return rejectWithValue(errorCheck(error))
     }
 

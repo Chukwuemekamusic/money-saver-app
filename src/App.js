@@ -16,27 +16,15 @@ import { handleSetSavingsData } from "./utils/savingsUtils";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import SavingPlanDetail from "./features/savings/SavingPlanDetail";
+import useCheckAuth from "./features/auth/utils/useCheckAuth";
 
 function App() {
-  // const dispatch = useDispatch();
-  // const numberList = useSelector((state) => state.savings.numberList);
-  // const savings = useSelector(selectAllSavings);
-  // const targetAmount = savings.amount || 1000;
-
-  // const [sumNumbers, setSumNumbers] = useState(0);
-  // // const targetAmount = 1000
-  // const numberOfWeeks = 52;
-
-  // useEffect(() => {
-  //   handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setAmountList);
-  // }, [targetAmount, dispatch]); // not sure of the dispatch dependency #TODO
-
-  // useEffect(() => {
-  //   if (numberList.length > 0) {
-  //     const sums = numberList.reduce((sum, item) => sum + item.amount, 0);
-  //     setSumNumbers(sums);
-  //   }
-  // }, [numberList]);
+  const checkAuth = useCheckAuth()
+  useEffect(() => {
+    checkAuth()
+  }, [])
+  
+ 
 
   return (
     <div className="app">

@@ -12,15 +12,9 @@ import { selectNewSavings } from "./newSavingsSlice";
 import { SelectUserInfo } from "../auth/authSlice";
 
 export const saveSavingPlan = createAsyncThunk(
-  "savings/save",
-  async (_, thunkAPI) => {
+  "newSavings/save",
+  async (savingsData, thunkAPI) => {
     try {
-      const newSavings = useSelector(selectNewSavings);
-      const { id: user } = useSelector(SelectUserInfo);
-      const savingsData = {
-        ...newSavings,
-        user,
-      };
       const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
       // console.log("token used", token);
       const { data } = await axios.post(
