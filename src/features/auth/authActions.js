@@ -1,7 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { regsiterURL, loginURL } from "../../api/axiosUtil";
+import { regsiterURL, loginURL, getUserURL, logoutUserURL } from "../../api/axiosUtil";
 import { errorCheck } from "./errorCheck";
+import getHeaders from "../../api/getHeaders";
+import { resetAuth } from "./authSlice";
 
 
 export const registerUser = createAsyncThunk('auth/register',
@@ -25,11 +27,37 @@ export const loginUser = createAsyncThunk('auth/login',
         }
     })
 
-    // if (error.response.data.email &&
-    //     error.response.data.email[0] === "user with this email already exists.") {
-    //     return thunkAPI.rejectWithValue(error.response.data.email[0])
-    // } else if (error.response && error.response.data.message) {
-    //     return thunkAPI.rejectWithValue(error.response.data.message)
-    // } else {
-    //     return thunkAPI.rejectWithValue(error.message)
-    // }
+export const getUser = createAsyncThunk('auth/getUser',
+    async (_, { rejectWithValue }) => {
+        try {
+            const token = JSON.parse(localStorage.getItem("userToken")) ?? ""
+            const { data } = await axios.get(getUserURL, getHeaders(token))
+            return data;
+        } catch (error) {
+            return rejectWithValue(errorCheck(error))
+        }
+    })
+
+const removeTokenFromStorage = () => {
+    localStorage.removeItem("userToken");
+};
+
+// Async thunk for logging out
+export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, rejectWithValue }) => {
+
+    try {
+        const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
+        console.log('token used:', token);
+        await axios.post(logoutUserURL, {}, getHeaders(token))
+        localStorage.removeItem("userToken");
+        dispatch(resetAuth());
+        return { success: true }
+
+    } catch (error) {
+        return rejectWithValue(errorCheck(error))
+    }
+
+
+
+});
+

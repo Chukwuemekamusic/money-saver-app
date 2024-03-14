@@ -52,3 +52,11 @@ export const errorCheck = (error) => {
 };
 
 
+// if (error.response.data.email &&
+//     error.response.data.email[0] === "user with this email already exists.") {
+//     return thunkAPI.rejectWithValue(error.response.data.email[0])
+// } else if (error.response && error.response.data.message) {
+//     return thunkAPI.rejectWithValue(error.response.data.message)
+// } else {
+//     return thunkAPI.rejectWithValue(error.message)
+// }

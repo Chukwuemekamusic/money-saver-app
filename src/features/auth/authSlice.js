@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser, loginUser } from "./authActions";
+import { registerUser, loginUser, getUser, logoutUser } from "./authActions";
 
 const userToken = localStorage.getItem('token') ?? null
 
@@ -14,7 +14,15 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        resetAuth: (state) => {
+            state.loading = false
+            state.userInfo = null
+            state.error = null
+            state.success = false
+            state.userToken = null
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(registerUser.pending, (state) => {
@@ -35,15 +43,37 @@ const authSlice = createSlice({
                 state.loading = true
                 state.error = null
             })
-            .addCase(loginUser.fulfilled, (state, {payload}) => {
+            .addCase(loginUser.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.userToken = payload.token
                 localStorage.setItem('userToken', JSON.stringify(payload.token))
                 state.userInfo = payload.user
-                console.log('payload', payload);
+                // console.log('payload', payload);
 
             })
             .addCase(loginUser.rejected, (state, { payload }) => {
+                state.loading = false
+                state.error = payload
+            })
+            // get User
+            .addCase(getUser.pending, (state) => {
+                state.loading = true
+                // state.error = null
+            })
+            .addCase(getUser.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.userInfo = payload
+
+            })
+            .addCase(getUser.rejected, (state, { payload }) => {
+                state.loading = false
+                state.error = payload
+            })
+            .addCase(logoutUser.fulfilled, (state, { payload }) => {
+                console.log('payload', payload);
+                console.log('userInfo', state.userInfo);
+            })
+            .addCase(logoutUser.rejected, (state, { payload }) => {
                 state.loading = false
                 state.error = payload
             })
@@ -52,4 +82,5 @@ const authSlice = createSlice({
 
 export default authSlice.reducer
 export const SelectUserInfo = (state) => state.auth.userInfo
+export const { resetAuth } = authSlice.actions
 // export const SelectUserSavingPlan = (state) => state.auth.user
