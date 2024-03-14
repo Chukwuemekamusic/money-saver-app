@@ -26,7 +26,7 @@ const savingsSlice = createSlice({
     name: 'savings',
     initialState,
     reducers: {
-        setNumberList: (state, action) => { state.numberList = action.payload },
+        setAmountList: (state, action) => { state.numberList = action.payload },
         toggleSelection: (state, action) => { // #TODO do the confirmation prompt
             const index = action.payload
             state.numberList[index].selected = !state.numberList[index].selected
@@ -45,9 +45,10 @@ const savingsSlice = createSlice({
         setSavings: (state, action) => {
             // state.amount = action.payload
             const dateCreated = new Date()
-            state.amount = action.payload.amount
-            state.savingsName = action.payload.savingsName
-            state.dateCreated = dateCreated
+            state.savings.amount = action.payload.amount
+            state.savings.savingsName = action.payload.savingsName
+            state.savings.dateCreated = dateCreated
+            state.savings.amount_list = []
         },
         // updateNumberList: (state, action) => {
         //     const { userId, planIndex, numberList } = action.payload;
@@ -76,7 +77,7 @@ const savingsSlice = createSlice({
 })
 
 export default savingsSlice.reducer
-export const { setNumberList, toggleSelection, setSavings } = savingsSlice.actions
+export const { setAmountList, toggleSelection, setSavings } = savingsSlice.actions
 export const selectAllSavings = (state) => state.savings
 export const selectAllSelectedSavings = (state) => (
     state.savings.numberList.filter(

@@ -9,7 +9,7 @@ import Home from "./components/HomePage";
 import LoginForm  from "./features/users/components/LoginForm2";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setNumberList } from "./features/savings/savingsSlice";
+import { setAmountList } from "./features/savings/savingsSlice";
 import { selectAllSavings } from "./features/savings/savingsSlice";
 
 import { handleSetSavingsData } from "./utils/savingsUtils";
@@ -28,7 +28,7 @@ function App() {
   // const numberOfWeeks = 52;
 
   // useEffect(() => {
-  //   handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setNumberList);
+  //   handleSetSavingsData(targetAmount, numberOfWeeks, dispatch, setAmountList);
   // }, [targetAmount, dispatch]); // not sure of the dispatch dependency #TODO
 
   // useEffect(() => {
@@ -54,7 +54,7 @@ function App() {
       <SavingPlanForm />
 
       <div className="flex-container">
-        <PaymentButtons noList={numberList} setNoList={setNumberList} />
+        <PaymentButtons noList={numberList} setNoList={setAmountList} />
         <SavingSummary />
       </div> */}
       {/* <CreateUserForm /> */}
@@ -63,7 +63,7 @@ function App() {
         <Route element={<LoginForm />} path="/login" />
         <Route element={<LandingPage />} path="/landing" />
         <Route element={<Home />} path="/" />
-        {/* <Route element={<SavingPlanDetail />} path="/saving_plan/" /> */}
+        <Route element={<SavingPlanDetail />} path="/saving_plan/" />
       </Routes>
     </div>
   );

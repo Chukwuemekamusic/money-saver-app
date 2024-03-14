@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { setTarget } from "../features/target/targetSlice";
-import { setSavings } from "../features/savings/savingsSlice";
+import { setSavings } from "../features/newSavingsSlice/newSavingsSlice";
 import useCustomNavigation from "../utils/useCustomNavigation";
 
 const SavingPlanForm = () => {

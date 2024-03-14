@@ -24,16 +24,16 @@ export function generateRandomAmounts(totalAmount, numberOfWeeks) {
     return amounts;
   }
 
-  export const handleSetSavingsData = (totalAmount, numberOfWeeks, dispatch, setNumberList) => {
+  export const handleSetSavingsData = (totalAmount, numberOfWeeks, dispatch, setAmountList) => {
     const randomAmounts = generateRandomAmounts(totalAmount, numberOfWeeks)
     const payload = randomAmounts.map((number) => ({
       amount: number,
       selected: false,
-      weekIndex: 0,
+      // weekIndex: 0,
       // weekNoIndex: null, #TODO this will index the week number of the savings made.
       // payDate: null
     }));
-    dispatch(setNumberList(payload));
+    dispatch(setAmountList(payload));
   }
 
   // const payload = randomAmounts.map((number) => ({
@@ -42,4 +42,4 @@ export function generateRandomAmounts(totalAmount, numberOfWeeks) {
   //   // weekNoIndex: null, #TODO this will index the week number of the savings made.
   //   // date: null
   // }));
-  // dispatch(setNumberList(payload));
+  // dispatch(setAmountList(payload));
