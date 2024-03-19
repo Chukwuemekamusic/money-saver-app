@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { listSavingPlan, getSavingPlanDetail } from "./savingAction";
+import { listSavingPlan } from "./savingAction";
+import {saveSavingPlan} from "../newSavingsSlice/newSavingsAction"
+
 
 // const initialState = {
 //     savingsName: null,
@@ -61,24 +63,48 @@ const savingsSlice = createSlice({
                 state.isLoading = true
                 state.error = null
             })
-            .addCase(listSavingPlan.fulfilled, (state, {payload}) => {
+            .addCase(listSavingPlan.fulfilled, (state, { payload }) => {
                 state.isLoading = false
                 state.savings = payload
                 state.isSuccess = true
                 state.error = null
             })
-            .addCase(listSavingPlan.rejected, (state, {payload}) => {
+            .addCase(listSavingPlan.rejected, (state, { payload }) => {
                 state.isLoading = false
                 state.savings = null
                 state.error = payload
                 state.isSuccess = false
             })
+        // saveNewSaving
+        .addCase(saveSavingPlan.pending, (state) => {
+            state.isLoading = true
+            // state.error = null
+
+        })
+        .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
+            state.isLoading = false
+            // state.savings = payload
+            // state.isSuccess = true
+            // state.error = null
+            state.savings.push(payload)
+            state.error = null
+        })
+        .addCase(saveSavingPlan.rejected, (state, { payload }) => {
+            state.isLoading = false
+            // state.savings = null
+            // state.error = payload
+            // state.isSuccess = false
+            state.error = payload
+            // state.savedData = null
+        })
     }
-})
+}
+)
 
 export default savingsSlice.reducer
 export const { setAmountList, toggleSelection, setSavings } = savingsSlice.actions
 export const selectAllSavings = (state) => state.savings
+export const selectSavingDetail = (state) => state.savings.savings
 export const selectAllSelectedSavings = (state) => (
     state.savings.numberList.filter(
         item => item.selected)).sort(

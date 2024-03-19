@@ -40,30 +40,30 @@ const newSavingsSlice = createSlice({
             state.amount_list = []
         },
     },
-    extraReducers: builder => {
-        builder
-            .addCase(saveSavingPlan.pending, (state) => {
-                state.isLoading = true
-                // state.error = null
+    // extraReducers: builder => {
+    //     builder
+    //         .addCase(saveSavingPlan.pending, (state) => {
+    //             state.isLoading = true
+    //             // state.error = null
                 
-            })
-            .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
-                state.isLoading = false
-                // state.savings = payload
-                // state.isSuccess = true
-                // state.error = null
-                state.savedData = payload
-                state.error = null
-            })
-            .addCase(saveSavingPlan.rejected, (state, { payload }) => {
-                state.isLoading = false
-                // state.savings = null
-                // state.error = payload
-                // state.isSuccess = false
-                state.error = payload
-                state.savedData = null
-            })
-    }
+    //         })
+    //         .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
+    //             state.isLoading = false
+    //             // state.savings = payload
+    //             // state.isSuccess = true
+    //             // state.error = null
+    //             state.savedData = payload
+    //             state.error = null
+    //         })
+    //         .addCase(saveSavingPlan.rejected, (state, { payload }) => {
+    //             state.isLoading = false
+    //             // state.savings = null
+    //             // state.error = payload
+    //             // state.isSuccess = false
+    //             state.error = payload
+    //             state.savedData = null
+    //         })
+    // }
 })
 
 export default newSavingsSlice.reducer;

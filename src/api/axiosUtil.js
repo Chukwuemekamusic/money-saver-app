@@ -13,3 +13,5 @@ export const savingPlanDetailURL = (id) => baseURL + `user/savingplan/${id}/`
 export const getUserURL = baseURL + 'user/get/'
 
 export const logoutUserURL =  baseURL + 'user/logout-now/'
+
+export const updateAmountURL = (id) => baseURL + `weeklyamount/update/${id}/`

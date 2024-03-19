@@ -38,7 +38,7 @@ const PaymentButtons = ({ noList }) => {
   };
 
   const handleModalClose = () => {
-    setSelectionProcess(-1)
+    setSelectionProcess(-1);
     setConfirmModalOpen(false);
     
   };
