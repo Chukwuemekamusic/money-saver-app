@@ -20,7 +20,11 @@ const SavingPlanForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (canSubmit) {
+    const data = {
+      savings_name: savingsName,
+      amount,
+      amount_list: [],
+    };
     await dispatch(
       setSavings({
         savingsName,
@@ -28,17 +32,29 @@ const SavingPlanForm = () => {
       })
     );
 
-    await handleSetSavingsData(amount, numberOfWeeks, dispatch, setAmountList);
+    const payload = await handleSetSavingsData(
+      amount,
+      numberOfWeeks,
+      dispatch,
+      setAmountList
+    );
     setAmount("");
     setSavingsName("");
 
-    handleSavePlan()
+    const savingsData = {
+      savings_name: savingsName,
+      amount,
+      amount_list: payload,
+    };
+    // console.log('savingsData', savingsData);
+
+    handleSavePlan(savingsData);
     // }
   };
-  const handleSavePlan = async() => {
-    await savePlan();
+  const handleSavePlan = async (savingsData) => {
+    await savePlan(savingsData);
     navigateSavingPlanDetail(); // #TODO set id
-  }
+  };
 
   return (
     <div>

@@ -12,7 +12,7 @@ import { selectNewSavings } from "./newSavingsSlice";
 import { SelectUserInfo } from "../auth/authSlice";
 
 export const saveSavingPlan = createAsyncThunk(
-  "newSavings/save",
+  "savings/save",
   async (savingsData, thunkAPI) => {
     try {
       const token = JSON.parse(localStorage.getItem("userToken")) ?? "";

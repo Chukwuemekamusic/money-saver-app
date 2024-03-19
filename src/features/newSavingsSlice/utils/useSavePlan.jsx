@@ -5,18 +5,20 @@ import { saveSavingPlan } from "../newSavingsAction";
 
 const useSavePlan = () => {
   const dispatch = useDispatch();
-  const {isLoading, ...newSavings} = useSelector(selectNewSavings);
+  // const {isLoading, ...newSavings} = useSelector(selectNewSavings);
   // # TODO abstract this further at the Slice level to avoid confusion in the future
   const userInfo = useSelector(SelectUserInfo);
+  
 
-  const savePlan = async () => {
+  const savePlan = async (savingsData) => {
+    // console.log('saveData', savingsData);
     const user = userInfo.id;
-    console.log('user', user);
-    const savingsData = {
-      ...newSavings,
+    const data = {
+      ...savingsData,
       user,
     };
-    await dispatch(saveSavingPlan(savingsData));
+    
+    await dispatch(saveSavingPlan(data));
   };
   return savePlan;
 };

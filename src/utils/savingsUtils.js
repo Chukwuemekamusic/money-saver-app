@@ -29,29 +29,9 @@ export const handleSetSavingsData = async(totalAmount, numberOfWeeks, dispatch, 
   const payload = randomAmounts.map((number) => ({
     amount: number,
     selected: false,
-    // weekIndex: 0,
-    // weekNoIndex: null, #TODO this will index the week number of the savings made.
-    // payDate: null
   }));
-  await dispatch(setAmountList(payload));  
+  await dispatch(setAmountList(payload));
+  return payload
+  
 }
 
-// export const handleSetSavingsData = (totalAmount, numberOfWeeks, dispatch, setAmountList) => {
-//   const randomAmounts = generateRandomAmounts(totalAmount, numberOfWeeks)
-//   const amount_list = randomAmounts.map((number) => ({
-//     amount: number,
-//     selected: false,
-//     // weekIndex: 0,
-//     // weekNoIndex: null, #TODO this will index the week number of the savings made.
-//     // payDate: null
-//   }));
-//   dispatch(setAmountList(amount_list));
-// }
-
-// const payload = randomAmounts.map((number) => ({
-//   amount: number,
-//   selected: false,
-//   // weekNoIndex: null, #TODO this will index the week number of the savings made.
-//   // date: null
-// }));
-// dispatch(setAmountList(payload));

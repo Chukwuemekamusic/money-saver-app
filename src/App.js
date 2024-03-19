@@ -19,10 +19,10 @@ import SavingPlanDetail from "./features/savings/SavingPlanDetail";
 import useCheckAuth from "./features/auth/utils/useCheckAuth";
 
 function App() {
-  const checkAuth = useCheckAuth()
-  useEffect(() => {
-    checkAuth()
-  }, [])
+  // const checkAuth = useCheckAuth()
+  // useEffect(() => {
+  //   checkAuth()
+  // }, [])
   
  
 
