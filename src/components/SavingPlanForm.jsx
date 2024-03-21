@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { setTarget } from "../features/target/targetSlice";
 import {
   setSavings,
   setAmountList,
@@ -8,6 +7,9 @@ import {
 import useCustomNavigation from "../utils/useCustomNavigation";
 import useSavePlan from "../features/newSavingsSlice/utils/useSavePlan";
 import { handleSetSavingsData } from "../utils/savingsUtils";
+import getNewPlan from "../features/newSavingsSlice/utils/getNewPlan";
+
+
 
 const SavingPlanForm = () => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
@@ -20,11 +22,11 @@ const SavingPlanForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      savings_name: savingsName,
-      amount,
-      amount_list: [],
-    };
+    // const data = {
+    //   savings_name: savingsName,
+    //   amount,
+    //   amount_list: [],
+    // };
     await dispatch(
       setSavings({
         savingsName,
@@ -46,15 +48,16 @@ const SavingPlanForm = () => {
       amount,
       amount_list: payload,
     };
-    // console.log('savingsData', savingsData);
 
-    handleSavePlan(savingsData);
-    // }
-  };
-  const handleSavePlan = async (savingsData) => {
     await savePlan(savingsData);
-    navigateSavingPlanDetail(); // #TODO set id
+    // const id = JSON.parse(localStorage.getItem('newPlanId'))
+    const {id} = getNewPlan()
+    // console.log('new id', id);
+    navigateSavingPlanDetail(id);
   };
+  // const handleSavePlan = async (savingsData) => {
+  //   await savePlan(savingsData);
+  // };
 
   return (
     <div>

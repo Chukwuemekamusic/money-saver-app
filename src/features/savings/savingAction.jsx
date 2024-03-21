@@ -40,9 +40,8 @@ export const updateSelectedAmount = createAsyncThunk(
   async ({ id, weekIndex }, thunkAPI) => {
     try {
       const token = JSON.parse(localStorage.getItem('userToken')) || '';
-      const url = `/api/savings/${id}/select/${weekIndex}`; // Adjust the URL according to your API endpoint
-      await axios.put(url, null, getHeaders(token));
-      return weekIndex; // Returning the weekIndex for further handling in reducers
+      const {data} = await axios.put(updateAmountURL(id), null, getHeaders(token));
+      
     } catch (error) {
       return thunkAPI.rejectWithValue(errorCheck(error));
     }

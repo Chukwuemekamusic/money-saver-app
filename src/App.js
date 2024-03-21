@@ -19,10 +19,10 @@ import SavingPlanDetail from "./features/savings/SavingPlanDetail";
 import useCheckAuth from "./features/auth/utils/useCheckAuth";
 
 function App() {
-  // const checkAuth = useCheckAuth()
-  // useEffect(() => {
-  //   checkAuth()
-  // }, [])
+  const checkAuth = useCheckAuth()
+  useEffect(() => {
+    checkAuth()
+  }, [])
   
  
 
@@ -51,7 +51,7 @@ function App() {
         <Route element={<LoginForm />} path="/login" />
         <Route element={<LandingPage />} path="/landing" />
         <Route element={<Home />} path="/" />
-        <Route element={<SavingPlanDetail />} path="/saving_plan/" />
+        <Route element={<SavingPlanDetail />} path="/saving_plan/:id" />
       </Routes>
     </div>
   );

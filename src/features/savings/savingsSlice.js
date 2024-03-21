@@ -1,29 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { listSavingPlan } from "./savingAction";
+import { listSavingPlan, updateSelectedAmount } from "./savingAction";
 import {saveSavingPlan} from "../newSavingsSlice/newSavingsAction"
 
-
-// const initialState = {
-//     savingsName: null,
-//     amount: null,
-//     dateCreated: null,
-//     numberList: [],
-//     selection_process: false
-
-// }
 const initialState = {
     isLoading: false,
     isSuccess: null,
     savings: null,
-    error: null
+    error: null, 
+    newlySavedPlan: null,
 }
 
-// "id": 7,
-//     "user": 6,
-//         "savings_name": "fire on the mountain",
-//             "amount": "1200.00",
-//                 "date_created": "2024-03-03T22:39:42.681903Z",
-//                     "amount_list": []
 const savingsSlice = createSlice({
     name: 'savings',
     initialState,
@@ -57,6 +43,9 @@ const savingsSlice = createSlice({
         //     state[userId].savingsPlans[planIndex].numberList = numberList;
         // },
     },
+    setNewlySavedPlan: (state,action) => {
+        state.newlySavedPlan = action.payload
+    },
     extraReducers: builder => {
         builder
             .addCase(listSavingPlan.pending, (state) => {
@@ -78,33 +67,47 @@ const savingsSlice = createSlice({
         // saveNewSaving
         .addCase(saveSavingPlan.pending, (state) => {
             state.isLoading = true
-            // state.error = null
+            state.error = null
 
         })
         .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
             state.isLoading = false
-            // state.savings = payload
-            // state.isSuccess = true
-            // state.error = null
             state.savings.push(payload)
+            state.isSuccess = true
             state.error = null
+            state.newlySavedPlan = payload
         })
         .addCase(saveSavingPlan.rejected, (state, { payload }) => {
             state.isLoading = false
-            // state.savings = null
-            // state.error = payload
-            // state.isSuccess = false
+            state.isSuccess = false
             state.error = payload
-            // state.savedData = null
         })
+        // updateSelectedAmount
+        // .addCase(updateSelectedAmount.pending, (state) => {
+        //     state.isLoading = true
+        //     state.error = null
+
+        // })
+        // .addCase(updateSelectedAmount.fulfilled, (state, { payload }) => {
+        //     state.isLoading = false
+        //     state.savings.push(payload)
+        //     state.isSuccess = true
+        //     state.error = null
+        // })
+        // .addCase(updateSelectedAmount.rejected, (state, { payload }) => {
+        //     state.isLoading = false
+        //     state.isSuccess = false
+        //     state.error = payload
+        // })
     }
 }
 )
 
 export default savingsSlice.reducer
-export const { setAmountList, toggleSelection, setSavings } = savingsSlice.actions
+export const { setAmountList, toggleSelection, setSavings, setNewlySavedPlan } = savingsSlice.actions
 export const selectAllSavings = (state) => state.savings
 export const selectSavingDetail = (state) => state.savings.savings
+export const selectNewlySavedPlan = (state) => state.newlySavedPlan
 export const selectAllSelectedSavings = (state) => (
     state.savings.numberList.filter(
         item => item.selected)).sort(

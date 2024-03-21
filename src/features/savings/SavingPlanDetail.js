@@ -2,31 +2,47 @@ import React, { useEffect, useState } from 'react'
 import PaymentButtons from '../../components/PaymentButtons'
 import SavingSummary from '../../components/SavingSummary'
 
-import { useDispatch, useSelector } from "react-redux";
-import { setAmountList, selectNewSavings} from '../newSavingsSlice/newSavingsSlice';
-import {selectSavingDetail} from '../savings/savingsSlice.js'
+import { useSelector } from "react-redux";
+import { setAmountList, selectNewSavings } from '../newSavingsSlice/newSavingsSlice';
+import { selectSavingDetail } from '../savings/savingsSlice.js'
+import { useParams } from 'react-router-dom';
 // import { selectAllSavings } from "./savingsSlice";
-import { saveSavingPlan } from '../newSavingsSlice/newSavingsAction';
 
-import useSavePlan from '../newSavingsSlice/utils/useSavePlan';
+// import { listSavingPlan } from './savingAction.jsx';
+// import useCustomNavigation from '../../utils/useCustomNavigation.jsx';
 
 
 const SavingPlanDetail = () => {
-    const sId = 55
-    const dispatch = useDispatch();
+    // const navigateLanding = useCustomNavigation()
+    // const id = 55
+    const { id } = useParams()
     const savingsData = useSelector(selectSavingDetail)
     // console.log('data', savingsData);
-    const savings = savingsData.filter((saving) => saving.id === sId)[0]
+    const savings = savingsData.filter((saving) => saving.id == id)[0] ?? ''
+    console.log('savings', savings);
+
     // console.log('data', savings.amount_list);
 
+    // useEffect(() => {
+    // //   if (savingsData===null) {
+    // //     dispatch(listSavingPlan())
+    // //   }
+    //     if (!savings) {
+    //         navigateLanding()
+    //     }
+
+    // }, [savings])
+
+
     const targetAmount = savings.amount
-    
+
     const {
         amount_list: numberList, amount, savings_name: savingsName,
-    } = savings 
+    } = savings
     //date_created: dateCreated 
-    
+
     const [sumNumbers, setSumNumbers] = useState(0);
+
 
 
     // useEffect(() => {
