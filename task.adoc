@@ -3,8 +3,14 @@
 ## Tasks to do
 * finally integrate the saveplandata to the savingsSlice reducer 👌
 ** transfer listSavingPlan from newSavings to savingsSlice 👌
-* properly integrate the SavePlanDetail ⌛
-** fixed the toggle function ⌛
+* properly integrate the SavePlanDetail 👌
+* fix the toggle function ⌛
+* fix the summary logic ⌛
+* install tailwind and do some basic design
+
+### backend
+* Transfer the create amount logic from frontend to backend ⛔
+
 
 
 ## Tasks completed
