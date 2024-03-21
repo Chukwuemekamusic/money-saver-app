@@ -7,6 +7,7 @@ import {
 } from "../../api/axiosUtil";
 import { errorCheck } from "../auth/errorCheck";
 import getHeaders from "../../api/getHeaders";
+import { setNewlySavedPlan } from "../savings/savingsSlice";
 import { useSelector } from "react-redux";
 import { selectNewSavings } from "./newSavingsSlice";
 import { SelectUserInfo } from "../auth/authSlice";
@@ -22,6 +23,7 @@ export const saveSavingPlan = createAsyncThunk(
         savingsData,
         getHeaders(token)
       );
+      localStorage.setItem('newPlanId',JSON.stringify(data.id))
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(errorCheck(error));

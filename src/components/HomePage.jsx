@@ -39,7 +39,7 @@ const Home = () => {
 
       <SavingPlanForm />
       {isLoading && <span>is loading...</span>}
-      {console.log("Savings", savings)}
+      {/* {console.log("Savings", savings)} */}
       {error && <span>Error: {error.message}</span>}
       {savings && isSuccess && (
         <>
