@@ -1,12 +1,9 @@
 # Monitor Tasks
 
 ## Tasks to do
-* finally integrate the saveplandata to the savingsSlice reducer 👌
-** transfer listSavingPlan from newSavings to savingsSlice 👌
-* properly integrate the SavePlanDetail 👌
-* fix the toggle function ⌛
-* fix the summary logic ⌛
-* install tailwind and do some basic design
+* fix the summary logic 👌
+* update the summary logic with time and date ⌛
+* install tailwind and do some basic design 
 
 ### backend
 * Transfer the create amount logic from frontend to backend ⛔
@@ -14,7 +11,11 @@
 
 
 ## Tasks completed
-* integrated saveplandata to savingsSlice reducer
+* integrated saveplandata to savingsSlice reducer 👌
+* finally integrate the saveplandata to the savingsSlice reducer 👌
+** transfer listSavingPlan from newSavings to savingsSlice 👌
+* properly integrate the SavePlanDetail 👌
+* fix the toggle function to updateSelectedAmount Function 👌
 
 
 Results-driven professional with a strong background in developing and maintaining software solutions. Adept at troubleshooting and resolving software issues to ensure the stability and performance of products. Skilled in designing and developing applications with a focus on scalability and security.

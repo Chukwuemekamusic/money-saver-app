@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { listSavingPlan, updateSelectedAmount } from "./savingAction";
-import {saveSavingPlan} from "../newSavingsSlice/newSavingsAction"
+import { saveSavingPlan } from "../newSavingsSlice/newSavingsAction"
 
 const initialState = {
     isLoading: false,
     isSuccess: null,
     savings: null,
-    error: null, 
+    error: null,
     newlySavedPlan: null,
 }
 
@@ -43,7 +43,7 @@ const savingsSlice = createSlice({
         //     state[userId].savingsPlans[planIndex].numberList = numberList;
         // },
     },
-    setNewlySavedPlan: (state,action) => {
+    setNewlySavedPlan: (state, action) => {
         state.newlySavedPlan = action.payload
     },
     extraReducers: builder => {
@@ -64,41 +64,50 @@ const savingsSlice = createSlice({
                 state.error = payload
                 state.isSuccess = false
             })
-        // saveNewSaving
-        .addCase(saveSavingPlan.pending, (state) => {
-            state.isLoading = true
-            state.error = null
+            // saveNewSaving
+            .addCase(saveSavingPlan.pending, (state) => {
+                state.isLoading = true
+                state.error = null
 
-        })
-        .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
-            state.isLoading = false
-            state.savings.push(payload)
-            state.isSuccess = true
-            state.error = null
-            state.newlySavedPlan = payload
-        })
-        .addCase(saveSavingPlan.rejected, (state, { payload }) => {
-            state.isLoading = false
-            state.isSuccess = false
-            state.error = payload
-        })
-        // updateSelectedAmount
-        // .addCase(updateSelectedAmount.pending, (state) => {
-        //     state.isLoading = true
-        //     state.error = null
+            })
+            .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                state.savings.push(payload)
+                state.isSuccess = true
+                state.error = null
+                state.newlySavedPlan = payload
+            })
+            .addCase(saveSavingPlan.rejected, (state, { payload }) => {
+                state.isLoading = false
+                state.isSuccess = false
+                state.error = payload
+            })
+            // updateSelectedAmount
+            .addCase(updateSelectedAmount.pending, (state) => {
+                state.isLoading = true
+                state.error = null
 
-        // })
-        // .addCase(updateSelectedAmount.fulfilled, (state, { payload }) => {
-        //     state.isLoading = false
-        //     state.savings.push(payload)
-        //     state.isSuccess = true
-        //     state.error = null
-        // })
-        // .addCase(updateSelectedAmount.rejected, (state, { payload }) => {
-        //     state.isLoading = false
-        //     state.isSuccess = false
-        //     state.error = payload
-        // })
+            })
+            .addCase(updateSelectedAmount.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                const { saving_plan: savingsPlanId, id: updatedAmountId } = payload
+                const savingPlan = state.savings.find(saving => saving.id === savingsPlanId)
+                if (savingPlan) {
+                    savingPlan.amount_list = savingPlan.amount_list.map(amount => {
+                        if (amount.id === updatedAmountId) {
+                            return payload
+                        }
+                        return amount
+                    })
+                }
+                state.isSuccess = true
+                state.error = null
+            })
+            .addCase(updateSelectedAmount.rejected, (state, { payload }) => {
+                state.isLoading = false
+                state.isSuccess = false
+                state.error = payload
+            })
     }
 }
 )
@@ -108,10 +117,17 @@ export const { setAmountList, toggleSelection, setSavings, setNewlySavedPlan } =
 export const selectAllSavings = (state) => state.savings
 export const selectSavingDetail = (state) => state.savings.savings
 export const selectNewlySavedPlan = (state) => state.newlySavedPlan
-export const selectAllSelectedSavings = (state) => (
-    state.savings.numberList.filter(
-        item => item.selected)).sort(
-            (a, b) => a.weekIndex - b.weekIndex)
+// export const selectAllSelectedSavings = (state) => (
+//     state.savings.numberList.filter(
+//         item => item.selected)).sort(
+//             (a, b) => a.weekIndex - b.weekIndex)
+
+export const selectAllSelectedSavings = (state, id) => {
+    const savingPlan = state.savings.find(saving => saving.id === id)
+    return savingPlan.amount_list.filter(item => item.selected).sort(
+        (a, b) => a.weekIndex - b.weekIndex
+    )
+}    
 
 // export const selectAllSelectedSavings = (state) => {
 //     const selectedSavings = state.savings.numberList.filter(item => item.selected);

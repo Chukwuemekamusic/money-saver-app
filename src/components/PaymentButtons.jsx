@@ -3,6 +3,7 @@ import PaymentButton from "./PaymentButton";
 import { toggleSelection } from "../features/savings/savingsSlice";
 import { useDispatch } from "react-redux";
 import ConfirmModal from "./ConfirmModal";
+import { updateSelectedAmount } from "../features/savings/savingAction";
 
 const PaymentButtons = ({ noList }) => {
   const dispatch = useDispatch();
@@ -19,28 +20,28 @@ const PaymentButtons = ({ noList }) => {
   // };
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [amount, setAmount] = useState(0)
-  const [selectionProcess, setSelectionProcess] = useState(-1)
+  const [amount, setAmount] = useState(0);
+  const [selectionProcess, setSelectionProcess] = useState(-1);
 
-  const handleButtonSelection = (index,number) => {
+  const handleButtonSelection = (index, number) => {
     if (!number.selected) {
-      setSelectionProcess(index)
-      setAmount(number.amount)
-      setSelectedIndex(index);
+      setSelectionProcess(index);
+      setAmount(number.amount);
+      // setSelectedIndex(index);
+      setSelectedIndex(number);
       setConfirmModalOpen(true);
-    } 
-   
+    }
   };
 
   const handleConfirm = () => {
-    dispatch(toggleSelection(selectedIndex));
+    // dispatch(toggleSelection(selectedIndex));
+    dispatch(updateSelectedAmount(selectedIndex))
     setConfirmModalOpen(false);
   };
 
   const handleModalClose = () => {
     setSelectionProcess(-1);
     setConfirmModalOpen(false);
-    
   };
 
   return (
@@ -52,7 +53,7 @@ const PaymentButtons = ({ noList }) => {
               key={index}
               number={number}
               handleSelect={() => handleButtonSelection(index, number)}
-              processing={selectionProcess===index}
+              processing={selectionProcess === index}
             />
           ))}
           <button className="last-button">Save One Box Per Week... </button>
@@ -60,7 +61,7 @@ const PaymentButtons = ({ noList }) => {
       ) : (
         <>is Loading...</>
       )}
-       <ConfirmModal
+      <ConfirmModal
         isOpen={isConfirmModalOpen}
         onRequestClose={handleModalClose}
         onConfirm={handleConfirm}
