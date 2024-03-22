@@ -37,11 +37,12 @@ export const getSavingPlanDetail = createAsyncThunk(
 
 export const updateSelectedAmount = createAsyncThunk(
   'savings/updateSelectedAmount',
-  async ({ id, weekIndex }, thunkAPI) => {
+  async ({ id }, thunkAPI) => {
     try {
       const token = JSON.parse(localStorage.getItem('userToken')) || '';
-      const {data} = await axios.put(updateAmountURL(id), null, getHeaders(token));
-      
+      const sendData = {selected: true}
+      const {data} = await axios.patch(updateAmountURL(id), sendData, getHeaders(token));
+      return data
     } catch (error) {
       return thunkAPI.rejectWithValue(errorCheck(error));
     }

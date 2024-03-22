@@ -9,8 +9,6 @@ import useSavePlan from "../features/newSavingsSlice/utils/useSavePlan";
 import { handleSetSavingsData } from "../utils/savingsUtils";
 import getNewPlan from "../features/newSavingsSlice/utils/getNewPlan";
 
-
-
 const SavingPlanForm = () => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
   const [amount, setAmount] = useState("");
@@ -22,12 +20,7 @@ const SavingPlanForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const data = {
-    //   savings_name: savingsName,
-    //   amount,
-    //   amount_list: [],
-    // };
-    await dispatch(
+    dispatch(
       setSavings({
         savingsName,
         amount,
@@ -51,13 +44,10 @@ const SavingPlanForm = () => {
 
     await savePlan(savingsData);
     // const id = JSON.parse(localStorage.getItem('newPlanId'))
-    const {id} = getNewPlan()
+    const { id } = getNewPlan();
     // console.log('new id', id);
     navigateSavingPlanDetail(id);
   };
-  // const handleSavePlan = async (savingsData) => {
-  //   await savePlan(savingsData);
-  // };
 
   return (
     <div>

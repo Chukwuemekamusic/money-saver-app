@@ -15,7 +15,7 @@ const newSavingsSlice = createSlice({
     initialState,
     reducers: {
         setAmountList: (state, action) => { state.amount_list = action.payload },
-        toggleSelection: (state, action) => { // #TODO do the confirmation prompt
+        toggleSelection: (state, action) => { 
             const index = action.payload
             state.amount_list[index].selected = !state.amount_list[index].selected
             // const lastWeekNo = Math.max(...state.amount_list.weekNo) || 0
