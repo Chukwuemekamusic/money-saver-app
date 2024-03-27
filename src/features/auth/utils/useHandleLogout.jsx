@@ -4,6 +4,7 @@ import useCustomNavigation from "../../../utils/useCustomNavigation";
 
 const useHandleLogout = () => {
   const { navigateLanding } = useCustomNavigation();
+  const dispatch = useDispatch()
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -11,3 +12,5 @@ const useHandleLogout = () => {
   };
   return handleLogout;
 };
+
+export default useHandleLogout

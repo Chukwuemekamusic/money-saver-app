@@ -16,6 +16,7 @@ import { handleSetSavingsData } from "./utils/savingsUtils";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import SavingPlanDetail from "./features/savings/SavingPlanDetail";
+import Navbar from "./components/Navbar";
 import useCheckAuth from "./features/auth/utils/useCheckAuth";
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
  
 
   return (
-    <div className="text-gray-600 m-3 p-1 bg-gray-100 min-h-screen">
+    <div className="text-gray-600 p-1 bg-gray-100 min-h-screen text-lg">
       {/* <header className="app-header">
         <h1>MONEY SAVING CHART</h1>
         <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3>
@@ -46,10 +47,12 @@ function App() {
         <SavingSummary />
       </div> */}
       {/* <CreateUserForm /> */}
+      <Navbar/>
       <Routes>
         <Route element={<CreateUserForm />} path="/register" />
         <Route element={<LoginForm />} path="/login" />
         <Route element={<LandingPage />} path="/landing" />
+        <Route element={<LandingPage />} path="/landing/:id" />
         <Route element={<Home />} path="/" />
         <Route element={<SavingPlanDetail />} path="/saving_plan/:id" />
       </Routes>
