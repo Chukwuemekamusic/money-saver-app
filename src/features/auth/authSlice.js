@@ -21,6 +21,7 @@ const authSlice = createSlice({
             state.error = null
             state.success = false
             state.userToken = null
+            
         },
     },
     extraReducers: (builder) => {
@@ -82,5 +83,6 @@ const authSlice = createSlice({
 
 export default authSlice.reducer
 export const SelectUserInfo = (state) => state.auth.userInfo
+export const CheckToken = (state) => state.auth.userToken
 export const { resetAuth } = authSlice.actions
 // export const SelectUserSavingPlan = (state) => state.auth.user
