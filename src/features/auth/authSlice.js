@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerUser, loginUser, getUser, logoutUser } from "./authActions";
 
-const userToken = localStorage.getItem('token') ?? null
+const userToken = localStorage.getItem('userToken') ?? null
 
 const initialState = {
     loading: false,
@@ -64,6 +64,7 @@ const authSlice = createSlice({
             .addCase(getUser.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.userInfo = payload
+                // state.userToken 
 
             })
             .addCase(getUser.rejected, (state, { payload }) => {

@@ -8,10 +8,27 @@ const SavingPlanListItem = ({ saving }) => {
   };
   return (
     <div>
-      <h3>{saving.savings_name}</h3>
-      <p>Amount: £{saving.amount}</p>
-      <p>Date Created: {new Date(saving.date_created).toLocaleString()}</p>
-      <button onClick={handleNavigate}> View </button>
+      <h3
+        onClick={handleNavigate}
+        className="text-3xl font-bold text-sky-600 hover:text-sky-700 hover:shadow-sm cursor-pointer"
+      >
+        {saving.savings_name}
+      </h3>
+      <p className="text-lg text-gray-700">
+        <span className="text-teal-700 font-bold"> Target Amount:</span> £
+        {saving.amount}
+      </p>
+      <p className="text-lg text-gray-700 italic line-through">
+        <span className="text-teal-700 font-bold"> Saved:</span> £
+        to be fixed
+      </p>
+      <p className="text-lg text-gray-700">
+        <span className="text-teal-700 font-bold">Date Created:</span>{" "}
+        {new Date(saving.date_created).toLocaleString()}
+      </p>
+      <button className="" onClick={handleNavigate}>
+        View
+      </button>
     </div>
   );
 };

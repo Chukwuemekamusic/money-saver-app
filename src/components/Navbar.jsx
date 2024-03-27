@@ -8,23 +8,16 @@ const Navbar = () => {
        
 //   const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
   const token = useSelector(CheckToken)
-  const [authenticated, setAuthenticated] = useState(false)
-  useEffect(() => {
-    if (token) {
-        setAuthenticated(true)
-    }else {
-        setAuthenticated(false)
-    }
-  }, [token])
+
   
   const handleLogout = useHandleLogout()
   return (
     <div className="bg-white p-5 justify-center shadow-lg mb-4">
       <ul className="flex gap-5 justify-end">
         <li>
-          <Link to="/landing">Dashboard</Link>
+          <Link to="/">Dashboard</Link>
         </li>
-        {!authenticated ? (
+        {!token ? (
           <>
             <li>
               <Link to="/landing/login">Log In</Link>
@@ -35,10 +28,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <li className='cursor-pointer' onClick={()=> {
-                setAuthenticated(false)
-                handleLogout()
-            }}>
+            <li className='cursor-pointer' onClick={handleLogout}>
               Log out
             </li>
           </>
@@ -49,3 +39,12 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+//   const [authenticated, setAuthenticated] = useState(false)
+//   useEffect(() => {
+//     if (token) {
+//         setAuthenticated(true)
+//     }else {
+//         setAuthenticated(false)
+//     }
+//   }, [token])

@@ -10,9 +10,10 @@ const SavingPlanList = () => {
 
   return (
     <div>
-      <div>
+      {/* w-3/4 */}
+      <div className="mt-5 text-start mx-auto md:w-3/4 grid md:grid-cols-2 gap-10">
         {savings.map((saving) => (
-          <div key={saving.id}>
+          <div className=" bg-white rounded-md border shadow-md  hover:shadow-lg hover:shadow-gray-500/50 p-3" key={saving.id}>
             <SavingPlanListItem saving={saving} />
           </div>
         ))}
