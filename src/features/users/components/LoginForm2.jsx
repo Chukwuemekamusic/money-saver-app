@@ -62,7 +62,8 @@ const LoginForm = () => {
         />
         {errors.password && <CustomError error={errors.password.message} />}
 
-        <button type="submit">Login</button>
+        <button type="submit">Login</button> 
+        {/* #TODO FIX THE INDEX ISSUE */}
       </form>
     </div>
   );
