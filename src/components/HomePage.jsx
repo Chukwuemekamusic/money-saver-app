@@ -28,7 +28,8 @@ const Home = () => {
         <span>is loading...</span>
       ) : (
         <>
-          <h2 className="text-3xl md:text-4xl mb-4">Hi <span className="font-bold text-teal-700">{userInfo?.first_name}</span>, Welcome to Your Savings Dashboard</h2>
+          <h2 className="text-3xl md:text-4xl mb-4">
+            Hi <span className="font-bold text-teal-700 capitalize">{userInfo?.first_name}</span>, Welcome to Your Savings Dashboard</h2>
 
           <SavingPlanForm />
 

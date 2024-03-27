@@ -28,7 +28,7 @@ function App() {
  
 
   return (
-    <div className="text-gray-600 p-1 bg-gray-100 min-h-screen text-lg mx-3 bg-gradient-to-r from-indigo-200 to-teal-50 ">
+    <div className="text-gray-600 p-1 bg-gray-100 min-h-screen text-lg  bg-gradient-to-r from-indigo-200 to-teal-50 ">
       {/* <header className="app-header">
         <h1>MONEY SAVING CHART</h1>
         <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3>
