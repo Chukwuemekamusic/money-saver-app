@@ -27,7 +27,7 @@ function App() {
  
 
   return (
-    <div className="app">
+    <div className="text-gray-600 m-3 p-1 bg-gray-100 min-h-screen">
       {/* <header className="app-header">
         <h1>MONEY SAVING CHART</h1>
         <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3>
