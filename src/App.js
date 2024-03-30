@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 import useCheckAuth from "./features/auth/utils/useCheckAuth";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import RootLayout from "./RootLayout";
+import { NotFoundPage } from "./components/NotFoundPage";
 
 function App() {
   // const checkAuth = useCheckAuth()
@@ -26,13 +27,15 @@ function App() {
       <Route  element={<RootLayout />}>
         <Route element={<CreateUserForm />} path="/register" />
         <Route element={<LoginForm />} path="/login" />
-        <Route element={<LandingPage />} path="/landing" >
+        <Route element={<LandingPage />} path="/landing/" >
             <Route element={<LoginForm2 />} path="login"/>
             <Route element={<CreateUserForm />} path="register"/>
           </Route>
-        <Route element={<LandingPage />} path="/landing/:id" />
+        {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         <Route index element={<Home />} path="/" />
         <Route element={<SavingPlanDetail />} path="/saving_plan/:id" />
+
+        <Route element={<NotFoundPage />} path="*"/>
       </Route>
     )
   )
