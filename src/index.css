@@ -11,7 +11,9 @@
   font-family: monospace;
 } */
 
-
+.style-input{
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-0 bg-yellow-100/10
+}
 
 .button-container {
   padding: 2rem;
@@ -22,7 +24,7 @@
   height: 500px;
 }
 
-button {
+.btn {
   @apply cursor-pointer bg-gradient-to-r from-indigo-500 to-teal-300 hover:from-indigo-600 hover:to-teal-200 rounded-2xl p-3 text-sm text-white font-bold;
 }
 

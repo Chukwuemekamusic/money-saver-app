@@ -31,29 +31,34 @@ const LoginForm = () => {
   }, [userInfo]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
+    <div className="mx-auto bg-white p-8 rounded-md">
+      <form className="" onSubmit={handleSubmit}>
+        <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
         <input
           type="email"
+          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           required
         />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          required
-        />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+        </div>
+
+        <label htmlFor="password">
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+            className="style-input"
+          />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 

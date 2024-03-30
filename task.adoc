@@ -1,5 +1,8 @@
 # Monitor Tasks
 
+## Auth observation
+* if the token is not saved, it should send to log In
+
 ## Tasks to do
 * fix the summary logic 👌
 * install tailwind 👌

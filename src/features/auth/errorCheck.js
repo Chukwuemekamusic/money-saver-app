@@ -11,7 +11,7 @@ export const errorCheck = (error, dispatch = null) => {
             message = "Enter a valid email address."
         }
         // Handle API error (status code 4xx or 5xx)
-        console.error(error.response.data);
+        console.error('error', error.response.data);
           if (error.response.data.detail === "Invalid token.") {
             if (dispatch) {
                 dispatch(logoutUser())

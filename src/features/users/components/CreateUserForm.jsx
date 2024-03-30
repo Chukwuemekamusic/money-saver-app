@@ -46,68 +46,72 @@ const CreateUserForm = () => {
   //   if (success) {
   //     navigateHome()
   //   }
-
-  //   return () => {};
   // }, [success]);
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-xs text-start mt-4">
       {error && <CustomError error={error} />}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="first_name"> First Name: </label>
+      <form className="rounded-md bg-white shadow-md pt-6 pb-8 px-6 mb-4 mt-6" onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="first_name" className="block font-bold text-gray-700 mb-2"> First Name: </label>
         <input
           type="text"
           id="first_name"
           {...register("first_name")}
           placeholder="first name..."
+          className="style-input"
         />
         {errors.first_name && (
           // <span style={{ color: "red" }}>{errors.first_name.message}</span>
           <CustomError error={errors.first_name.message} />
         )}
 
-        <label htmlFor="last_name"> Last Name: </label>
+        <label htmlFor="last_name" className="block font-bold text-gray-700 mb-2"> Last Name: </label>
         <input
           type="text"
           id="last_name"
           {...register("last_name")}
           placeholder="last name..."
+          className="style-input"
         />
         {errors.last_name && (
           // <span style={{ color: "red" }}>{errors.last_name.message}</span>
           <CustomError error={errors.last_name.message} />
         )}
 
-        <label htmlFor="email"> Email: </label>
+        <label htmlFor="email" className="block font-bold text-gray-700 mb-2"> Email: </label>
         <input
           type="email"
           id="email"
           {...register("email")}
           placeholder="email..."
+          // className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-yellow-100/10"
+          className="style-input"
         />
         {errors.email && (
           // <span style={{ color: "red" }}>{errors.email.message}</span>
           <CustomError error={errors.email.message} />
         )}
 
-        <label htmlFor="password"> Password: </label>
+        <label htmlFor="password" className="block font-bold text-gray-700 mb-2"> Password: </label>
         <input
           type="password"
           id="password"
           {...register("password")}
           placeholder="password..."
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-yellow-100/10"
         />
         {errors.password && (
           // <span style={{ color: "red" }}>{errors.password.message}</span>
           <CustomError error={errors.password.message} />
         )}
 
-        <label htmlFor="confirm-password"> Confirm Password: </label>
+        <label htmlFor="confirm-password" className="block font-bold text-gray-700 mb-2"> Confirm Password: </label>
         <input
           type="password"
           id="confirm-password"
           {...register("confirmPassword")}
           placeholder="confirm password..."
+          className="style-input"
         />
         {errors.confirmPassword && (
           // <span style={{ color: "red" }}>{errors.confirmPassword.message}</span>
