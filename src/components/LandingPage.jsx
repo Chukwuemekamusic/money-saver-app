@@ -14,10 +14,10 @@ const LandingPage = () => {
 
       <p>
         Ready to get started?
-        <span className="text-teal-600 ml-1 hover:text-teal-800">
+        <span className="text-teal-600 mx-1 hover:text-teal-800">
           <Link to="login">Log in</Link>
         </span>
-        or
+        or 
         <span className="text-teal-600 ml-1 hover:text-teal-800">
           <Link to="register">Register</Link>
         </span>
