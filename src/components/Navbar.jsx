@@ -12,6 +12,7 @@ const Navbar = () => {
   
   const handleLogout = useHandleLogout()
   return (
+    <header>
     <div className="bg-white p-5 justify-center shadow-lg mb-4 bg-opacity-5">
       <ul className="flex gap-5 justify-end">
         <li>
@@ -35,6 +36,7 @@ const Navbar = () => {
         )}
       </ul>
     </div>
+    </header>
   );
 };
 
