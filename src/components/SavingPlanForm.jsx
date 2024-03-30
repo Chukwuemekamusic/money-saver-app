@@ -70,7 +70,7 @@ const SavingPlanForm = () => {
           }}
           // aria-invalid={!isNaN(parseFloat(amount)) ? "false" : "true"} #TODO CHECK
         />
-        <button disabled={canSubmit ? false : true}>Submit</button>
+        <button disabled={canSubmit ? false : true} className="btn ml-3">Submit</button>
       </form>
     </div>
   );

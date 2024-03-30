@@ -27,7 +27,6 @@ const SavingPlanDetail = () => {
     if (!id || savingsData === null || savingsData.length === 0 || !savings) {
       navigateHome();
     }
-    // console.log("ignored");
   }, [id, savingsData, savings]);
 
   const targetAmount = savings.amount;
@@ -39,20 +38,22 @@ const SavingPlanDetail = () => {
   return (
     <div>
       {savings && (
-        <div>
-          <header className="app-header">
-            <h1>MONEY SAVING CHART</h1>
+        // flex flex-col items-center
+        <div className=" ">
+          <header className="text-center">
+            <h1 className="font-bold text-teal-700 text-center text-5xl">MONEY SAVING CHART</h1>
             {/* <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3> */}
-            <h3>USE THIS CHART TO SAVE AN EXTRA £{parseInt(amount)} IN 2024</h3>
+            <h3 className="font-semibold text-gray-700 text-center text-2xl" >USE THIS CHART TO SAVE AN EXTRA £{parseInt(amount)} WITHIN A YEAR</h3>
+            </header>
             {targetAmount && (
-              <div>
-                <h2>Saving Plan: {savings_name}</h2>
-                <span>Target: £ {amount}</span>
+              <div className="font-semibold text-xl flex items-center justify-center gap-10 p-3 bg-white rounded-full shadow-md md:w-2/4 mx-auto">
+                <h2 className="italic"><span className="text-teal-900 font-bold not-italic "> Saving Plan: </span> {savings_name.toUpperCase()}</h2>
+                <p className=""><span className="text-teal-900 font-bold"> Target Amount: </span>£ {amount}</p>
                 {/* # TODO fix date properly */}
-                <p>Date: {date.toLocaleString()}</p>
+                <p><span className="text-teal-900 font-bold"> Date: </span>{date.toLocaleString()}</p>
               </div>
             )}
-          </header>
+         
 
           <div className="flex-container">
             <PaymentButtons noList={amount_list} setNoList={setAmountList} />

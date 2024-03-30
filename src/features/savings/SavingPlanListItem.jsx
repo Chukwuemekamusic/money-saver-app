@@ -10,7 +10,7 @@ const SavingPlanListItem = ({ saving }) => {
     <div>
       <h3
         onClick={handleNavigate}
-        className="text-3xl font-bold text-sky-600 hover:text-sky-700 hover:shadow-sm cursor-pointer"
+        className="text-3xl font-bold text-sky-600 hover:text-sky-700 hover:shadow-sm cursor-pointer uppercase"
       >
         {saving.savings_name}
       </h3>
@@ -26,7 +26,7 @@ const SavingPlanListItem = ({ saving }) => {
         <span className="text-teal-700 font-bold">Date Created:</span>{" "}
         {new Date(saving.date_created).toLocaleString()}
       </p>
-      <button className="" onClick={handleNavigate}>
+      <button className="btn" onClick={handleNavigate}>
         View
       </button>
     </div>

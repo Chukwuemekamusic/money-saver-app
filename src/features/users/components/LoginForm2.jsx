@@ -14,7 +14,7 @@ const LoginForm = () => {
   const { navigateHome } = useCustomNavigation();
   const { loading, error } = useSelector((state) => state.auth);
   const userInfo = useSelector(SelectUserInfo);
-  
+
   const validationSchema = yup.object().shape({
     email: yup.string().required("Email is required"),
     password: yup.string().required("Password is required"),
@@ -41,29 +41,58 @@ const LoginForm = () => {
   }, [userInfo]);
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-xs text-start mt-4">
       {error && <CustomError error={error} />}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email"> Email: </label>
-        <input
-          type="email"
-          id="email"
-          {...register("email")}
-          placeholder="email..."
-        />
-        {errors.email && <CustomError error={errors.email.message} />}
+      <form
+        className="rounded-md bg-white shadow-md pt-6 pb-8 px-6 mb-4 mt-6"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="mb-4">
+          <label htmlFor="email" className="block font-bold text-gray-700 mb-2">
+            Email:{" "}
+          </label>
+          <input
+            type="email"
+            id="email"
+            {...register("email")}
+            placeholder="email..."
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-yellow-100/10"
+          />
+          {errors.email && <CustomError error={errors.email.message} />}
+        </div>
 
-        <label htmlFor="password"> Password: </label>
-        <input
-          type="password"
-          id="password"
-          {...register("password")}
-          placeholder="password..."
-        />
-        {errors.password && <CustomError error={errors.password.message} />}
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block font-bold text-gray-700 mb-2"
+          >
+            Password:{" "}
+          </label>
+          <input
+            type="password"
+            id="password"
+            {...register("password")}
+            placeholder="password..."
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.password && <CustomError error={errors.password.message} />}
+        </div>
 
-        <button type="submit">Login</button> 
+        <div className="flex items-center justify-between">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Login
+        </button>
         {/* #TODO FIX THE INDEX ISSUE */}
+        {/* <a
+          class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+          href="#"
+        >
+          Forgot Password?
+        </a> */}
+        </div>
       </form>
     </div>
   );
