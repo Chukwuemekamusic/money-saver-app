@@ -9,10 +9,10 @@ import {
 import { selectAllSavings } from "../features/savings/savingsSlice";
 import useCheckAuth from "../features/auth/utils/useCheckAuth";
 import { SelectUserInfo } from "../features/auth/authSlice";
-import { useLoaderData } from "react-router-dom";
+// import { useLoaderData } from "react-router-dom";
 
 const Home = () => {
-  useLoaderData()
+  // useLoaderData()
   const { isLoading, isSuccess, savings, error } =
     useSelector(selectAllSavings);
   const userInfo = useSelector(SelectUserInfo);
@@ -20,7 +20,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    checkAuth();
+    // checkAuth();
     dispatch(listSavingPlan());
   }, []);
 
@@ -50,9 +50,9 @@ const Home = () => {
 
 export default Home;
 
-export const homeLoader = (dispatch) => {
-   dispatch(listSavingPlan());
-  }
+// export const homeLoader = (dispatch) => {
+//    dispatch(listSavingPlan());
+//   }
 
 // import { logoutUser } from "../features/auth/authActions";
 // import useCustomNavigation from "../utils/useCustomNavigation";

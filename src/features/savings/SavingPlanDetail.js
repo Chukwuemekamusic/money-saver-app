@@ -16,12 +16,12 @@ const SavingPlanDetail = () => {
 //   const dispatch = useDispatch;
 //   const checkAuth = useCheckAuth();
   const { id } = useParams();
-  console.log("id", id);
+  // console.log("id", id);
   const savingsData = useSelector(selectSavingDetail) ?? [];
-  console.log("savingsData", savingsData);
+  // console.log("savingsData", savingsData);
 
   const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
-  console.log("savings", savings);
+  // console.log("savings", savings);
 
   // #TODO I have to fix page to directly get detail from api
   useEffect(() => {

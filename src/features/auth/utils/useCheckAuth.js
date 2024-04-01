@@ -1,7 +1,7 @@
 import useCustomNavigation from "../../../utils/useCustomNavigation";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SelectUserInfo } from '../authSlice'
+import { SelectUserInfo, resetAuth } from '../authSlice'
 import { getUser } from "../authActions";
 
 const useCheckAuth = () => {
@@ -17,8 +17,9 @@ const useCheckAuth = () => {
   //   }
   // }, [token, navigateLanding]);
 
-  const checkAuth = () => {
+  const checkAuth = async () => {
     if (!token) {
+      // dispatch(resetAuth)
       navigateLanding();
     }
     else if (token && !userInfo) {
@@ -31,3 +32,4 @@ const useCheckAuth = () => {
 
 };
 export default useCheckAuth;
+

@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import useHandleLogout from "../features/auth/utils/useHandleLogout";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { CheckToken } from "../features/auth/authSlice";
+import { SelectToken } from "../features/auth/authSlice";
 
 const Navbar = () => {
        
 //   const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
-  const token = useSelector(CheckToken)
+  const token = useSelector(SelectToken)
 
   
   const handleLogout = useHandleLogout()
