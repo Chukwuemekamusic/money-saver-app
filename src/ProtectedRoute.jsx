@@ -15,8 +15,10 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         console.log('reloaded');
       if (userToken === null) {
+        console.log('bypassed1');
         navigateLanding()
       } else if (userToken && !userInfo) {
+        console.log('bypassed2');
         dispatch(getUser)
       }
     }, [userToken, navigateLanding, userInfo, dispatch])
