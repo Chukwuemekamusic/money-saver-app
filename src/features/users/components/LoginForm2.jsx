@@ -30,6 +30,7 @@ const LoginForm = () => {
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
+    
     // Handle form submission logic here
     console.log(data);
   };
