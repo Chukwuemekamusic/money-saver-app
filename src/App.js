@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import SavingPlanForm from "./components/SavingPlanForm";
 // import SavingSummary from "./components/SavingSummary";
 import CreateUserForm from "./features/users/components/CreateUserForm";
-import Home from "./components/HomePage";
+import Home, { homeLoader } from "./components/HomePage";
 
 // import LoginForm from "./features/users/components/LoginForm";
 import LoginForm  from "./features/users/components/LoginForm2";
@@ -16,9 +16,10 @@ import useCheckAuth from "./features/auth/utils/useCheckAuth";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import RootLayout from "./RootLayout";
 import { NotFoundPage } from "./components/NotFoundPage";
+import { useDispatch } from "react-redux";
 
 function App() {
-  // const checkAuth = useCheckAuth()
+  const dispatch = useDispatch()
   // useEffect(() => {
   //   checkAuth()
   // }, [])
@@ -32,6 +33,7 @@ function App() {
             <Route element={<CreateUserForm />} path="register"/>
           </Route>
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
+        {/* loader={homeLoader(dispatch)} */}
         <Route index element={<Home />} path="/" />
         <Route element={<SavingPlanDetail />} path="/saving_plan/:id" />
 

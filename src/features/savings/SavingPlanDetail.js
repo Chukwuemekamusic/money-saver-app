@@ -23,6 +23,7 @@ const SavingPlanDetail = () => {
   const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
   console.log("savings", savings);
 
+  // #TODO I have to fix page to directly get detail from api
   useEffect(() => {
     if (!id || savingsData === null || savingsData.length === 0 || !savings) {
       navigateHome();
