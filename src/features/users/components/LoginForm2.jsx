@@ -32,7 +32,6 @@ const LoginForm = () => {
     dispatch(loginUser(data));
     
     // Handle form submission logic here
-    console.log(data);
   };
 
   useEffect(() => {

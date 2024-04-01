@@ -7,7 +7,7 @@ const useCustomNavigation = () => {
 
   const navigateSavingPlanDetail = (id) => navigate(`/saving_plan/${id}`);
 
-  const navigateLanding = () => navigate("/landing");
+  const navigateLanding = () => navigate("/landing", { replace: true });
   // Add more navigation functions as needed
 
   return {
