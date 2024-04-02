@@ -7,9 +7,10 @@
 * fix the summary logic 👌
 * install tailwind 👌
 * update the summary logic with time and date ⌛
-* do some basic design ⌛
-* fix amount saved so far in backend ⌛
-* chart to show saved so far
+* do some basic design 👌
+* fix amount saved so far in backend 👌
+* chart to show saved so far ⌛
+* fix selected amount_list from model ⌛
 
 ### backend
 * Transfer the create amount logic from frontend to backend ⛔

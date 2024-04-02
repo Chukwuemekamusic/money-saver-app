@@ -58,6 +58,7 @@ const SavingPlanForm = () => {
           id="savings-name"
           value={savingsName}
           onChange={(e) => setSavingsName(e.target.value)}
+          className=""
         />
 
         <label htmlFor="target-amount">Target Amount:</label>

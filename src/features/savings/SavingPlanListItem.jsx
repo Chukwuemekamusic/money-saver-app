@@ -1,5 +1,6 @@
 import React from "react";
 import useCustomNavigation from "../../utils/useCustomNavigation";
+import { datetime, timeAgo } from "../../utils/savingsUtils";
 
 const SavingPlanListItem = ({ saving }) => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
@@ -23,11 +24,14 @@ const SavingPlanListItem = ({ saving }) => {
       </p>
       <p className="text-lg text-gray-700">
         <span className="text-teal-700 font-bold">Date Created:</span>{" "}
-        {new Date(saving.date_created).toLocaleString()}
+        {datetime(saving.date_created)}
       </p>
+      <div className="flex justify-between">
       <button className="btn" onClick={handleNavigate}>
         View
       </button>
+      <span className="text-sm italic bg-gray-100/90 rounded-full p-4">{timeAgo(saving.date_created)}</span>
+      </div>
     </div>
   );
 };
