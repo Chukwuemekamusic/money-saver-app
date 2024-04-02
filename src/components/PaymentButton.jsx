@@ -13,7 +13,7 @@ const PaymentButton = ({ handleSelect, number, processing }) => {
     <>
       <button
         // className={number.selected ? "selected" : "not-selected"}
-        className={btnStyle}
+        className={`${btnStyle} rounded-md`}
         onClick={handleSelect}
       >
         £{number.amount}

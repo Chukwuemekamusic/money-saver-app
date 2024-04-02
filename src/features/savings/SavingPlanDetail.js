@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import PaymentButtons from "../../components/PaymentButtons";
 import SavingSummary from "../../components/SavingSummary";
+import { date } from "../../utils/savingsUtils.js";
 
 import { useSelector } from "react-redux";
 import { setAmountList } from "../newSavingsSlice/newSavingsSlice";
@@ -19,7 +20,7 @@ const SavingPlanDetail = () => {
   console.log("savingsData", savingsData);
 
   const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
-  console.log("savings", savings);
+  console.log("savings from data", savings);
 
   // #TODO I have to fix page to directly get detail from api ***Fixed!! 
   // though this ensures nobody gets to the page withut using the dashboard
@@ -33,7 +34,7 @@ const SavingPlanDetail = () => {
 
   const { amount_list, amount, savings_name, date_created } = savings;
 
-  const date = new Date(date_created)
+  
 
   return (
     <div>
@@ -50,14 +51,14 @@ const SavingPlanDetail = () => {
                 <h2 className="italic"><span className="block text-teal-900 font-bold not-italic "> Saving Plan: </span> {savings_name.toUpperCase()}</h2>
                 <p className=""><span className="block text-teal-900 font-bold"> Target: </span>£{amount}</p>
                 {/* # TODO fix date properly */}
-                <p><span className="block text-teal-900 font-bold"> Date: </span>{date.toLocaleString()}</p>
+                <p><span className="block text-teal-900 font-bold"> Date: </span>{date(date_created)}</p>
               </div>
             )}
          
 
-          <div className="flex-container">
+          <div className="flex-container justify-center">
             <PaymentButtons noList={amount_list} setNoList={setAmountList} />
-            <SavingSummary amount_list={amount_list} id={id} />
+            <SavingSummary amount_list={amount_list} id={id} target={targetAmount}/>
           </div>
         </div>
       )}
