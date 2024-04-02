@@ -18,6 +18,7 @@ import RootLayout from "./RootLayout";
 import { NotFoundPage } from "./components/NotFoundPage";
 import { useDispatch } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRouteW from "./ProtectedRouteW";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +34,8 @@ function App() {
         </Route>
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         {/* loader={homeLoader(dispatch)} */}
-        <Route
+        
+        {/* <Route
           index
           element={
             <ProtectedRoute>
@@ -49,7 +51,12 @@ function App() {
             </ProtectedRoute>
           }
           path="/saving_plan/:id"
-        />
+        /> */}
+
+        <Route element={<ProtectedRoute />}>
+          <Route index element={<Home />} path="/" />
+          <Route element={<SavingPlanDetail />} path="/saving_plan/:id" />
+        </Route>
 
         <Route element={<NotFoundPage />} path="*" />
       </Route>

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { SelectToken, SelectUserInfo } from "./features/auth/authSlice";
 import useCustomNavigation from "./utils/useCustomNavigation";
 import { getUser } from "./features/auth/authActions";
+import { Outlet } from "react-router-dom";
+import { listSavingPlan } from "./features/savings/savingAction";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -21,11 +23,12 @@ const ProtectedRoute = ({ children }) => {
         console.log('bypassed2');
         dispatch(getUser)
       }
+      dispatch(listSavingPlan());
     }, [userToken, navigateLanding, userInfo, dispatch])
     
 
 
-  return children
+  return children ? children : <Outlet />
 };
 
 export default ProtectedRoute;
