@@ -13,17 +13,16 @@ import useCustomNavigation from "../../utils/useCustomNavigation.jsx";
 
 const SavingPlanDetail = () => {
   const { navigateHome } = useCustomNavigation();
-//   const dispatch = useDispatch;
-//   const checkAuth = useCheckAuth();
   const { id } = useParams();
   // console.log("id", id);
   const savingsData = useSelector(selectSavingDetail) ?? [];
-  // console.log("savingsData", savingsData);
+  console.log("savingsData", savingsData);
 
   const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
-  // console.log("savings", savings);
+  console.log("savings", savings);
 
-  // #TODO I have to fix page to directly get detail from api
+  // #TODO I have to fix page to directly get detail from api ***Fixed!! 
+  // though this ensures nobody gets to the page withut using the dashboard
   useEffect(() => {
     if (!id || savingsData === null || savingsData.length === 0 || !savings) {
       navigateHome();
@@ -47,11 +46,11 @@ const SavingPlanDetail = () => {
             <h3 className="font-semibold text-gray-700 text-center text-2xl" >USE THIS CHART TO SAVE AN EXTRA £{parseInt(amount)} WITHIN A YEAR</h3>
             </header>
             {targetAmount && (
-              <div className="font-semibold text-xl flex items-center justify-center gap-10 p-3 bg-white rounded-full shadow-md md:w-2/4 mx-auto">
-                <h2 className="italic"><span className="text-teal-900 font-bold not-italic "> Saving Plan: </span> {savings_name.toUpperCase()}</h2>
-                <p className=""><span className="text-teal-900 font-bold"> Target Amount: </span>£ {amount}</p>
+              <div className="font-semibold text-xl flex justify-between items-center gap-10 p-3 px-6 bg-white/35 rounded-full shadow-md md:w-3/4 mx-auto hover:shadow-emerald-100">
+                <h2 className="italic"><span className="block text-teal-900 font-bold not-italic "> Saving Plan: </span> {savings_name.toUpperCase()}</h2>
+                <p className=""><span className="block text-teal-900 font-bold"> Target: </span>£{amount}</p>
                 {/* # TODO fix date properly */}
-                <p><span className="text-teal-900 font-bold"> Date: </span>{date.toLocaleString()}</p>
+                <p><span className="block text-teal-900 font-bold"> Date: </span>{date.toLocaleString()}</p>
               </div>
             )}
          

@@ -19,10 +19,10 @@ const Home = () => {
   const checkAuth = useCheckAuth();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // checkAuth();
-    dispatch(listSavingPlan());
-  }, []);
+  // useEffect(() => {
+  //   // checkAuth();
+  //   dispatch(listSavingPlan());
+  // }, []);
 
   return (
     <div className="text-center">

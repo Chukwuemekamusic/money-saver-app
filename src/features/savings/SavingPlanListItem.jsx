@@ -18,9 +18,8 @@ const SavingPlanListItem = ({ saving }) => {
         <span className="text-teal-700 font-bold"> Target Amount:</span> £
         {saving.amount}
       </p>
-      <p className="text-lg text-gray-700 italic line-through">
-        <span className="text-teal-700 font-bold"> Saved:</span> £
-        to be fixed
+      <p className="text-lg text-gray-700">
+        <span className="text-teal-700 font-bold"> Saved:</span> £ {saving.total_saved_amount}
       </p>
       <p className="text-lg text-gray-700">
         <span className="text-teal-700 font-bold">Date Created:</span>{" "}
