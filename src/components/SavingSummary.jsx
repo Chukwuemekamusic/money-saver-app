@@ -25,7 +25,7 @@ const SavingSummary = ({ amount_list, target }) => {
       <h2 className="text-xl font-semibold mb-4 border-b-4 border-teal-400 text-teal-800">
         Saving Summary:{" "}
       </h2>
-      {selectedAmountList && (
+      {selectedAmountList.length >= 1 && (
         <div className="">
           <div
             className={`${
