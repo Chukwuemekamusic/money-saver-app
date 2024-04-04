@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, loginUser } from "../../auth/authActions";
 import useCustomNavigation from "../../../utils/useCustomNavigation";
-import CustomError from '../../../components/CustomError'
+import CustomError from "../../../components/CustomError";
 
 const CreateUserForm = () => {
   const dispatch = useDispatch();
@@ -33,13 +33,14 @@ const CreateUserForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data) => {
-    dispatch(registerUser(data));
-    if (success) {
-      dispatch(loginUser(data))
-    }
-    // Handle form submission logic here
-    console.log(data);
+  const onSubmit = async (data) => {
+    await dispatch(registerUser(data)).then(async (result) => {
+      console.log("result", result);
+      if (result.type === "auth/register/fulfilled") {
+        await dispatch(loginUser(data)).then(() => navigateHome());
+      }
+    });
+    console.log("last_catch success", success);
   };
 
   // useEffect(() => {
@@ -51,8 +52,17 @@ const CreateUserForm = () => {
   return (
     <div className="mx-auto w-full max-w-xs text-start mt-4">
       {error && <CustomError error={error} />}
-      <form className="rounded-md bg-white shadow-md pt-6 pb-8 px-6 mb-4 mt-6" onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="first_name" className="block font-bold text-gray-700 mb-2"> First Name: </label>
+      <form
+        className="rounded-md bg-white shadow-md pt-6 pb-8 px-6 mb-4 mt-6"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <label
+          htmlFor="first_name"
+          className="block font-bold text-gray-700 mb-2"
+        >
+          {" "}
+          First Name:{" "}
+        </label>
         <input
           type="text"
           id="first_name"
@@ -65,7 +75,13 @@ const CreateUserForm = () => {
           <CustomError error={errors.first_name.message} />
         )}
 
-        <label htmlFor="last_name" className="block font-bold text-gray-700 mb-2"> Last Name: </label>
+        <label
+          htmlFor="last_name"
+          className="block font-bold text-gray-700 mb-2"
+        >
+          {" "}
+          Last Name:{" "}
+        </label>
         <input
           type="text"
           id="last_name"
@@ -78,7 +94,10 @@ const CreateUserForm = () => {
           <CustomError error={errors.last_name.message} />
         )}
 
-        <label htmlFor="email" className="block font-bold text-gray-700 mb-2"> Email: </label>
+        <label htmlFor="email" className="block font-bold text-gray-700 mb-2">
+          {" "}
+          Email:{" "}
+        </label>
         <input
           type="email"
           id="email"
@@ -92,7 +111,13 @@ const CreateUserForm = () => {
           <CustomError error={errors.email.message} />
         )}
 
-        <label htmlFor="password" className="block font-bold text-gray-700 mb-2"> Password: </label>
+        <label
+          htmlFor="password"
+          className="block font-bold text-gray-700 mb-2"
+        >
+          {" "}
+          Password:{" "}
+        </label>
         <input
           type="password"
           id="password"
@@ -105,7 +130,13 @@ const CreateUserForm = () => {
           <CustomError error={errors.password.message} />
         )}
 
-        <label htmlFor="confirm-password" className="block font-bold text-gray-700 mb-2"> Confirm Password: </label>
+        <label
+          htmlFor="confirm-password"
+          className="block font-bold text-gray-700 mb-2"
+        >
+          {" "}
+          Confirm Password:{" "}
+        </label>
         <input
           type="password"
           id="confirm-password"
@@ -117,8 +148,12 @@ const CreateUserForm = () => {
           // <span style={{ color: "red" }}>{errors.confirmPassword.message}</span>
           <CustomError error={errors.confirmPassword.message} />
         )}
-
-        <button type="submit">Register</button>
+         <div className="flex items-center justify-between">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >Register</button>
+        </div>
       </form>
     </div>
   );

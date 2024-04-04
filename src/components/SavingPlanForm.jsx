@@ -17,7 +17,6 @@ const SavingPlanForm = () => {
   const savePlan = useSavePlan();
   const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
   const numberOfWeeks = 52;
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,18 +50,25 @@ const SavingPlanForm = () => {
   };
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-xs md:max-w-4xl text-start md:text-center mt-6">
       <form className="" onSubmit={handleSubmit}>
-        <label className="mr-2" htmlFor="savings-name">Savings Name:</label>
+        <label
+          className="block md:inline font-bold text-gray-600 mr-2"
+          htmlFor="savings-name"
+        >
+          Savings Name:
+        </label>
         <input
           type="text"
           id="savings-name"
           value={savingsName}
           onChange={(e) => setSavingsName(e.target.value)}
-          className="pl-2"
+          className="rounded-lg pl-2"
         />
 
-        <label className="mx-2" htmlFor="target-amount">Target Amount:</label>
+        <label className="inline-block md:inline font-bold text-gray-600 md:mx-2" htmlFor="target-amount">
+          Target Amount:
+        </label>
         <input
           id="target-amount"
           type="text"
@@ -70,10 +76,17 @@ const SavingPlanForm = () => {
           onChange={(e) => {
             setAmount(e.target.value);
           }}
-          className="pl-2"
+          className="rounded-lg pl-2"
           // aria-invalid={!isNaN(parseFloat(amount)) ? "false" : "true"} #TODO CHECK
         />
-        <button disabled={canSubmit ? false : true} className="btn ml-3">Submit</button>
+        <div className="sm:block md:inline-block mt-2 mx-auto text-start md:text-center">
+        <button
+          disabled={canSubmit ? false : true}
+          className="btn  sm:mx-auto md:ml-3 md:inline-block"
+        >
+          Create New Plan
+        </button>
+        </div>
       </form>
     </div>
   );
