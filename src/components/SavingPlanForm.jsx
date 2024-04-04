@@ -17,6 +17,7 @@ const SavingPlanForm = () => {
   const savePlan = useSavePlan();
   const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
   const numberOfWeeks = 52;
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,17 +52,17 @@ const SavingPlanForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="savings-name">Savings Name:</label>
+      <form className="" onSubmit={handleSubmit}>
+        <label className="mr-2" htmlFor="savings-name">Savings Name:</label>
         <input
           type="text"
           id="savings-name"
           value={savingsName}
           onChange={(e) => setSavingsName(e.target.value)}
-          className=""
+          className="pl-2"
         />
 
-        <label htmlFor="target-amount">Target Amount:</label>
+        <label className="mx-2" htmlFor="target-amount">Target Amount:</label>
         <input
           id="target-amount"
           type="text"
@@ -69,6 +70,7 @@ const SavingPlanForm = () => {
           onChange={(e) => {
             setAmount(e.target.value);
           }}
+          className="pl-2"
           // aria-invalid={!isNaN(parseFloat(amount)) ? "false" : "true"} #TODO CHECK
         />
         <button disabled={canSubmit ? false : true} className="btn ml-3">Submit</button>

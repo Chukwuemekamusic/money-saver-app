@@ -9,6 +9,7 @@ import {
 import { selectAllSavings } from "../features/savings/savingsSlice";
 import useCheckAuth from "../features/auth/utils/useCheckAuth";
 import { SelectUserInfo } from "../features/auth/authSlice";
+// import { useRef } from "react";
 // import { useLoaderData } from "react-router-dom";
 
 const Home = () => {
@@ -18,6 +19,11 @@ const Home = () => {
   const userInfo = useSelector(SelectUserInfo);
   const checkAuth = useCheckAuth();
   const dispatch = useDispatch();
+
+  // const inputRef = useRef(null)
+
+  // // const focusOn = () => inputRef?.current?.focus()
+  // // focusOn()
 
   // useEffect(() => {
   //   // checkAuth();
