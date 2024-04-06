@@ -75,6 +75,7 @@ const authSlice = createSlice({
                 console.log('payload', payload);
                 console.log('userInfo', state.userInfo);
                 state.userToken = localStorage.getItem('userToken') ?? null
+                state.userInfo = null
             })
             .addCase(logoutUser.rejected, (state, { payload }) => {
                 state.loading = false

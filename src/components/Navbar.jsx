@@ -32,6 +32,7 @@ const Navbar = () => {
               </li>
             </>
           )}
+          {/* #TODO fix the login button  */}
         </ul>
       </div>
     </header>
