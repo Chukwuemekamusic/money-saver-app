@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import useCheckAuth from "./features/auth/utils/useCheckAuth";
 import { useEffect } from "react";
-import { SelectToken, SelectUserInfo } from "./features/auth/authSlice";
+import { SelectToken, SelectUserInfo, resetAuth } from "./features/auth/authSlice";
 import useCustomNavigation from "./utils/useCustomNavigation";
 import { getUser } from "./features/auth/authActions";
 import { Outlet } from "react-router-dom";
@@ -18,6 +18,7 @@ const ProtectedRoute = ({ children }) => {
         console.log('reloaded');
       if (userToken === null) {
         console.log('bypassed1');
+        dispatch(resetAuth())
         navigateLanding()
       } else if (userToken && !userInfo) {
         console.log('bypassed2');
