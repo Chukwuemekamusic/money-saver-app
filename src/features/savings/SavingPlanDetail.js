@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import {  useMemo } from "react"; // useEffect,
 import PaymentButtons from "../../components/PaymentButtons";
 import SavingSummary from "../../components/SavingSummary";
 import { date } from "../../utils/savingsUtils.js";
@@ -7,13 +7,13 @@ import { useSelector } from "react-redux";
 import { setAmountList } from "../newSavingsSlice/newSavingsSlice";
 import { selectSavingDetail } from "../savings/savingsSlice.js";
 import { useParams } from "react-router-dom";
-import useCustomNavigation from "../../utils/useCustomNavigation.jsx";
+// import useCustomNavigation from "../../utils/useCustomNavigation.jsx";
 // import useCheckAuth from "../auth/utils/useCheckAuth.js";
 // import { listSavingPlan } from "./savingAction.jsx";
 // import { getUser } from "../auth/authActions.js";
 
 const SavingPlanDetail = () => {
-  const { navigateHome } = useCustomNavigation();
+  // const { navigateHome } = useCustomNavigation();
   const { id } = useParams();
   const sData = useSelector(selectSavingDetail);
   const savingsData = useMemo(() => sData ?? [], [sData]);
@@ -24,11 +24,12 @@ const SavingPlanDetail = () => {
 
   // #TODO I have to fix page to directly get detail from api ***Fixed!!
   // though this ensures nobody gets to the page withut using the dashboard
-  useEffect(() => {
-    if (!id || savingsData === null || savingsData.length === 0 || !savings) {
-      navigateHome();
-    }
-  }, [id, savingsData, savings, navigateHome]);
+
+  // useEffect(() => {
+  //   if (!id || savingsData === null || savingsData.length === 0 || !savings) {
+  //     navigateHome();
+  //   }
+  // }, [id, savingsData, savings, navigateHome]);
 
   const targetAmount = savings.amount;
   const { amount_list, amount, savings_name, date_created } = savings;
