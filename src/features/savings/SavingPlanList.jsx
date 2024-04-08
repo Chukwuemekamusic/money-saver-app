@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { selectAllSavings } from "./savingsSlice";
 // import SavingPlanDetail from "./SavingPlanDetail";
 // import { SelectUserInfo } from "../auth/authSlice";
@@ -8,7 +8,6 @@ import SavingPlanListItem from "./SavingPlanListItem";
 const SavingPlanList = () => {
   const { savings } = useSelector(selectAllSavings);
   
-
   return (
     <div className="mt-5 text-start mx-auto md:w-3/4">
       {/* w-3/4 */}

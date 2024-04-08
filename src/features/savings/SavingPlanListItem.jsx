@@ -35,9 +35,4 @@ const SavingPlanListItem = ({ saving }) => {
     </div>
   );
 };
-{
-  /* {
-        "id": 7,
-        "user": 6, */
-}
 export default SavingPlanListItem;

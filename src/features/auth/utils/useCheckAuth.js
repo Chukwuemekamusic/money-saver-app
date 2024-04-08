@@ -1,7 +1,6 @@
 import useCustomNavigation from "../../../utils/useCustomNavigation";
-import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SelectUserInfo, resetAuth } from '../authSlice'
+import { SelectUserInfo } from '../authSlice' // , resetAuth
 import { getUser } from "../authActions";
 
 const useCheckAuth = () => {
