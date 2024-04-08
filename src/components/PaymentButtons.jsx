@@ -44,7 +44,7 @@ const PaymentButtons = ({ noList }) => {
               processing={selectionProcess === index}
             />
           ))}
-          <button className="bg-gray-400/25 hover:bg-inherit">Save One Box Per Week... </button>
+          <button className="bg-gray-400/25 hover:bg-inherit col-span-2 md:col-span-4">Save One Box Per Week... </button>
         </>
       ) : (
         <>is Loading...</>
