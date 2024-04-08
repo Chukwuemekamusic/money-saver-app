@@ -1,30 +1,21 @@
-import React, { useEffect } from "react";
 import SavingPlanForm from "./SavingPlanForm";
 import SavingPlanList from "../features/savings/SavingPlanList";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  listSavingPlan,
-  getSavingPlanDetail,
-} from "../features/savings/savingAction";
+import { useSelector } from "react-redux";
 import { selectAllSavings } from "../features/savings/savingsSlice";
-import useCheckAuth from "../features/auth/utils/useCheckAuth";
 import { SelectUserInfo } from "../features/auth/authSlice";
+// import useCheckAuth from "../features/auth/utils/useCheckAuth";
+// import { listSavingPlan } from "../features/savings/savingAction";
 // import { useRef } from "react";
-// import { useLoaderData } from "react-router-dom";
 
 const Home = () => {
-  // useLoaderData()
   const { isLoading, isSuccess, savings, error } =
     useSelector(selectAllSavings);
   const userInfo = useSelector(SelectUserInfo);
-  const checkAuth = useCheckAuth();
-  const dispatch = useDispatch();
-
+  // const checkAuth = useCheckAuth();
+  // const dispatch = useDispatch();
   // const inputRef = useRef(null)
-
   // // const focusOn = () => inputRef?.current?.focus()
   // // focusOn()
-
   // useEffect(() => {
   //   // checkAuth();
   //   dispatch(listSavingPlan());
@@ -37,7 +28,12 @@ const Home = () => {
       ) : (
         <>
           <h2 className="text-3xl md:text-4xl mb-4">
-            Hi <span className="font-bold text-teal-700 capitalize">{userInfo?.first_name}</span>, Welcome to Your Savings Dashboard</h2>
+            Hi{" "}
+            <span className="font-bold text-teal-700 capitalize">
+              {userInfo?.first_name}
+            </span>
+            , Welcome to Your Savings Dashboard
+          </h2>
 
           <SavingPlanForm />
 
@@ -55,17 +51,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// export const homeLoader = (dispatch) => {
-//    dispatch(listSavingPlan());
-//   }
-
-// import { logoutUser } from "../features/auth/authActions";
-// import useCustomNavigation from "../utils/useCustomNavigation";
-// const { navigateLanding } = useCustomNavigation();
-// const handleLogout = () => {
-//   dispatch(logoutUser());
-//   navigateLanding();
-// };
-// <button onClick={handleLogout}>LOG OUT</button>
-//     {console.log(error)}

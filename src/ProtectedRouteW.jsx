@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from "react-redux";
-import useCheckAuth from "./features/auth/utils/useCheckAuth";
 import { useEffect } from "react";
 import { SelectToken, SelectUserInfo } from "./features/auth/authSlice";
 import useCustomNavigation from "./utils/useCustomNavigation";

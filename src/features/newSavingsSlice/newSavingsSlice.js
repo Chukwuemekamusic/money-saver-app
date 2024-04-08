@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { saveSavingPlan } from "./newSavingsAction";
 
 const initialState = {
     savings_name: null,

@@ -49,7 +49,7 @@ export const timeAgo = (date) => moment(date).fromNow();
 
 // progress bar
 export const get_width = (progress) => {
-  if (!progress || progress == 0) {
+  if (!progress || parseInt(progress) === 0) {
     return "w-[0%]"
   }
   if (progress <= 2) {
@@ -155,36 +155,36 @@ export const get_width = (progress) => {
   }
 };
 
-const get_width_alt = (progress) => {
-  if (progress <= 2) {
-      return 'w-[2/100]' 
-  } else if (progress <= 4) {
-      return 'w-[4%]' 
-  } else if (progress <= 10) {
-      return 'w-[10%]' 
-  } else if (progress <= 15) {
-      return 'w-4'
-  } else if (progress <= 17) {
-      return 'w-1/6'
-  } else if (progress <= 21) {
-      return 'w-1/6'
-  } else if (progress < 26) {
-      return 'w-1/4'
-  } else if (progress < 33) {
-      return 'w-1/3'
-  } else if (progress < 41) {
-      return 'w-2/5'
-  } else if (progress < 51) {
-      return 'w-1/2'
-  } else if (progress <= 60) {
-      return 'w-3/5'
-  } else if (progress <= 75) {
-      return 'w-3/4'
-  } else if (progress <= 80) {
-      return 'w-4/5'
-  } else if (progress <= 99) {
-      return 'w-5/6'
-  } else {
-      return 'w-full'
-  }
-}
+// const get_width_alt = (progress) => {
+//   if (progress <= 2) {
+//       return 'w-[2%]' 
+//   } else if (progress <= 4) {
+//       return 'w-[4%]' 
+//   } else if (progress <= 10) {
+//       return 'w-[10%]' 
+//   } else if (progress <= 15) {
+//       return 'w-4'
+//   } else if (progress <= 17) {
+//       return 'w-1/6'
+//   } else if (progress <= 21) {
+//       return 'w-1/6'
+//   } else if (progress < 26) {
+//       return 'w-1/4'
+//   } else if (progress < 33) {
+//       return 'w-1/3'
+//   } else if (progress < 41) {
+//       return 'w-2/5'
+//   } else if (progress < 51) {
+//       return 'w-1/2'
+//   } else if (progress <= 60) {
+//       return 'w-3/5'
+//   } else if (progress <= 75) {
+//       return 'w-3/4'
+//   } else if (progress <= 80) {
+//       return 'w-4/5'
+//   } else if (progress <= 99) {
+//       return 'w-5/6'
+//   } else {
+//       return 'w-full'
+//   }
+// }

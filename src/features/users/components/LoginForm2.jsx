@@ -12,7 +12,7 @@ import { SelectUserInfo } from "../../auth/authSlice";
 const LoginForm = () => {
   const dispatch = useDispatch();
   const { navigateHome } = useCustomNavigation();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.auth); // loading,
   const userInfo = useSelector(SelectUserInfo);
 
   const validationSchema = yup.object().shape({
@@ -38,7 +38,7 @@ const LoginForm = () => {
     if (userInfo) {
       navigateHome();
     }
-  }, [userInfo]);
+  }, [userInfo, navigateHome]);
 
   return (
     <div className="mx-auto w-full max-w-xs text-start mt-4">

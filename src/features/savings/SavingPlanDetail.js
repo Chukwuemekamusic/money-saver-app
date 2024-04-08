@@ -28,13 +28,10 @@ const SavingPlanDetail = () => {
     if (!id || savingsData === null || savingsData.length === 0 || !savings) {
       navigateHome();
     }
-  }, [id, savingsData, savings]);
+  }, [id, savingsData, savings, navigateHome]);
 
   const targetAmount = savings.amount;
-
-  const { amount_list, amount, savings_name, date_created } = savings;
-
-  
+  const { amount_list, amount, savings_name, date_created } = savings;  
 
   return (
     <div>

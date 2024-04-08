@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import useHandleLogout from "../features/auth/utils/useHandleLogout";
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SelectToken } from "../features/auth/authSlice";
 

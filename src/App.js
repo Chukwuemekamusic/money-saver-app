@@ -1,30 +1,15 @@
-import { useEffect, useState } from "react";
-// import PaymentButtons from "./components/PaymentButtons";
-// import SavingPlanForm from "./components/SavingPlanForm";
-// import SavingSummary from "./components/SavingSummary";
 import CreateUserForm from "./features/users/components/CreateUserForm";
-import Home, { homeLoader } from "./components/HomePage";
-
-// import LoginForm from "./features/users/components/LoginForm";
-import LoginForm from "./features/users/components/LoginForm2";
+import Home from "./components/HomePage";
 import LoginForm2 from "./features/users/components/LoginForm2";
-import { Routes, Route, createRoutesFromElements } from "react-router-dom";
+import { Route, createRoutesFromElements } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import SavingPlanDetail from "./features/savings/SavingPlanDetail";
-import Navbar from "./components/Navbar";
-import useCheckAuth from "./features/auth/utils/useCheckAuth";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./RootLayout";
 import { NotFoundPage } from "./components/NotFoundPage";
-import { useDispatch } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute";
-import ProtectedRouteW from "./ProtectedRouteW";
 
 function App() {
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   checkAuth()
-  // }, [])
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<RootLayout />}>
@@ -34,24 +19,6 @@ function App() {
         </Route>
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         {/* loader={homeLoader(dispatch)} */}
-        
-        {/* <Route
-          index
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-          path="/"
-        />
-        <Route
-          element={
-            <ProtectedRoute>
-              <SavingPlanDetail />
-            </ProtectedRoute>
-          }
-          path="/saving_plan/:id"
-        /> */}
 
         <Route element={<ProtectedRoute />}>
           <Route index element={<Home />} path="/" />
@@ -67,3 +34,21 @@ function App() {
 }
 
 export default App;
+
+/* <Route
+          index
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+          path="/"
+        />
+        <Route
+          element={
+            <ProtectedRoute>
+              <SavingPlanDetail />
+            </ProtectedRoute>
+          }
+          path="/saving_plan/:id"
+        /> */

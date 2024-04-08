@@ -38,9 +38,9 @@ export const getUser = createAsyncThunk('auth/getUser',
         }
     })
 
-const removeTokenFromStorage = () => {
-    localStorage.removeItem("userToken");
-};
+// const removeTokenFromStorage = () => {
+//     localStorage.removeItem("userToken");
+// };
 
 // Async thunk for logging out
 export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, rejectWithValue }) => {

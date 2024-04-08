@@ -1,12 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import useCheckAuth from "./features/auth/utils/useCheckAuth";
 import { useEffect } from "react";
 import { SelectToken, SelectUserInfo, resetAuth } from "./features/auth/authSlice";
 import useCustomNavigation from "./utils/useCustomNavigation";
 import { getUser } from "./features/auth/authActions";
 import { Outlet } from "react-router-dom";
 import { listSavingPlan } from "./features/savings/savingAction";
-
+// import useCheckAuth from "./features/auth/utils/useCheckAuth";
 
 const ProtectedRoute = ({ children }) => {
     const dispatch = useDispatch()

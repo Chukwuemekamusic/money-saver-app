@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { get_width } from "../utils/savingsUtils"
 
 const ProgressBar = ({progress}) => {
@@ -14,8 +13,6 @@ const ProgressBar = ({progress}) => {
             return 'bg-green-500'
         }
     }
-
-    
 
 
   return (

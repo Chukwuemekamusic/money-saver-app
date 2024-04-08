@@ -1,24 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectAllSelectedSavings } from "../features/savings/savingsSlice";
 import { date } from "../utils/savingsUtils";
 import ProgressBar from "./ProgressBar";
+// import { useSelector } from "react-redux";
+// import { selectAllSelectedSavings } from "../features/savings/savingsSlice";
 
 const SavingSummary = ({ amount_list, target }) => {
   const selectedAmountList = amount_list
     .filter((item) => item.selected)
-    .sort((a, b) => a.weekIndex - b.weekIndex);
+    .sort((a, b) => a.week_index - b.week_index);
 
   const totalSaved = selectedAmountList.reduce(
     (sum, item) => sum + parseInt(item.amount),
     0
   );
   const percentageSaved = Math.round((totalSaved * 100) / target, 2);
-  console.log("target", target);
-  console.log("percentage", percentageSaved);
   const gridPoint = selectedAmountList.length > 4;
-
-  // console.log('savedItem', selectedAmountList);
 
   return (
     <div className="bg-pink-50 p-4 pr-10 rounded-lg mt-8">
@@ -34,7 +30,7 @@ const SavingSummary = ({ amount_list, target }) => {
           >
             {selectedAmountList.map((item, index) => (
               <p key={index} className="font-semibold text-pink-700">
-                {console.log("item checked", item)}
+                {/* {console.log("item checked", item)} */}
                 <span className="block text-teal-900 font-bold pr-3">
                   week {item.week_index} ~ {date(item.date_selected)}:
                 </span>{" "}

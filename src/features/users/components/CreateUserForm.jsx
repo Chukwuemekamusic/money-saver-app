@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,9 +10,10 @@ import CustomError from "../../../components/CustomError";
 const CreateUserForm = () => {
   const dispatch = useDispatch();
   const { navigateHome } = useCustomNavigation();
-  const { loading, userInfo, error, success } = useSelector(
+  // #TODO handle that logged in users can't access this page
+  const { error, success } = useSelector( 
     (state) => state.auth
-  );
+  ); // loading, userInfo, 
   const validationSchema = yup.object().shape({
     first_name: yup.string().required("First Name is required"),
     last_name: yup.string().required("Last Name is required"),
