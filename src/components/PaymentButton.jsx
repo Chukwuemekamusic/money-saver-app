@@ -3,12 +3,13 @@ import React from "react";
 const PaymentButton = ({ handleSelect, number, processing }) => {
   let btnStyle;
   if (number.selected){
-    btnStyle = 'selected'
+    btnStyle = 'bg-pink-300 hover:cursor-not-allowed hover:bg-pink-300'
   } else if (processing) {
-    btnStyle = 'pending-selection'
+    btnStyle = 'bg-blue-400'
   } else {
-    btnStyle = 'not-selected'
+    btnStyle = 'bg-gray-400'
   }
+  
   return (
     <>
       <button
@@ -18,15 +19,16 @@ const PaymentButton = ({ handleSelect, number, processing }) => {
       >
         £{number.amount}
       </button>
-      {/* <div
-        className="delete-button"
-        onClick={() => {
-          if (window.confirm("Are you sure you wish to delete this item?"))
-            this.onCancel(number.amount);
-        }}
-      > £{number.amount} </div> */}
+      
     </>
   );
 };
 
 export default PaymentButton;
+/* <div
+        className="delete-button"
+        onClick={() => {
+          if (window.confirm("Are you sure you wish to delete this item?"))
+            this.onCancel(number.amount);
+        }}
+      > £{number.amount} </div> */

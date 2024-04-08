@@ -33,7 +33,7 @@ const PaymentButtons = ({ noList }) => {
   };
 
   return (
-    <div className="button-container">
+    <div className="p-4 md:p-8 grid grid-cols-4 md:grid-cols-7 gap-2 sm:w-full sm:max-h-[200px] md:w-[750px] md:h-[500px]">
       {noList.length ? (
         <>
           {noList.map((number, index) => (
@@ -44,7 +44,7 @@ const PaymentButtons = ({ noList }) => {
               processing={selectionProcess === index}
             />
           ))}
-          <button className="last-button">Save One Box Per Week... </button>
+          <button className="bg-gray-400/25 hover:bg-inherit">Save One Box Per Week... </button>
         </>
       ) : (
         <>is Loading...</>

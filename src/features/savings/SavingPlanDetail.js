@@ -15,12 +15,8 @@ import useCustomNavigation from "../../utils/useCustomNavigation.jsx";
 const SavingPlanDetail = () => {
   const { navigateHome } = useCustomNavigation();
   const { id } = useParams();
-  // console.log("id", id);
   const sData = useSelector(selectSavingDetail);
   const savingsData = useMemo(() => sData ?? [], [sData]);
-
-  // const savingsData = useSelector(selectSavingDetail) ?? [];
-  // console.log("savingsData", savingsData);
 
   // eslint-disable-next-line
   const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
@@ -41,7 +37,7 @@ const SavingPlanDetail = () => {
     <div>
       {savings && (
         // flex flex-col items-center
-        <div className=" ">
+        <div>
           <header className="text-center">
             <h1 className="font-bold text-teal-700 text-center text-5xl">
               MONEY SAVING CHART
@@ -72,13 +68,19 @@ const SavingPlanDetail = () => {
             </div>
           )}
 
-          <div className="flex-container justify-center">
+          <div className="block md:flex md:flex-row sm:gap-4 gap-10 justify-center">
+            <div>
             <PaymentButtons noList={amount_list} setNoList={setAmountList} />
+            </div>
+            
+            <div>
             <SavingSummary
               amount_list={amount_list}
               id={id}
               target={targetAmount}
             />
+            </div>
+            
           </div>
         </div>
       )}
