@@ -12,6 +12,7 @@
 * chart to show saved so far 👌
 * fix selected amount_list from model ⌛
 * install postgress on my django ⌛ ⌛ ⌛
+** deal with expired token logout
 
 ### backend
 * Transfer the create amount logic from frontend to backend ⛔
