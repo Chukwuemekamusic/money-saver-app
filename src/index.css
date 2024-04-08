@@ -16,13 +16,16 @@
 }
 
 .button-container {
+  @apply p-4 md:p-8 grid grid-cols-4 md:grid-cols-7 gap-2 w-[750px] h-[500px]
+}
+/* .button-container {
   padding: 2rem;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
   width: 750px;
   height: 500px;
-}
+} */
 
 .btn {
   @apply cursor-pointer bg-gradient-to-r from-indigo-500 to-teal-300 hover:from-indigo-600 hover:to-teal-200 rounded-2xl p-3 text-sm text-white font-bold;
@@ -37,7 +40,7 @@ button:hover {
 }
 
 .last-button:hover {
-  @apply bg-transparent;
+  @apply bg-gray-400/25 hover:bg-inherit;
 }
 
 .not-selected {
