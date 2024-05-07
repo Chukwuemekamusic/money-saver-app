@@ -7,6 +7,7 @@ const SavingPlanListItem = ({ saving }) => {
   const handleNavigate = () => {
     navigateSavingPlanDetail(saving.id);
   };
+
   return (
     <div>
       <h3
@@ -15,16 +16,23 @@ const SavingPlanListItem = ({ saving }) => {
       >
         {saving.savings_name}
       </h3>
+      {/* Target Amount */}
       <p className="text-lg text-gray-700">
         <span className="text-teal-700 font-bold"> Target Amount:</span> £
         {saving.amount}
       </p>
+      {/* Amount saved */}
       <p className="text-lg text-gray-700">
         <span className="text-teal-700 font-bold"> Saved:</span> £ {saving.total_saved_amount}
       </p>
+      {/* Date Created */}
       <p className="text-lg text-gray-700">
         <span className="text-teal-700 font-bold">Date Created:</span>{" "}
         {datetime(saving.date_created)}
+      </p>
+      <p className="text-lg text-gray-700">
+        <span className="text-teal-700 font-bold">Duration:</span>{" "}
+        {saving?.number_of_weeks} weeks
       </p>
       <div className="flex justify-between">
       <button className="btn" onClick={handleNavigate}>

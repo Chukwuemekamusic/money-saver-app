@@ -13,12 +13,13 @@ const SavingPlanForm = () => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
   const [amount, setAmount] = useState("");
   const [savingsName, setSavingsName] = useState("");
+  const [duration, setDuration] = useState("52");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const savePlan = useSavePlan();
   const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
-  const numberOfWeeks = 52;
+  // const numberOfWeeks = 52;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ const SavingPlanForm = () => {
       setLoading(false);
       return;
     }
+    const numberOfWeeks = parseInt(duration)
 
     dispatch(
       setSavings({
@@ -107,6 +109,23 @@ const SavingPlanForm = () => {
           className="rounded-lg pl-2"
           // aria-invalid={!isNaN(parseFloat(amount)) ? "false" : "true"} #TODO CHECK
         />
+
+        <label
+          className="block md:inline font-bold text-gray-600 md:mx-2"
+          htmlFor="plan-duration"
+        >
+          Plan Duration:
+        </label>
+        <select
+          id="plan-duration"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+          className="rounded-lg pl-2"
+        >
+          <option value="52">1 Year</option>
+          <option value="36">6 Months</option>
+          <option value="18">3 Months</option>
+        </select>
 
         <div className="sm:block md:inline-block mt-2 mx-auto text-start md:text-center">
           <button
