@@ -13,6 +13,8 @@ const SavingPlanForm = () => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
   const [amount, setAmount] = useState("");
   const [savingsName, setSavingsName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const savePlan = useSavePlan();
   const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
@@ -20,6 +22,15 @@ const SavingPlanForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    if (!canSubmit) {
+      setError("Please enter a valid savings name and target amount.");
+      setLoading(false);
+      return;
+    }
+
     dispatch(
       setSavings({
         savingsName,
@@ -33,6 +44,12 @@ const SavingPlanForm = () => {
       dispatch,
       setAmountList
     );
+
+    if (!payload) {
+      setError("Failed to create saving plan. Please try again later.");
+      setLoading(false);
+      return;
+    }
     setAmount("");
     setSavingsName("");
 
@@ -42,11 +59,15 @@ const SavingPlanForm = () => {
       amount_list: payload,
     };
 
-    await savePlan(savingsData);
-    // const id = JSON.parse(localStorage.getItem('newPlanId'))
-    const { id } = getNewPlan();
-    // console.log('new id', id);
-    navigateSavingPlanDetail(id);
+    try {
+      await savePlan(savingsData);
+      const { id } = getNewPlan();
+      navigateSavingPlanDetail(id);
+    } catch (error) {
+      setError("An error occurred while saving the plan. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,11 +83,17 @@ const SavingPlanForm = () => {
           type="text"
           id="savings-name"
           value={savingsName}
-          onChange={(e) => setSavingsName(e.target.value)}
+          onChange={(e) => {
+            setError(null);
+            setSavingsName(e.target.value);
+          }}
           className="rounded-lg pl-2"
         />
 
-        <label className="inline-block md:inline font-bold text-gray-600 md:mx-2" htmlFor="target-amount">
+        <label
+          className="inline-block md:inline font-bold text-gray-600 md:mx-2"
+          htmlFor="target-amount"
+        >
           Target Amount:
         </label>
         <input
@@ -74,19 +101,24 @@ const SavingPlanForm = () => {
           type="text"
           value={amount}
           onChange={(e) => {
+            setError(null);
             setAmount(e.target.value);
           }}
           className="rounded-lg pl-2"
           // aria-invalid={!isNaN(parseFloat(amount)) ? "false" : "true"} #TODO CHECK
         />
+
         <div className="sm:block md:inline-block mt-2 mx-auto text-start md:text-center">
-        <button
-          disabled={canSubmit ? false : true}
-          className="btn  sm:mx-auto md:ml-3 md:inline-block"
-        >
-          Create New Plan
-        </button>
+          <button
+            disabled={loading || !canSubmit}
+            className={`btn sm:mx-auto md:ml-3 md:inline-block ${
+              loading || !canSubmit ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            {loading ? "Creating..." : "Create New Plan"}
+          </button>
         </div>
+        {error && <p className="text-red-600">{error}</p>}
       </form>
     </div>
   );

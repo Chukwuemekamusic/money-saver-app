@@ -24,7 +24,7 @@ const ProtectedRoute = ({ children }) => {
         dispatch(getUser)
       }
       dispatch(listSavingPlan());
-    })
+    }, [])
     
 
 

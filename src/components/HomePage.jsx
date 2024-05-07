@@ -41,6 +41,7 @@ const Home = () => {
           {error && <span>Error: {error.message}</span>}
           {savings && isSuccess && (
             <>
+              <h3 className="text-xl font-semibold mb-2">Your Saved Plans:</h3>
               <SavingPlanList savings={savings} />
             </>
           )}
