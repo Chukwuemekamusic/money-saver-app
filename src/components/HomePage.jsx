@@ -11,6 +11,9 @@ const Home = () => {
   const { isLoading, isSuccess, savings, error } =
     useSelector(selectAllSavings);
   const userInfo = useSelector(SelectUserInfo);
+  console.log('user', userInfo);
+  console.log('first_name', userInfo.first_name);
+  console.log('first_name', userInfo.first_name);
   // const checkAuth = useCheckAuth();
   // const dispatch = useDispatch();
   // const inputRef = useRef(null)
@@ -23,14 +26,14 @@ const Home = () => {
 
   return (
     <div className="text-center">
-      {isLoading ? (
+      {isLoading || !userInfo ? (
         <span>is loading...</span>
       ) : (
         <>
           <h2 className="text-3xl md:text-4xl mb-4">
             Hi{" "}
             <span className="font-bold text-teal-700 capitalize">
-              {userInfo?.first_name}
+              {userInfo.first_name}
             </span>
             , Welcome to Your Savings Dashboard
           </h2>
