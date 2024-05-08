@@ -13,7 +13,7 @@ const Home = () => {
   const userInfo = useSelector(SelectUserInfo);
   console.log('user', userInfo);
   console.log('first_name', userInfo.first_name);
-  console.log('first_name', userInfo.first_name);
+  console.log('first_name', userInfo);
   // const checkAuth = useCheckAuth();
   // const dispatch = useDispatch();
   // const inputRef = useRef(null)

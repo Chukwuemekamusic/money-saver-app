@@ -123,7 +123,7 @@ const CreateUserForm = () => {
           id="password"
           {...register("password")}
           placeholder="password..."
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-yellow-100/10"
+          className="style-input"
         />
         {errors.password && (
           // <span style={{ color: "red" }}>{errors.password.message}</span>
@@ -150,7 +150,7 @@ const CreateUserForm = () => {
         )}
          <div className="flex items-center justify-between">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2"
           type="submit"
         >Register</button>
         </div>

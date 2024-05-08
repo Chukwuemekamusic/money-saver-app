@@ -40,37 +40,21 @@ const SavingPlanDetail = () => {
         // flex flex-col items-center
         <div>
           <header className="text-center">
-            <h1 className="font-bold text-teal-700 text-center text-5xl">
-              MONEY SAVING CHART
+            <h1 className="font-bold text-teal-700 text-center text-2xl md:text-3xl">
+            {savings_name.toUpperCase()} SAVING PLAN
             </h1>
             {/* <h3>USE THIS CHART TO SAVE AN EXTRA £{sumNumbers} IN 2024</h3> */}
-            <h3 className="font-semibold text-gray-700 text-center text-2xl">
-              USE THIS CHART TO SAVE AN EXTRA £{parseInt(amount)} WITHIN A YEAR
+            <h3 className="font-semibold text-gray-700 text-center text-lg md:text-2xl mb-3 px-3">
+            Easy tracking: every button marks a <span className="text-lime-800-800">week's progress, </span>adding up to <span className="text-sky-700 font-bold">{savings.number_of_weeks}</span> weeks for <span className="text-sky-800 font-bold">£{amount}.</span>
             </h3>
           </header>
-          {targetAmount && (
-            <div className="font-semibold text-xl flex justify-between items-center gap-10 p-3 px-6 bg-white/35 rounded-full shadow-md md:w-3/4 mx-auto hover:shadow-emerald-100">
-              <h2 className="italic">
-                <span className="block text-teal-900 font-bold not-italic ">
-                  {" "}
-                  Saving Plan:{" "}
-                </span>{" "}
-                {savings_name.toUpperCase()}
-              </h2>
-              <p className="">
-                <span className="block text-teal-900 font-bold"> Target: </span>
-                £{amount}
-              </p>
-              {/* # TODO fix date properly */}
-              <p>
-                <span className="block text-teal-900 font-bold"> Date: </span>
-                {date(date_created)}
-              </p>
-            </div>
-          )}
 
           <div className="block md:flex md:flex-row sm:gap-4 gap-10 justify-center">
             <div>
+            <p className="text-sm pl-3 bg-white/35 md:rounded-full shadow-md w-1/4 hover:shadow-emerald-100">
+                <span className="block text-teal-900 font-bold"> Date: </span>
+                {date(date_created)}
+              </p>
             <PaymentButtons noList={amount_list} setNoList={setAmountList} />
             </div>
             
@@ -90,3 +74,18 @@ const SavingPlanDetail = () => {
 };
 
 export default SavingPlanDetail;
+
+// {targetAmount && (
+//   <div className=" font-semibold text-lg md:text-xl hidden md:flex flex-col md:flex-row justify-around items-start md:items-center md:gap-10 p-3 px-6 bg-white/35 md:rounded-full shadow-md w-3/4 mx-auto hover:shadow-emerald-100">
+    
+//     <p className="">
+//       <span className="block text-teal-900 font-bold">Target: </span>
+//       £{amount}
+//     </p>
+//     <p>
+//       <span className="block text-teal-900 font-bold"> Date: </span>
+//       {date(date_created)}
+//     </p>
+//   </div>
+// )
+// }

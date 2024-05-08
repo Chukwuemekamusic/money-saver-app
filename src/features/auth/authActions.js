@@ -50,6 +50,8 @@ export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, r
         console.log('token used:', token);
         await axios.post(logoutUserURL, {}, getHeaders(token))
         localStorage.removeItem("userToken");
+        localStorage.removeItem("user");
+        localStorage.removeItem("newPlanId");
         dispatch(resetAuth());
         return { success: true }
 
