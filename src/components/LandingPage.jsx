@@ -19,10 +19,10 @@ const LandingPage = () => {
       <p>
         {/* Ready to get started? */}
         {/* <span className="text-teal-600 mx-1 hover:text-teal-800"> */}
-        <span className={`${location.pathname == '/landing/login' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-sky-500 hover:bg-sky-700'}  text-white font-bold  py-2 px-2 rounded mr-2 mx-1`}>
+        <span className={`${location.pathname === '/landing/login' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-sky-500 hover:bg-sky-700'}  text-white font-bold  py-2 px-2 rounded mr-2 mx-1`}>
           <Link to="login">Log in</Link>
         </span>or 
-        <span className={`${location.pathname == '/landing/register' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-sky-500 hover:bg-sky-700'}  text-white font-bold  py-2 px-2 rounded mr-4 mx-1`}>
+        <span className={`${location.pathname === '/landing/register' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-sky-500 hover:bg-sky-700'}  text-white font-bold  py-2 px-2 rounded mr-4 mx-1`}>
           <Link to="register">Register</Link>
         </span>
       </p>
