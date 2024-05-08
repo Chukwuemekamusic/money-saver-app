@@ -26,10 +26,10 @@ const Navbar = () => {
           ) : (
             <>
               <li >
-                <Link className={`${pathname == '/landing/login' ? 'bg-teal-600 hover:bg-teal-700/90' : 'bg-teal-600/55 hover:bg-sky-700'}  text-white font-bold  py-2 px-3 rounded-2xl`} to="/landing/login">Log In</Link>
+                <Link className={`${pathname === '/landing/login' ? 'bg-teal-600 hover:bg-teal-700/90' : 'bg-teal-600/55 hover:bg-sky-700'}  text-white font-bold  py-2 px-3 rounded-2xl`} to="/landing/login">Log In</Link>
               </li>
               <li>
-                <Link className={`${pathname == '/landing/register' ? 'bg-teal-600 hover:bg-teal-700/90' : 'bg-teal-600/45 hover:bg-sky-700'}  text-white font-bold  py-2 px-3 rounded-2xl mr-2 mx-1`} to="/landing/register">Register</Link>
+                <Link className={`${pathname === '/landing/register' ? 'bg-teal-600 hover:bg-teal-700/90' : 'bg-teal-600/45 hover:bg-sky-700'}  text-white font-bold  py-2 px-3 rounded-2xl mr-2 mx-1`} to="/landing/register">Register</Link>
               </li>
             </>
           )}

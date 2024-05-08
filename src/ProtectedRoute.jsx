@@ -24,7 +24,9 @@ const ProtectedRoute = ({ children }) => {
         dispatch(getUser)
       }
       dispatch(listSavingPlan());
+      // eslint-disable-next-line
     }, [])
+    // userInfo, dispatch, navigateLanding, userToken
     
 
 
