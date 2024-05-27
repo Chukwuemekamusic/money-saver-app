@@ -56,6 +56,7 @@ const SavingPlanDetail = () => {
                 {date(date_created)}
               </p>
             <PaymentButtons noList={amount_list} setNoList={setAmountList} />
+           
             </div>
             
             <div>
@@ -65,6 +66,7 @@ const SavingPlanDetail = () => {
               target={targetAmount}
             />
             </div>
+
             
           </div>
         </div>

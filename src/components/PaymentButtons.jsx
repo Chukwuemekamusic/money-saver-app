@@ -33,7 +33,7 @@ const PaymentButtons = ({ noList }) => {
   };
 
   return (
-    <div className="p-4 md:p-8 grid grid-cols-4 md:grid-cols-7 gap-2 sm:w-full sm:max-h-[200px] md:w-[750px] md:h-[500px]">
+    <div className="p-4 md:p-8 grid grid-cols-4 md:grid-cols-7 gap-2 sm:w-full sm:max-h-[200px] md:w-[750px] md:h-[500px] mb-3">
       {noList.length ? (
         <>
           {noList.map((number, index) => (
