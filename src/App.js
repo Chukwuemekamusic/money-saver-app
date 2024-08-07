@@ -10,6 +10,7 @@ import { NotFoundPage } from "./components/NotFoundPage";
 import ProtectedRoute from "./ProtectedRoute";
 import { useSelector } from "react-redux";
 import { SelectUserInfo } from "./features/auth/authSlice";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
 
@@ -34,7 +35,11 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
+  );
 }
 
 export default App;
