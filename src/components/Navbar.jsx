@@ -10,7 +10,7 @@ const Navbar = () => {
   const handleLogout = useHandleLogout();
 
   return (
-    <header className="bg-white py-2 justify-center shadow-lg mb-10 bg-opacity-20 backdrop-blur-sm">
+    <header className="bg-white py-2 justify-center shadow-lg mb-10 bg-opacity-80 backdrop-blur-sm fixed top-0 left-0 right-0 w-fullz-100">
       <div className="container mx-auto p-5 flex justify-between items-center">
         <div className="text-2xl font-bold">
           <Link to="/">MoneySaver</Link>
@@ -28,6 +28,9 @@ const Navbar = () => {
           ) : (
             <>
               <li>
+                <GoogleLoginButton />
+              </li>
+              <li>
                 <Link
                   className={`${
                     pathname === "/landing/login"
@@ -39,9 +42,7 @@ const Navbar = () => {
                   Log In
                 </Link>
               </li>
-              <li>
-                <GoogleLoginButton />
-              </li>
+             
               <li>
                 <Link
                   className={`${
