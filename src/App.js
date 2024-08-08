@@ -18,9 +18,9 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<RootLayout />}>
-        <Route element={<LandingPage />} path="/landing/">
-          <Route element={<LoginForm2 />} path="login" />
-          <Route element={<CreateUserForm />} path="register" />
+        <Route element={userInfo ? <Navigate to='/' /> : <LandingPage />} path="/landing/">
+          <Route element={userInfo ? <Navigate to='/' /> : <LoginForm2 />} path="login" />
+          <Route element={userInfo ? <Navigate to='/' /> : <CreateUserForm />} path="register" />
         </Route>
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         {/* loader={homeLoader(dispatch)} */}

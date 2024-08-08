@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { regsiterURL, loginURL, getUserURL, logoutUserURL } from "../../api/axiosUtil";
+import { regsiterURL, loginURL, getUserURL, logoutUserURL, googleLoginURL } from "../../api/axiosUtil";
 import { errorCheck } from "./errorCheck";
 import getHeaders from "../../api/getHeaders";
 import { resetAuth } from "./authSlice";
@@ -21,6 +21,16 @@ export const loginUser = createAsyncThunk('auth/login',
             const { data } = await axios.post(loginURL, { email, password })
             // localStorage.setItem('userToken', data.token)
             // localStorage.setItem('userToken', JSON.stringify(data.token))
+            return data
+        } catch (error) {
+            return rejectWithValue(errorCheck(error))
+        }
+    })
+
+export const googleLogin = createAsyncThunk('auth/googleLogin',
+    async ({ code }, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(googleLoginURL, { code })
             return data
         } catch (error) {
             return rejectWithValue(errorCheck(error))
@@ -57,7 +67,11 @@ export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, r
 
     } catch (error) {
         localStorage.removeItem("userToken");
+        localStorage.removeItem("user");
+        localStorage.removeItem("newPlanId");
         return rejectWithValue(errorCheck(error))
+    } finally {
+        dispatch(resetAuth());
     }
 
 
