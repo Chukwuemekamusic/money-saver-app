@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { googleLogin } from '../features/auth/authActions';
 import { SelectUserInfo } from '../features/auth/authSlice';
 import useCustomNavigation from '../utils/useCustomNavigation';
+import CustomGoogleButton from './CustomGoogleButton';
 
 const GoogleLoginButton = () => {
     const dispatch = useDispatch();
@@ -34,7 +35,22 @@ const GoogleLoginButton = () => {
         flow: 'auth-code',
     });
 
-    return <GoogleButton onClick={login} label="Login with Google"/>;
+    return (
+        <CustomGoogleButton 
+            onClick={login} 
+            label="Login with Google" 
+        />
+    );
+    // return (
+    //     <div className="">
+    //         <GoogleButton 
+    //             onClick={login} 
+    //             label="Login with Google" 
+    //             type="light"
+    //             className="w-full sm:w-auto text-sm sm:text-base"
+    //         />
+    //     </div>
+    // );
 };
 
 export default GoogleLoginButton;

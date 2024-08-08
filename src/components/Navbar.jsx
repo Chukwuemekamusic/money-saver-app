@@ -27,7 +27,7 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <li>
+              <li className="" >
                 <GoogleLoginButton />
               </li>
               <li>

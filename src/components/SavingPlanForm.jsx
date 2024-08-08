@@ -19,7 +19,6 @@ const SavingPlanForm = () => {
   const dispatch = useDispatch();
   const savePlan = useSavePlan();
   const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
-  // const numberOfWeeks = 52;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +30,7 @@ const SavingPlanForm = () => {
       setLoading(false);
       return;
     }
-    const numberOfWeeks = parseInt(duration)
+    const numberOfWeeks = parseInt(duration);
 
     dispatch(
       setSavings({
@@ -59,6 +58,7 @@ const SavingPlanForm = () => {
       savings_name: savingsName,
       amount,
       amount_list: payload,
+      number_of_weeks: numberOfWeeks,
     };
 
     try {
@@ -73,71 +73,76 @@ const SavingPlanForm = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-xs md:max-w-4xl text-start md:text-center mt-6">
-      <form className="" onSubmit={handleSubmit}>
-        <label
-          className="block md:inline font-bold text-gray-600 mr-2"
-          htmlFor="savings-name"
-        >
-          Savings Name:
-        </label>
-        <input
-          type="text"
-          id="savings-name"
-          value={savingsName}
-          onChange={(e) => {
-            setError(null);
-            setSavingsName(e.target.value);
-          }}
-          className="rounded-lg pl-2"
-        />
+    <div className="mx-auto w-full max-w-xs md:max-w-4xl text-start md:text-center mt-6 p-4 bg-white bg-opacity-40 shadow-md rounded-lg">
+      <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+        <div className="flex flex-col">
+          <label
+            className="font-bold text-gray-600 mb-2"
+            htmlFor="savings-name"
+          >
+            Savings Name:
+          </label>
+          <input
+            type="text"
+            id="savings-name"
+            value={savingsName}
+            onChange={(e) => {
+              setError(null);
+              setSavingsName(e.target.value);
+            }}
+            className="rounded-lg pl-2 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
 
-        <label
-          className="inline-block md:inline font-bold text-gray-600 md:mx-2"
-          htmlFor="target-amount"
-        >
-          Target Amount:
-        </label>
-        <input
-          id="target-amount"
-          type="text"
-          value={amount}
-          onChange={(e) => {
-            setError(null);
-            setAmount(e.target.value);
-          }}
-          className="rounded-lg pl-2"
-          // aria-invalid={!isNaN(parseFloat(amount)) ? "false" : "true"} #TODO CHECK
-        />
+        <div className="flex flex-col">
+          <label
+            className="font-bold text-gray-600 mb-2"
+            htmlFor="target-amount"
+          >
+            Target Amount:
+          </label>
+          <input
+            id="target-amount"
+            type="text"
+            value={amount}
+            onChange={(e) => {
+              setError(null);
+              setAmount(e.target.value);
+            }}
+            className="rounded-lg pl-2 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
 
-        <label
-          className="block md:inline font-bold text-gray-600 md:mx-2"
-          htmlFor="plan-duration"
-        >
-          Plan Duration:
-        </label>
-        <select
-          id="plan-duration"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-          className="rounded-lg pl-2"
-        >
-          <option value="52">1 Year</option>
-          <option value="36">6 Months</option>
-          <option value="18">3 Months</option>
-        </select>
+        <div className="flex flex-col">
+          <label
+            className="font-bold text-gray-600 mb-2"
+            htmlFor="plan-duration"
+          >
+            Plan Duration:
+          </label>
+          <select
+            id="plan-duration"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            className="rounded-lg pl-2 py-2 bg-white border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="52" className="text-sm sm:text-base">1 Year</option>
+            <option value="36" className="text-sm sm:text-base">6 Months</option>
+            <option value="18" className="text-sm sm:text-base">3 Months</option>
+          </select>
+        </div>
 
-        <div className="sm:block md:inline-block mt-2 mx-auto text-start md:text-center">
+        <div className="flex flex-col justify-end">
           <button
             disabled={loading || !canSubmit}
-            className={`btn sm:mx-auto md:ml-3 md:inline-block ${
-              loading || !canSubmit ? "opacity-50 cursor-not-allowed" : ""
+            className={`btn bg-blue-500 text-white font-bold py-2 px-4 rounded-lg ${
+              loading || !canSubmit ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
             }`}
           >
             {loading ? "Creating..." : "Create New Plan"}
           </button>
+          {error && <p className="text-red-600 mt-2">{error}</p>}
         </div>
-        {error && <p className="text-red-600">{error}</p>}
       </form>
     </div>
   );
