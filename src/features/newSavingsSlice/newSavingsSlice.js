@@ -5,7 +5,7 @@ const initialState = {
     amount: null,
     date_created: null,
     amount_list: [],
-    isLoading: false
+    isLoading: false,
     // selection_process: false
 }
 
@@ -37,6 +37,7 @@ const newSavingsSlice = createSlice({
             state.savings_name = action.payload.savingsName
             // state.date_created = date_created
             state.amount_list = []
+            state.number_of_weeks = action.payload.number_of_weeks
         },
     },
 })

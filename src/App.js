@@ -10,6 +10,7 @@ import { NotFoundPage } from "./components/NotFoundPage";
 import ProtectedRoute from "./ProtectedRoute";
 import { useSelector } from "react-redux";
 import { SelectUserInfo } from "./features/auth/authSlice";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
 
@@ -17,9 +18,9 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<RootLayout />}>
-        <Route element={<LandingPage />} path="/landing/">
-          <Route element={<LoginForm2 />} path="login" />
-          <Route element={<CreateUserForm />} path="register" />
+        <Route element={userInfo ? <Navigate to='/' /> : <LandingPage />} path="/landing/">
+          <Route element={userInfo ? <Navigate to='/' /> : <LoginForm2 />} path="login" />
+          <Route element={userInfo ? <Navigate to='/' /> : <CreateUserForm />} path="register" />
         </Route>
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         {/* loader={homeLoader(dispatch)} */}
@@ -34,7 +35,11 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
+  );
 }
 
 export default App;

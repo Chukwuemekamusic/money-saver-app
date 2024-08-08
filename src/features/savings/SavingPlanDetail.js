@@ -7,29 +7,19 @@ import { useSelector } from "react-redux";
 import { setAmountList } from "../newSavingsSlice/newSavingsSlice";
 import { selectSavingDetail } from "../savings/savingsSlice.js";
 import { useParams } from "react-router-dom";
-// import useCustomNavigation from "../../utils/useCustomNavigation.jsx";
-// import useCheckAuth from "../auth/utils/useCheckAuth.js";
-// import { listSavingPlan } from "./savingAction.jsx";
-// import { getUser } from "../auth/authActions.js";
+
 
 const SavingPlanDetail = () => {
-  // const { navigateHome } = useCustomNavigation();
   const { id } = useParams();
   const sData = useSelector(selectSavingDetail);
   const savingsData = useMemo(() => sData ?? [], [sData]);
 
   // eslint-disable-next-line
   const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
-  // console.log("savings from data", savings);
 
   // #TODO I have to fix page to directly get detail from api ***Fixed!!
   // though this ensures nobody gets to the page withut using the dashboard
 
-  // useEffect(() => {
-  //   if (!id || savingsData === null || savingsData.length === 0 || !savings) {
-  //     navigateHome();
-  //   }
-  // }, [id, savingsData, savings, navigateHome]);
 
   const targetAmount = savings.amount;
   const { amount_list, amount, savings_name, date_created } = savings;
@@ -37,7 +27,6 @@ const SavingPlanDetail = () => {
   return (
     <div>
       {savings && (
-        // flex flex-col items-center
         <div>
           <header className="text-center">
             <h1 className="font-bold text-teal-700 text-center text-2xl md:text-3xl">
@@ -77,17 +66,3 @@ const SavingPlanDetail = () => {
 
 export default SavingPlanDetail;
 
-// {targetAmount && (
-//   <div className=" font-semibold text-lg md:text-xl hidden md:flex flex-col md:flex-row justify-around items-start md:items-center md:gap-10 p-3 px-6 bg-white/35 md:rounded-full shadow-md w-3/4 mx-auto hover:shadow-emerald-100">
-    
-//     <p className="">
-//       <span className="block text-teal-900 font-bold">Target: </span>
-//       £{amount}
-//     </p>
-//     <p>
-//       <span className="block text-teal-900 font-bold"> Date: </span>
-//       {date(date_created)}
-//     </p>
-//   </div>
-// )
-// }
