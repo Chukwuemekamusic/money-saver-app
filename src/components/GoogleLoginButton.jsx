@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import GoogleButton from 'react-google-button';
+// import GoogleButton from 'react-google-button';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch, useSelector } from 'react-redux';
 import { googleLogin } from '../features/auth/authActions';
@@ -19,7 +19,7 @@ const GoogleLoginButton = () => {
         if (userInfo) {
             navigateHome();
         }
-    }, [userInfo]);
+    }, [userInfo, navigateHome]);
 
     const handleGoogleLogin = async (codeResponse) => {
         const authorizationCode = codeResponse.code;
