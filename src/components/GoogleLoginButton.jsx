@@ -7,7 +7,7 @@ import { SelectUserInfo } from '../features/auth/authSlice';
 import useCustomNavigation from '../utils/useCustomNavigation';
 import CustomGoogleButton from './CustomGoogleButton';
 
-const GoogleLoginButton = () => {
+const GoogleLoginButton = ({ showLabelOnSmallScreen = false }) => {
     const dispatch = useDispatch();
     const { navigateHome } = useCustomNavigation();
     // const { error } = useSelector((state) => state.auth); // loading,
@@ -40,6 +40,7 @@ const GoogleLoginButton = () => {
         <CustomGoogleButton 
             onClick={login} 
             label="Login with Google" 
+            showLabelOnSmallScreen={showLabelOnSmallScreen}
         />
     );
     // return (
