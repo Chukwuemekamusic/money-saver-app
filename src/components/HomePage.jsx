@@ -13,7 +13,7 @@ const Home = () => {
   // console.log("first_name", userInfo);
 
   return (
-    <div className="text-center">
+    <div className="text-center max-container">
       {isLoading || !userInfo ? (
         <span>is loading...</span>
       ) : (
@@ -32,7 +32,7 @@ const Home = () => {
           {error && <span>Error: {error.message}</span>}
           {savings && isSuccess && (
             <>
-              <h3 className="text-xl font-semibold mb-2 mt-4 md:mt-8">Your Saved Plans:</h3>
+              <h3 className="text-xl md:text-2xl font-semibold mb-2 mt-4 md:mt-8">Your Saved Plans:</h3>
               <SavingPlanList savings={savings} />
             </>
           )}

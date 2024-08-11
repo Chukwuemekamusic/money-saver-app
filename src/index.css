@@ -58,3 +58,7 @@ button:hover {
 .flex-container {
   @apply flex flex-row gap-10;
 }
+
+.max-container {
+  @apply mx-auto max-w-[1440px];
+}

@@ -12,7 +12,7 @@ const SavingPlanListItem = ({ saving }) => {
     <div>
       <h3
         onClick={handleNavigate}
-        className="text-3xl font-bold text-sky-600 hover:text-sky-700 hover:shadow-sm cursor-pointer uppercase"
+        className="text-xl md:text-2xl font-bold text-sky-600 hover:text-sky-7000 hover:shadow-sm cursor-pointer uppercase"
       >
         {saving.savings_name}
       </h3>

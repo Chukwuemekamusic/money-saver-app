@@ -14,7 +14,7 @@ const SavingPlanList = () => {
       <div className={`${savings.length > 1 && 'grid'} md:grid-cols-2 gap-10`}>
         {savings.map((saving) => (
           <div
-            className=" bg-white rounded-md border shadow-md hover:shadow-lg hover:shadow-emerald-100 p-3 flex flex-col h-full"
+            className=" bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-lg hover:shadow-emerald-100 p-3 md:p-4 mx-2 flex flex-col h-full"
             key={saving.id}
           >
             <SavingPlanListItem saving={saving} />
