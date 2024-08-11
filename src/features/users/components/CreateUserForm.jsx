@@ -40,7 +40,7 @@ const CreateUserForm = () => {
         await dispatch(loginUser(data)).then(() => navigateHome());
       }
     });
-    // console.log("last_catch success", success);
+    console.log("last_catch success", success);
   };
 
   // useEffect(() => {
