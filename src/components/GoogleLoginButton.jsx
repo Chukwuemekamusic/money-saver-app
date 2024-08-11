@@ -15,13 +15,14 @@ const GoogleLoginButton = () => {
 
     // TODO: redirect to homepage after successful login
     useEffect(() => {
-        console.log('userInfo changed:', userInfo);
+        // console.log('userInfo changed:', userInfo);
         if (userInfo) {
             navigateHome();
         }
     }, [userInfo, navigateHome]);
 
     const handleGoogleLogin = async (codeResponse) => {
+        // console.log('codeResponse', codeResponse)
         const authorizationCode = codeResponse.code;
         dispatch(googleLogin({ code: authorizationCode }));
 

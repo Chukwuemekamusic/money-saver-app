@@ -35,12 +35,12 @@ const CreateUserForm = () => {
 
   const onSubmit = async (data) => {
     await dispatch(registerUser(data)).then(async (result) => {
-      console.log("result", result);
+      // console.log("result", result);
       if (result.type === "auth/register/fulfilled") {
         await dispatch(loginUser(data)).then(() => navigateHome());
       }
     });
-    console.log("last_catch success", success);
+    // console.log("last_catch success", success);
   };
 
   // useEffect(() => {

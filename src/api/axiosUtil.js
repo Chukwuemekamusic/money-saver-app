@@ -1,6 +1,6 @@
-// export const baseURL = "http://localhost:8000/api/"
+export const baseURL = "http://localhost:8000/api/"
 
-export const baseURL = process.env.BACKENDURL
+// export const baseURL = process.env.BACKENDURL
 // export const baseURL = 'https://backend-money-saver-app-production.up.railway.app/api/'
 
 export const regsiterURL = baseURL + 'user/register/'
