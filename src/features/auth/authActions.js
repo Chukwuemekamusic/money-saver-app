@@ -57,7 +57,7 @@ export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, r
 
     try {
         const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
-        console.log('token used:', token);
+        // console.log('token used:', token);
         await axios.post(logoutUserURL, {}, getHeaders(token))
         localStorage.removeItem("userToken");
         localStorage.removeItem("user");

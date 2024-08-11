@@ -17,7 +17,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     dispatch(loginUser({ email, password }));
-    console.log("Login submitted:", { email, password });
+    // console.log("Login submitted:", { email, password });
     // Clear form fields after submission if needed
     setEmail("");
     setPassword("");

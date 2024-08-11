@@ -69,8 +69,8 @@ const authSlice = createSlice({
                 state.userInfo = payload.user
                 localStorage.setItem('userToken', JSON.stringify(payload.token))
                 localStorage.setItem('user', JSON.stringify(payload.user))
-                console.log('payload', payload);
-                console.log('userInfo', state.userInfo);
+                // console.log('payload', payload);
+                // console.log('userInfo', state.userInfo);
                 
             })
             .addCase(googleLogin.rejected, (state, { payload }) => {
@@ -93,8 +93,8 @@ const authSlice = createSlice({
                 state.error = payload
             })
             .addCase(logoutUser.fulfilled, (state, { payload }) => {
-                console.log('payload', payload);
-                console.log('userInfo', state.userInfo);
+                // console.log('payload', payload);
+                // console.log('userInfo', state.userInfo);
                 state.userToken = localStorage.getItem('userToken') ?? null
                 state.userInfo = null
             })

@@ -8,9 +8,9 @@ const Home = () => {
   const { isLoading, isSuccess, savings, error } = useSelector(selectAllSavings);
 
   const userInfo = useSelector(SelectUserInfo);
-  console.log("user", userInfo);
-  console.log("first_name", userInfo?.first_name);
-  console.log("first_name", userInfo);
+  // console.log("user", userInfo);
+  // console.log("first_name", userInfo?.first_name);
+  // console.log("first_name", userInfo);
 
   return (
     <div className="text-center">
