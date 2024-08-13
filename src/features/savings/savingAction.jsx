@@ -23,7 +23,7 @@ export const getSavingPlanDetail = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
-      console.log("token used", token);
+      // console.log("token used", token);
       const { data } = await axios.get(
         savingPlanDetailURL(id),
         getHeaders(token)

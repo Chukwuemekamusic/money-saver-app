@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="text-2xl font-bold">
           <Link to="/">MoneySaver</Link>
         </div>
-        <ul className="flex gap-5 items-center">
+        <ul className="flex gap-2 md:gap-5 items-center">
           {token ? (
             <>
               <li>
@@ -36,10 +36,10 @@ const Navbar = () => {
                     pathname === "/landing/login"
                       ? "bg-teal-600 hover:bg-teal-700/90"
                       : "bg-teal-600/55 hover:bg-sky-700"
-                  } text-white font-bold py-2 px-3 rounded-2xl`}
+                  } text-white text-sm md:text-base font-bold py-2 px-3 rounded-2xl`}
                   to="/landing/login"
                 >
-                  Log In
+                  LogIn
                 </Link>
               </li>
              
@@ -49,7 +49,7 @@ const Navbar = () => {
                     pathname === "/landing/register"
                       ? "bg-teal-600 hover:bg-teal-700/90"
                       : "bg-teal-600/45 hover:bg-sky-700"
-                  } text-white font-bold py-2 px-3 rounded-2xl`}
+                  } text-white text-sm md:text-base font-bold py-2 px-3 rounded-2xl`}
                   to="/landing/register"
                 >
                   Register
