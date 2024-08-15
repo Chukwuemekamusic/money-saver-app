@@ -11,6 +11,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import { useSelector } from "react-redux";
 import { SelectUserInfo } from "./features/auth/authSlice";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Verification from "./components/Verification";
+import CheckEmail from "./features/users/components/CheckEmail";
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
           <Route element={userInfo ? <Navigate to='/' /> : <LoginForm2 />} path="login" />
           <Route element={userInfo ? <Navigate to='/' /> : <CreateUserForm />} path="register" />
         </Route>
+        <Route element={<Verification />} path="/verify-email/:uidb64/:token/" />
+        <Route element={<CheckEmail />} path="/check-email" />
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         {/* loader={homeLoader(dispatch)} */}
 

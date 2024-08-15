@@ -24,6 +24,13 @@ const authSlice = createSlice({
             state.userToken = localStorage.getItem('userToken') ?? null
             
         },
+        setUser: (state, {payload}) => {
+            state.loading = false
+            state.userToken = payload.token
+            localStorage.setItem('userToken', JSON.stringify(payload.token))
+            localStorage.setItem('user', JSON.stringify(payload.user))
+            state.userInfo = payload.user
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -109,5 +116,5 @@ const authSlice = createSlice({
 export default authSlice.reducer
 export const SelectUserInfo = (state) => state.auth.userInfo
 export const SelectToken = (state) => state.auth.userToken
-export const { resetAuth } = authSlice.actions
+export const { resetAuth, setUser } = authSlice.actions
 // export const SelectUserSavingPlan = (state) => state.auth.user

@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, loginUser } from "../../auth/authActions";
-import useCustomNavigation from "../../../utils/useCustomNavigation";
+import { registerUser } from "../../auth/authActions";
 import CustomError from "../../../components/CustomError";
 
 const CreateUserForm = () => {
   const dispatch = useDispatch();
-  const { navigateHome } = useCustomNavigation();
+  // const { navigateHome } = useCustomNavigation();
+  const navigate = useNavigate();
   // #TODO handle that logged in users can't access this page
   const { error, success } = useSelector( 
     (state) => state.auth
@@ -37,7 +37,8 @@ const CreateUserForm = () => {
     await dispatch(registerUser(data)).then(async (result) => {
       // console.log("result", result);
       if (result.type === "auth/register/fulfilled") {
-        await dispatch(loginUser(data)).then(() => navigateHome());
+        // await dispatch(loginUser(data)).then(() => navigateHome());
+        navigate("/check-email");
       }
     });
     console.log("last_catch success", success);
