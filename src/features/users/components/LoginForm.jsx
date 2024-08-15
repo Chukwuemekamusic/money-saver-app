@@ -56,7 +56,7 @@ const LoginForm = () => {
             className="style-input"
           />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

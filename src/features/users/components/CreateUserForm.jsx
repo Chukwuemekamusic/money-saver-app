@@ -153,7 +153,7 @@ const CreateUserForm = () => {
         <button
           className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2"
           type="submit"
-        >Register</button>
+        >Submit</button>
         </div>
       </form>
     </div>
