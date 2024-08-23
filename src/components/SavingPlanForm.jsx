@@ -9,6 +9,11 @@ import useSavePlan from "../features/newSavingsSlice/utils/useSavePlan";
 import { handleSetSavingsData } from "../utils/savingsUtils";
 import getNewPlan from "../features/newSavingsSlice/utils/getNewPlan";
 
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import CustomError from "./CustomError";
+
 const SavingPlanForm = () => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
   const [amount, setAmount] = useState("");
@@ -18,18 +23,26 @@ const SavingPlanForm = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const savePlan = useSavePlan();
-  const canSubmit = !isNaN(amount) && amount !== "" && savingsName !== "";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const validationSchema = yup.object().shape({
+    savingsName: yup.string().required("Savings name is required"),
+    amount: yup.number().typeError("Amount must be a number").required("Amount is required"),
+    duration: yup.number().required("Duration is required"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = async (data) => {
     setLoading(true);
     setError(null);
 
-    if (!canSubmit) {
-      setError("Please enter a valid savings name and target amount.");
-      setLoading(false);
-      return;
-    }
+  
     const numberOfWeeks = parseInt(duration);
 
     dispatch(
@@ -74,7 +87,7 @@ const SavingPlanForm = () => {
 
   return (
     <div className="mx-auto w-full max-w-xs md:max-w-4xl text-start md:text-center mt-6 p-4 bg-white bg-opacity-40 shadow-md rounded-lg">
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+      <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <label
             className="font-bold text-gray-600 mb-2"
@@ -86,12 +99,14 @@ const SavingPlanForm = () => {
             type="text"
             id="savings-name"
             value={savingsName}
+            {...register("savingsName")}
             onChange={(e) => {
               setError(null);
               setSavingsName(e.target.value);
             }}
             className="rounded-lg pl-2 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
+          {errors.savingsName && (<CustomError error={errors.savingsName.message} />)}
         </div>
 
         <div className="flex flex-col">
@@ -105,14 +120,15 @@ const SavingPlanForm = () => {
             id="target-amount"
             type="text"
             value={amount}
+            {...register("amount")}
             onChange={(e) => {
               setError(null);
               setAmount(e.target.value);
             }}
             className="rounded-lg pl-2 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
+          {errors.amount && (<CustomError error={errors.amount.message} />)}
         </div>
-
         <div className="flex flex-col">
           <label
             className="font-bold text-gray-600 mb-2"
@@ -123,6 +139,7 @@ const SavingPlanForm = () => {
           <select
             id="plan-duration"
             value={duration}
+            {...register("duration")}
             onChange={(e) => setDuration(e.target.value)}
             className="rounded-lg pl-2 py-2 bg-white border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
@@ -130,13 +147,14 @@ const SavingPlanForm = () => {
             <option value="36" className="text-sm sm:text-base">6 Months</option>
             <option value="18" className="text-sm sm:text-base">3 Months</option>
           </select>
+          {errors.duration && (<CustomError error={errors.duration.message} />)}
         </div>
 
         <div className="flex flex-col justify-end">
           <button
-            disabled={loading || !canSubmit}
+            disabled={loading}
             className={`btn bg-blue-500 text-white font-bold py-2 px-4 rounded-lg ${
-              loading || !canSubmit ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
             }`}
           >
             {loading ? "Creating..." : "Create New Plan"}
