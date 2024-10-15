@@ -2,6 +2,8 @@
 
 MoneySaver is a web application designed to help users manage their savings goals and track their financial progress.
 
+**Live Site:** [https://moneysaverapp.netlify.app/](https://moneysaverapp.netlify.app/)
+
 ## Project Structure
 
 This project is split into two repositories:
