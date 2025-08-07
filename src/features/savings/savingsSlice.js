@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { listSavingPlan, updateSelectedAmount } from "./savingAction";
+import { listSavingPlan, updateSelectedAmount, getSavingPlanDetail, deleteSavingPlan } from "./savingAction";
 import { saveSavingPlan } from "../newSavingsSlice/newSavingsAction"
 
 const initialState = {
     isLoading: false,
     isSuccess: null,
-    savings: null,
+    savings: [], // Initialize as empty array instead of null
     error: null,
     newlySavedPlan: null,
 }
@@ -54,13 +54,14 @@ const savingsSlice = createSlice({
             })
             .addCase(listSavingPlan.fulfilled, (state, { payload }) => {
                 state.isLoading = false
-                state.savings = payload
+                // Handle FastAPI response format which returns {plans: [...], total: ..., etc}
+                state.savings = payload.plans || payload || []
                 state.isSuccess = true
                 state.error = null
             })
             .addCase(listSavingPlan.rejected, (state, { payload }) => {
                 state.isLoading = false
-                state.savings = null
+                state.savings = [] // Keep as empty array instead of null
                 state.error = payload
                 state.isSuccess = false
             })
@@ -72,6 +73,10 @@ const savingsSlice = createSlice({
             })
             .addCase(saveSavingPlan.fulfilled, (state, { payload }) => {
                 state.isLoading = false
+                // Ensure savings is an array before pushing
+                if (!Array.isArray(state.savings)) {
+                    state.savings = []
+                }
                 state.savings.push(payload)
                 state.isSuccess = true
                 state.error = null
@@ -90,20 +95,75 @@ const savingsSlice = createSlice({
             })
             .addCase(updateSelectedAmount.fulfilled, (state, { payload }) => {
                 state.isLoading = false
-                const { saving_plan: savingsPlanId, id: updatedAmountId } = payload
+                const { saving_plan_id: savingsPlanId, id: updatedAmountId } = payload
                 const savingPlan = state.savings.find(saving => saving.id === savingsPlanId)
                 if (savingPlan) {
-                    savingPlan.amount_list = savingPlan.amount_list.map(amount => {
-                        if (amount.id === updatedAmountId) {
-                            return payload
-                        }
-                        return amount
-                    })
+                    // Update the weekly_amounts array (FastAPI format)
+                    if (savingPlan.weekly_amounts) {
+                        savingPlan.weekly_amounts = savingPlan.weekly_amounts.map(amount => {
+                            if (amount.id === updatedAmountId) {
+                                return payload
+                            }
+                            return amount
+                        })
+                    }
+                    // Also update amount_list for legacy compatibility
+                    if (savingPlan.amount_list) {
+                        savingPlan.amount_list = savingPlan.amount_list.map(amount => {
+                            if (amount.id === updatedAmountId) {
+                                return payload
+                            }
+                            return amount
+                        })
+                    }
                 }
                 state.isSuccess = true
                 state.error = null
             })
             .addCase(updateSelectedAmount.rejected, (state, { payload }) => {
+                state.isLoading = false
+                state.isSuccess = false
+                state.error = payload
+            })
+            // getSavingPlanDetail
+            .addCase(getSavingPlanDetail.pending, (state) => {
+                state.isLoading = true
+                state.error = null
+            })
+            .addCase(getSavingPlanDetail.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                // If we have existing savings, update or add the specific plan
+                if (Array.isArray(state.savings)) {
+                    const existingIndex = state.savings.findIndex(saving => saving.id === payload.id)
+                    if (existingIndex >= 0) {
+                        state.savings[existingIndex] = payload
+                    } else {
+                        state.savings.push(payload)
+                    }
+                } else {
+                    state.savings = [payload]
+                }
+                state.isSuccess = true
+                state.error = null
+            })
+            .addCase(getSavingPlanDetail.rejected, (state, { payload }) => {
+                state.isLoading = false
+                state.isSuccess = false
+                state.error = payload
+            })
+            // deleteSavingPlan
+            .addCase(deleteSavingPlan.pending, (state) => {
+                state.isLoading = true
+                state.error = null
+            })
+            .addCase(deleteSavingPlan.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                // Remove the deleted plan from the savings array
+                state.savings = state.savings.filter(saving => saving.id !== payload.id)
+                state.isSuccess = true
+                state.error = null
+            })
+            .addCase(deleteSavingPlan.rejected, (state, { payload }) => {
                 state.isLoading = false
                 state.isSuccess = false
                 state.error = payload

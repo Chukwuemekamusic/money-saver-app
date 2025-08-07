@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useCustomNavigation from "../../../utils/useCustomNavigation";
 import { loginUser } from "../../auth/authActions";
-import { SelectUserInfo } from "../../auth/authSlice";
+import { SelectUserInfo } from "../../auth/authSliceNew";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

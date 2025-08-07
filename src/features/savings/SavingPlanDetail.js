@@ -1,33 +1,59 @@
-import {  useMemo } from "react"; // useEffect,
+import { useEffect, useMemo } from "react";
 import PaymentButtons from "../../components/PaymentButtons";
 import SavingSummary from "../../components/SavingSummary";
 import { date } from "../../utils/savingsUtils.js";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setAmountList } from "../newSavingsSlice/newSavingsSlice";
-import { selectSavingDetail } from "../savings/savingsSlice.js";
+import { selectAllSavings } from "../savings/savingsSlice.js";
+import { getSavingPlanDetail } from "./savingAction";
 import { useParams } from "react-router-dom";
 
 
 const SavingPlanDetail = () => {
   const { id } = useParams();
-  const sData = useSelector(selectSavingDetail);
+  const dispatch = useDispatch();
+  const { savings: sData, isLoading } = useSelector(selectAllSavings);
   const savingsData = useMemo(() => sData ?? [], [sData]);
 
-  // eslint-disable-next-line
-  const savings = savingsData.filter((saving) => saving.id == id)[0] ?? "";
+  // Try to find the saving plan in existing data first
+  let savings = savingsData.filter((saving) => saving.id == id)[0];
 
-  // #TODO I have to fix page to directly get detail from api ***Fixed!!
-  // though this ensures nobody gets to the page withut using the dashboard
+  // If not found in existing data, we need to fetch it
+  useEffect(() => {
+    if (!savings && id) {
+      dispatch(getSavingPlanDetail(id));
+    }
+  }, [dispatch, id, savings]);
 
+  // Use fallback empty object if no savings data
+  savings = savings || {};
 
   const targetAmount = savings.amount;
-  const { amount_list, amount, savings_name, date_created } = savings;
+  const { weekly_amounts = [], amount_list = [], amount, savings_name, date_created } = savings;
+  
+  // Use weekly_amounts from FastAPI or fallback to amount_list for legacy data
+  const amounts = weekly_amounts.length > 0 ? weekly_amounts : amount_list;
+
+  if (isLoading) {
+    return (
+      <div className="text-center p-8">
+        <div className="text-xl">Loading saving plan...</div>
+      </div>
+    );
+  }
+
+  if (!savings || !savings.id) {
+    return (
+      <div className="text-center p-8">
+        <div className="text-xl text-gray-600">Saving plan not found</div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {savings && (
-        <div>
+      <div>
           <header className="text-center">
             <h1 className="font-bold text-teal-700 text-center text-2xl md:text-3xl">
             {savings_name.toUpperCase()} SAVING PLAN
@@ -44,13 +70,13 @@ const SavingPlanDetail = () => {
                 <span className="block text-teal-900 font-bold"> Date: </span>
                 {date(date_created)}
               </p>
-            <PaymentButtons noList={amount_list} setNoList={setAmountList} />
+            <PaymentButtons noList={amounts} setNoList={setAmountList} />
            
             </div>
             
             <div>
             <SavingSummary
-              amount_list={amount_list}
+              amount_list={amounts}
               id={id}
               target={targetAmount}
             />
@@ -59,7 +85,6 @@ const SavingPlanDetail = () => {
             
           </div>
         </div>
-      )}
     </div>
   );
 };

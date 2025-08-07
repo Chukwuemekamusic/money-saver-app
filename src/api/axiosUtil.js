@@ -1,25 +1,28 @@
-// export const baseURL = "http://localhost:8000/api/"
+// FastAPI backend URL - uses environment variable for flexibility
+export const baseURL = (process.env.REACT_APP_API_URL || 'http://localhost:8000/api/v1') + '/'
 
-// export const baseURL = process.env.BACKENDURL
-export const baseURL = 'https://backend-money-saver-app-production.up.railway.app/api/'
+// Legacy Django URLs (keeping for backward compatibility during transition)
+export const regsiterURL = baseURL + 'auth/register' // Note: keeping typo for compatibility
+export const loginURL = baseURL + 'auth/login'
+export const googleLoginURL = baseURL + 'auth/google'
+export const activateUserURL = (uidb64, token) => baseURL + `auth/activate/${uidb64}/${token}`
 
-export const regsiterURL = baseURL + 'user/register-auth/'
+// Auth endpoints (handled by Supabase directly - these are for API communication)
+export const syncUserURL = baseURL + 'auth/sync-user'
+export const getUserURL = baseURL + 'auth/me'
+export const verifyTokenURL = baseURL + 'auth/verify-token'
+export const logoutUserURL = baseURL + 'auth/logout'
 
-export const loginURL = baseURL + 'user/login/'
+// Savings plan endpoints
+export const createSavingPlanURL = baseURL + 'savings/plans'
+export const listSavingPlanURL = baseURL + 'savings/plans'
+export const savingPlanDetailURL = (id) => baseURL + `savings/plans/${id}`
+export const updateSavingPlanURL = (id) => baseURL + `savings/plans/${id}`
+export const deleteSavingPlanURL = (id) => baseURL + `savings/plans/${id}`
 
-export const googleLoginURL = baseURL + 'user/login/google/'
+// Weekly amounts endpoints
+export const updateAmountURL = (id) => baseURL + `savings/weekly-amounts/${id}`
+export const selectAmountURL = (id) => baseURL + `savings/weekly-amounts/${id}/select`
 
-export const createSavingPlanURL = baseURL + 'user/savingplan/create/'
-
-export const listSavingPlanURL = baseURL + 'user/savingplan/'
-
-export const savingPlanDetailURL = (id) => baseURL + `user/savingplan/${id}/`
-
-export const getUserURL = baseURL + 'user/get/'
-
-export const logoutUserURL =  baseURL + 'user/logout-now/'
-
-export const activateUserURL = (uidb64, token) => baseURL + `user/activate/${uidb64}/${token}/`
-
-
-export const updateAmountURL = (id) => baseURL + `weeklyamount/update/${id}/`
+// Statistics endpoint
+export const getUserStatsURL = baseURL + 'savings/stats'

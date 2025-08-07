@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import useHandleLogout from "../features/auth/utils/useHandleLogout";
 import { useSelector } from "react-redux";
-import { SelectToken } from "../features/auth/authSlice";
+import { SelectToken, SelectIsAuthenticated } from "../features/auth/authSliceNew";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 const Navbar = () => {
   const token = useSelector(SelectToken);
+  const isAuthenticated = useSelector(SelectIsAuthenticated);
   const { pathname } = useLocation();
   const handleLogout = useHandleLogout();
 
@@ -16,7 +17,7 @@ const Navbar = () => {
           <Link to="/">MoneySaver</Link>
         </div>
         <ul className="flex gap-2 md:gap-5 items-center">
-          {token ? (
+          {(token || isAuthenticated) ? (
             <>
               <li>
                 <Link className="text-teal-600 hover:text-teal-700" to="/">Dashboard</Link>

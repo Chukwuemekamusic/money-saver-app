@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { SelectUserInfo } from "../../auth/authSlice";
+import { SelectUserInfo } from "../../auth/authSliceNew";
 import { saveSavingPlan } from "../newSavingsAction";
 // import { selectNewSavings } from "../newSavingsSlice";
 
@@ -11,14 +11,11 @@ const useSavePlan = () => {
   
 
   const savePlan = async (savingsData) => {
-    // console.log('saveData', savingsData);
-    const user = userInfo.id;
-    const data = {
-      ...savingsData,
-      user,
-    };
+    console.log('🟡 useSavePlan received data:', savingsData);
+    console.log('🟡 Current user info:', userInfo);
+    // Note: No need to add user ID - FastAPI gets it from JWT token via get_current_user()
     
-    await dispatch(saveSavingPlan(data));
+    await dispatch(saveSavingPlan(savingsData));
   };
   return savePlan;
 };

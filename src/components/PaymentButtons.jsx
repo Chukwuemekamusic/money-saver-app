@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ConfirmModal from "./ConfirmModal";
 import { updateSelectedAmount } from "../features/savings/savingAction";
 
-const PaymentButtons = ({ noList }) => {
+const PaymentButtons = ({ noList = [] }) => {
   const dispatch = useDispatch();
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -12,18 +12,20 @@ const PaymentButtons = ({ noList }) => {
   const [selectionProcess, setSelectionProcess] = useState(-1);
 
   const handleButtonSelection = (index, number) => {
-    if (!number.selected) {
-      setSelectionProcess(index);
-      setAmount(number.amount);
-      // setSelectedIndex(index);
-      setSelectedIndex(number);
-      setConfirmModalOpen(true);
+    // Only allow selection of unselected buttons
+    if (number.selected) {
+      return; // Do nothing if already selected
     }
+    
+    setSelectionProcess(index);
+    setAmount(number.amount);
+    setSelectedIndex(number);
+    setConfirmModalOpen(true);
   };
 
   const handleConfirm = () => {
-    // dispatch(toggleSelection(selectedIndex));
-    dispatch(updateSelectedAmount(selectedIndex))
+    // Only set to selected (no deselection allowed)
+    dispatch(updateSelectedAmount({ id: selectedIndex.id, selected: true }))
     setConfirmModalOpen(false);
   };
 
@@ -34,7 +36,7 @@ const PaymentButtons = ({ noList }) => {
 
   return (
     <div className="p-4 md:p-8 grid grid-cols-4 md:grid-cols-7 gap-2 sm:w-full sm:max-h-[200px] md:w-[750px] md:h-[500px] mb-3">
-      {noList.length ? (
+      {noList && noList.length > 0 ? (
         <>
           {noList.map((number, index) => (
             <PaymentButton
@@ -54,6 +56,7 @@ const PaymentButtons = ({ noList }) => {
         onRequestClose={handleModalClose}
         onConfirm={handleConfirm}
         amount={amount}
+        isPermanentSelection={true}
       />
     </div>
   );

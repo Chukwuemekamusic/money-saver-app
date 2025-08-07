@@ -1,9 +1,10 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { regsiterURL, loginURL, getUserURL, logoutUserURL, googleLoginURL } from "../../api/axiosUtil";
+import { regsiterURL, loginURL, googleLoginURL, syncUserURL, getUserURL, logoutUserURL, verifyTokenURL } from "../../api/axiosUtil";
 import { errorCheck } from "./errorCheck";
 import getHeaders from "../../api/getHeaders";
-import { resetAuth } from "./authSlice";
+import { resetAuth } from "./authSliceNew";
+import { getSupabaseToken } from "../../utils/supabase";
 
 
 export const registerUser = createAsyncThunk('auth/register',
@@ -40,7 +41,12 @@ export const googleLogin = createAsyncThunk('auth/googleLogin',
 export const getUser = createAsyncThunk('auth/getUser',
     async (_, { dispatch,rejectWithValue }) => {
         try {
-            const token = JSON.parse(localStorage.getItem("userToken")) ?? ""
+            // Try to get Supabase token first, fallback to localStorage
+            let token = await getSupabaseToken();
+            if (!token) {
+                token = JSON.parse(localStorage.getItem("userToken")) ?? ""
+            }
+            
             const { data } = await axios.get(getUserURL, getHeaders(token))
             return data;
         } catch (error) {
@@ -52,13 +58,20 @@ export const getUser = createAsyncThunk('auth/getUser',
 //     localStorage.removeItem("userToken");
 // };
 
-// Async thunk for logging out
+// Async thunk for logging out (legacy - prefer Supabase logout)
 export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, rejectWithValue }) => {
 
     try {
-        const token = JSON.parse(localStorage.getItem("userToken")) ?? "";
-        // console.log('token used:', token);
-        await axios.post(logoutUserURL, {}, getHeaders(token))
+        // Try to get Supabase token first, fallback to localStorage
+        let token = await getSupabaseToken();
+        if (!token) {
+            token = JSON.parse(localStorage.getItem("userToken")) ?? "";
+        }
+        
+        if (token) {
+            await axios.post(logoutUserURL, {}, getHeaders(token))
+        }
+        
         localStorage.removeItem("userToken");
         localStorage.removeItem("user");
         localStorage.removeItem("newPlanId");
@@ -73,8 +86,5 @@ export const logoutUser = createAsyncThunk("auth/logout", async (_, {dispatch, r
     } finally {
         dispatch(resetAuth());
     }
-
-
-
 });
 

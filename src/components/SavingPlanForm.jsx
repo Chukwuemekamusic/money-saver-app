@@ -21,6 +21,7 @@ const SavingPlanForm = () => {
   const [duration, setDuration] = useState("52");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [debugInfo, setDebugInfo] = useState(""); // Add debug info display
   const dispatch = useDispatch();
   const savePlan = useSavePlan();
 
@@ -41,8 +42,12 @@ const SavingPlanForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     setError(null);
+    setDebugInfo("Form submitted - processing...");
+    
+    // Add visible debugging
+    console.log('🔵 Form submitted with data:', data);
+    console.log('🔵 Form state - amount:', amount, 'savingsName:', savingsName, 'duration:', duration);
 
-  
     const numberOfWeeks = parseInt(duration);
 
     dispatch(
@@ -61,25 +66,42 @@ const SavingPlanForm = () => {
 
     if (!payload) {
       setError("Failed to create saving plan. Please try again later.");
+      setDebugInfo("ERROR: Failed to generate weekly amounts");
       setLoading(false);
       return;
     }
+    setDebugInfo("Weekly amounts generated successfully - preparing API call...");
     setAmount("");
     setSavingsName("");
 
     const savingsData = {
       savings_name: savingsName,
-      amount,
-      amount_list: payload,
+      amount: parseFloat(amount), // Ensure it's a number
       number_of_weeks: numberOfWeeks,
+      weekly_amounts: payload, // Use FastAPI-compatible field name and structure
     };
 
     try {
+      console.log('🟢 About to save plan with data:', savingsData);
+      setDebugInfo("Sending API request to create plan...");
       await savePlan(savingsData);
-      const { id } = getNewPlan();
-      navigateSavingPlanDetail(id);
+      console.log('🟢 Plan saved successfully!');
+      setDebugInfo("Plan saved! Getting plan ID...");
+      const planResult = getNewPlan();
+      if (planResult && planResult.id) {
+        const { id } = planResult;
+        console.log('🟢 Got new plan ID:', id);
+        setDebugInfo(`Success! Redirecting to plan ${id}...`);
+        navigateSavingPlanDetail(id);
+      } else {
+        console.log('🟡 Plan saved but no ID returned, staying on current page');
+        setDebugInfo('Plan saved successfully!');
+        // Don't navigate, just show success message
+      }
     } catch (error) {
+      console.error('🔴 Error saving plan:', error);
       setError("An error occurred while saving the plan. Please try again.");
+      setDebugInfo(`ERROR: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -160,6 +182,7 @@ const SavingPlanForm = () => {
             {loading ? "Creating..." : "Create New Plan"}
           </button>
           {error && <p className="text-red-600 mt-2">{error}</p>}
+          {debugInfo && <p className="text-blue-600 mt-2 text-sm">🔍 Debug: {debugInfo}</p>}
         </div>
       </form>
     </div>

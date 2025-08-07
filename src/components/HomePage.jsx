@@ -2,10 +2,11 @@ import SavingPlanForm from "./SavingPlanForm";
 import SavingPlanList from "../features/savings/SavingPlanList";
 import { useSelector } from "react-redux";
 import { selectAllSavings } from "../features/savings/savingsSlice";
-import { SelectUserInfo } from "../features/auth/authSlice";
+import { SelectUserInfo } from "../features/auth/authSliceNew";
 
 const Home = () => {
-  const { isLoading, isSuccess, savings, error } = useSelector(selectAllSavings);
+  const { isLoading, isSuccess, savings, error } =
+    useSelector(selectAllSavings);
 
   const userInfo = useSelector(SelectUserInfo);
   // console.log("user", userInfo);
@@ -29,10 +30,12 @@ const Home = () => {
           <SavingPlanForm />
 
           {/* {console.log("Savings", savings)} */}
-          {error && <span>Error: {error.message}</span>}
+          {error && <span>{error.message}</span>}
           {savings && isSuccess && (
             <>
-              <h3 className="text-xl md:text-2xl font-semibold mb-2 mt-4 md:mt-8">Your Saved Plans:</h3>
+              <h3 className="text-xl md:text-2xl font-semibold mb-2 mt-4 md:mt-8">
+                Your Saved Plans:
+              </h3>
               <SavingPlanList savings={savings} />
             </>
           )}

@@ -1,7 +1,8 @@
-const getHeaders = (q) => {
+const getHeaders = (token) => {
     return {
       headers: {
-        Authorization: `Token ${q}`,
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     };
   };

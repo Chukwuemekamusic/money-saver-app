@@ -9,10 +9,13 @@ import RootLayout from "./RootLayout";
 import { NotFoundPage } from "./components/NotFoundPage";
 import ProtectedRoute from "./ProtectedRoute";
 import { useSelector } from "react-redux";
-import { SelectUserInfo } from "./features/auth/authSlice";
+import { SelectUserInfo } from "./features/auth/authSliceNew";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Verification from "./components/Verification";
 import CheckEmail from "./features/users/components/CheckEmail";
+import AuthCallback from "./features/users/components/AuthCallback";
+import SupabaseLoginForm from "./features/users/components/SupabaseLoginForm";
+import SupabaseRegisterForm from "./features/users/components/SupabaseRegisterForm";
 
 function App() {
 
@@ -21,11 +24,15 @@ function App() {
     createRoutesFromElements(
       <Route element={<RootLayout />}>
         <Route element={userInfo ? <Navigate to='/' /> : <LandingPage />} path="/landing/">
-          <Route element={userInfo ? <Navigate to='/' /> : <LoginForm2 />} path="login" />
-          <Route element={userInfo ? <Navigate to='/' /> : <CreateUserForm />} path="register" />
+          <Route element={userInfo ? <Navigate to='/' /> : <SupabaseLoginForm />} path="login" />
+          <Route element={userInfo ? <Navigate to='/' /> : <SupabaseRegisterForm />} path="register" />
         </Route>
+        {/* Legacy auth components (keeping for fallback) */}
+        <Route element={userInfo ? <Navigate to='/' /> : <LoginForm2 />} path="/legacy/login" />
+        <Route element={userInfo ? <Navigate to='/' /> : <CreateUserForm />} path="/legacy/register" />
         <Route element={<Verification />} path="/verify-email/:uidb64/:token/" />
         <Route element={<CheckEmail />} path="/check-email" />
+        <Route element={<AuthCallback />} path="/auth/callback" />
         {/* <Route element={<LandingPage />} path="/landing/:id" /> */}
         {/* loader={homeLoader(dispatch)} */}
 

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../auth/authActions";
 import useCustomNavigation from "../../../utils/useCustomNavigation";
 import CustomError from "../../../components/CustomError";
-import { SelectUserInfo } from "../../auth/authSlice";
+import { SelectUserInfo } from "../../auth/authSliceNew";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

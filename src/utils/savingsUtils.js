@@ -31,18 +31,33 @@ export const handleSetSavingsData = async (
   dispatch,
   setAmountList
 ) => {
+  console.log('🔵 Generating weekly amounts for:', {totalAmount, numberOfWeeks});
+  
   const randomAmounts = generateRandomAmounts(totalAmount, numberOfWeeks);
-  const payload = randomAmounts.map((number) => ({
+  
+  // Create payload for Redux state (legacy format for frontend compatibility)
+  const legacyPayload = randomAmounts.map((number) => ({
     amount: number,
     selected: false,
   }));
-  await dispatch(setAmountList(payload));
-  return payload;
+  
+  // Create FastAPI-compatible payload without pre-allocated week_index
+  const fastApiPayload = randomAmounts.map((number) => ({
+    amount: number,
+    week_index: null, // Will be assigned dynamically when selected
+    selected: false,
+  }));
+  
+  console.log('🔵 Generated legacy payload (first 3):', legacyPayload.slice(0, 3));
+  console.log('🔵 Generated FastAPI payload (first 3):', fastApiPayload.slice(0, 3));
+  
+  await dispatch(setAmountList(legacyPayload)); // Keep Redux state format for frontend
+  return fastApiPayload; // Return FastAPI format for API calls
 };
 
 // time related utilities
 export const datetime = (date) =>
-  moment(date).format("MMMM Do YYYY, h:mm:ss a");
+  moment(date).format("MMM D, YYYY"); // Shortened format: Aug 6, 2025
 export const time = (date) => moment(date).format("h:mm:ss a");
 export const date = (date) => moment(date).format("MMMM Do YYYY");
 export const timeAgo = (date) => moment(date).fromNow();

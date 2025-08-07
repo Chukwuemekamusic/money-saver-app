@@ -1,44 +1,40 @@
 import React, { useEffect } from 'react';
-// import GoogleButton from 'react-google-button';
-import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch, useSelector } from 'react-redux';
-import { googleLogin } from '../features/auth/authActions';
-import { SelectUserInfo } from '../features/auth/authSlice';
+import { loginWithGoogle } from '../features/auth/supabaseAuthActions';
+import { SelectUserInfo, SelectIsAuthenticated } from "../features/auth/authSliceNew";
 import useCustomNavigation from '../utils/useCustomNavigation';
 import CustomGoogleButton from './CustomGoogleButton';
 
 const GoogleLoginButton = ({ showLabelOnSmallScreen = false }) => {
     const dispatch = useDispatch();
     const { navigateHome } = useCustomNavigation();
-    // const { error } = useSelector((state) => state.auth); // loading,
     const userInfo = useSelector(SelectUserInfo);
+    const isAuthenticated = useSelector(SelectIsAuthenticated);
 
-    // TODO: redirect to homepage after successful login
+    // Redirect to homepage after successful login
     useEffect(() => {
-        // console.log('userInfo changed:', userInfo);
-        if (userInfo) {
+        if (userInfo && isAuthenticated) {
             navigateHome();
         }
-    }, [userInfo, navigateHome]);
+    }, [userInfo, isAuthenticated, navigateHome]);
 
-    const handleGoogleLogin = async (codeResponse) => {
-        // console.log('codeResponse', codeResponse)
-        const authorizationCode = codeResponse.code;
-        dispatch(googleLogin({ code: authorizationCode }));
-
+    const handleGoogleLogin = async () => {
+        try {
+            console.log('🔵 User clicked Google login button');
+            // Use Supabase OAuth instead of custom backend integration
+            // This handles both login for existing users AND signup for new users
+            await dispatch(loginWithGoogle()).unwrap();
+            console.log('🔵 Redirecting to Google for authentication...');
+            // Redirect is handled by Supabase - user will be redirected to /auth/callback
+        } catch (error) {
+            console.error('🔴 Google login failed:', error);
+            // You could add a toast notification here
+        }
     };
-
-    const login = useGoogleLogin({
-        onSuccess: handleGoogleLogin,
-        onError: () => {
-            console.log('Login Failed');
-        },
-        flow: 'auth-code',
-    });
 
     return (
         <CustomGoogleButton 
-            onClick={login} 
+            onClick={handleGoogleLogin} 
             label="Login with Google" 
             showLabelOnSmallScreen={showLabelOnSmallScreen}
         />
