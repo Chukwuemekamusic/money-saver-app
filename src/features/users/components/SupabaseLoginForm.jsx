@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import {
   loginWithSupabase,
-  loginWithGoogle,
   resetPassword,
 } from "../../auth/supabaseAuthActions";
 import {
@@ -13,8 +12,10 @@ import {
   SelectPasswordResetSent,
   clearError,
 } from "../../auth/authSliceNew";
+import GoogleLoginButton from "../../../components/GoogleLoginButton";
+import { useAuthModal } from "../../../contexts/AuthModalContext";
 
-const SupabaseLoginForm = () => {
+const SupabaseLoginForm = ({ onSuccess = null }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +25,7 @@ const SupabaseLoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { openRegisterModal } = useAuthModal();
 
   const loading = useSelector(SelectAuthLoading);
   const error = useSelector(SelectAuthError);
@@ -32,9 +34,12 @@ const SupabaseLoginForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      if (onSuccess) {
+        onSuccess(); // Close modal first
+      }
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, onSuccess]);
 
   useEffect(() => {
     // Clear errors when component mounts
@@ -55,9 +60,6 @@ const SupabaseLoginForm = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    dispatch(loginWithGoogle());
-  };
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
@@ -118,7 +120,7 @@ const SupabaseLoginForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white py-2 px-4 rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
@@ -141,8 +143,8 @@ const SupabaseLoginForm = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>
+    <div className={`${onSuccess ? '' : 'max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md'}`}>
+      {!onSuccess && <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -182,7 +184,7 @@ const SupabaseLoginForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+          className="w-full bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white py-2 px-4 rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>
@@ -208,21 +210,21 @@ const SupabaseLoginForm = () => {
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={handleGoogleLogin}
-          disabled={loading}
-          className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
-        >
-          Sign in with Google
-        </button>
+        <GoogleLoginButton 
+          showLabelOnSmallScreen={true} 
+          label="Sign in with Google"
+          fullWidth={true}
+        />
 
         <div className="text-center">
           <p className="text-gray-600">
             Don't have an account?{" "}
-            <Link to="/register" className="text-blue-500 hover:text-blue-700">
-              Sign up here
-            </Link>
+            <button 
+              onClick={openRegisterModal}
+              className="text-blue-500 hover:text-blue-700 underline"
+            >
+              Create account here
+            </button>
           </p>
         </div>
       </form>

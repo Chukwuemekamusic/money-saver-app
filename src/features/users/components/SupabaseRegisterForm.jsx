@@ -8,8 +8,10 @@ import {
   SelectIsAuthenticated,
   clearError,
 } from "../../auth/authSliceNew";
+import GoogleLoginButton from "../../../components/GoogleLoginButton";
+import { useAuthModal } from "../../../contexts/AuthModalContext";
 
-const SupabaseRegisterForm = () => {
+const SupabaseRegisterForm = ({ onSuccess = null }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,6 +23,7 @@ const SupabaseRegisterForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { openLoginModal } = useAuthModal();
 
   const loading = useSelector(SelectAuthLoading);
   const error = useSelector(SelectAuthError);
@@ -28,9 +31,12 @@ const SupabaseRegisterForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      if (onSuccess) {
+        onSuccess(); // Close modal first
+      }
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, onSuccess]);
 
   useEffect(() => {
     // Clear errors when component mounts
@@ -115,10 +121,10 @@ const SupabaseRegisterForm = () => {
           </p>
           <div className="space-y-3">
             <Link
-              to="/login"
+              to="/landing"
               className="block w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 text-center"
             >
-              Go to Login
+              Go to Landing
             </Link>
             <button
               onClick={() => setRegistrationSuccess(false)}
@@ -133,8 +139,8 @@ const SupabaseRegisterForm = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
+    <div className={`${onSuccess ? '' : 'max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md'}`}>
+      {!onSuccess && <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>}
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -221,17 +227,37 @@ const SupabaseRegisterForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+          className="w-full bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white py-2 px-4 rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
         >
           {loading ? "Creating Account..." : "Create Account"}
         </button>
 
+        <div className="relative mb-4">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-500">
+              Or continue with
+            </span>
+          </div>
+        </div>
+
+        <GoogleLoginButton 
+          showLabelOnSmallScreen={true} 
+          label="Create account with Google"
+          fullWidth={true}
+        />
+
         <div className="text-center">
           <p className="text-gray-600">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500 hover:text-blue-700">
-              Sign in here
-            </Link>
+            <button 
+              onClick={openLoginModal}
+              className="text-blue-500 hover:text-blue-700 underline"
+            >
+              Log in here
+            </button>
           </p>
         </div>
       </form>

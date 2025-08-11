@@ -14,7 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomError from "./CustomError";
 
-const SavingPlanForm = () => {
+const SavingPlanForm = ({ onSuccess = null }) => {
   const { navigateSavingPlanDetail } = useCustomNavigation();
   const [amount, setAmount] = useState("");
   const [savingsName, setSavingsName] = useState("");
@@ -92,11 +92,21 @@ const SavingPlanForm = () => {
         const { id } = planResult;
         console.log('🟢 Got new plan ID:', id);
         setDebugInfo(`Success! Redirecting to plan ${id}...`);
+        
+        // If onSuccess callback is provided (modal context), call it
+        if (onSuccess) {
+          onSuccess();
+        }
+        
         navigateSavingPlanDetail(id);
       } else {
         console.log('🟡 Plan saved but no ID returned, staying on current page');
         setDebugInfo('Plan saved successfully!');
-        // Don't navigate, just show success message
+        
+        // If onSuccess callback is provided (modal context), call it
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     } catch (error) {
       console.error('🔴 Error saving plan:', error);
@@ -108,8 +118,8 @@ const SavingPlanForm = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-xs md:max-w-4xl text-start md:text-center mt-6 p-4 bg-white bg-opacity-40 shadow-md rounded-lg">
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <div className={`${onSuccess ? '' : 'mx-auto w-full max-w-xs md:max-w-4xl mt-6 p-4 bg-white bg-opacity-40 shadow-md rounded-lg'} text-start`}>
+      <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <label
             className="font-bold text-gray-600 mb-2"

@@ -1,13 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import useCustomNavigation from "../../utils/useCustomNavigation";
 import { datetime, timeAgo } from "../../utils/savingsUtils";
 import { deleteSavingPlan } from "./savingAction";
+import { planScheduleStatusURL } from "../../api/axiosUtil";
+import getHeaders from "../../api/getHeaders";
+import { getSupabaseToken } from "../../utils/supabase";
+
+// Status indicator component using backend API data
+const StatusIndicator = ({ status, message, loading = false }) => {
+  const getStatusColor = () => {
+    switch (status) {
+      case 'completed':
+        return 'bg-green-500';
+      case 'on-track':
+        return 'bg-green-400';
+      case 'ahead':
+        return 'bg-blue-500';
+      case 'behind':
+        return 'bg-orange-500';
+      default:
+        return 'bg-gray-400';
+    }
+  };
+
+  const getStatusLabel = () => {
+    switch (status) {
+      case 'completed':
+        return 'Complete';
+      case 'on-track':
+        return 'On Track';
+      case 'ahead':
+        return 'Ahead';
+      case 'behind':
+        return 'Behind';
+      default:
+        return 'Unknown';
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center gap-2">
+        <div className="w-3 h-3 rounded-full bg-gray-300 animate-pulse"></div>
+        <span className="text-xs text-gray-400">Loading...</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-2" title={message}>
+      <div className={`w-3 h-3 rounded-full ${getStatusColor()}`}></div>
+      <span className="text-xs text-gray-600">{getStatusLabel()}</span>
+    </div>
+  );
+};
 
 const SavingPlanListItem = ({ saving }) => {
   const dispatch = useDispatch();
   const { navigateSavingPlanDetail } = useCustomNavigation();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [scheduleStatus, setScheduleStatus] = useState(null);
+  const [statusLoading, setStatusLoading] = useState(true);
+  
+  // Fetch schedule status from backend
+  useEffect(() => {
+    const fetchScheduleStatus = async () => {
+      try {
+        setStatusLoading(true);
+        
+        // Get authentication token
+        const token = await getSupabaseToken();
+        if (!token) {
+          throw new Error('No authentication token available');
+        }
+        
+        const response = await axios.get(planScheduleStatusURL(saving.id), getHeaders(token));
+        setScheduleStatus(response.data);
+      } catch (error) {
+        console.error(`Error fetching schedule status for plan ${saving.id}:`, error);
+        // Fallback to simple status if API fails
+        setScheduleStatus({
+          status: 'unknown',
+          message: 'Unable to load schedule status'
+        });
+      } finally {
+        setStatusLoading(false);
+      }
+    };
+
+    if (saving.id) {
+      fetchScheduleStatus();
+    }
+  }, [saving.id]);
   
   const handleNavigate = () => {
     navigateSavingPlanDetail(saving.id);
@@ -28,12 +114,19 @@ const SavingPlanListItem = ({ saving }) => {
 
   return (
     <div>
-      <h3
-        onClick={handleNavigate}
-        className="text-xl md:text-2xl font-bold text-sky-600 hover:text-sky-7000 hover:shadow-sm cursor-pointer uppercase"
-      >
-        {saving.savings_name}
-      </h3>
+      <div className="flex items-start justify-between mb-2">
+        <h3
+          onClick={handleNavigate}
+          className="text-xl md:text-2xl font-bold text-sky-600 hover:text-sky-7000 hover:shadow-sm cursor-pointer uppercase flex-1"
+        >
+          {saving.savings_name}
+        </h3>
+        <StatusIndicator 
+          status={scheduleStatus?.status} 
+          message={scheduleStatus?.message} 
+          loading={statusLoading}
+        />
+      </div>
       {/* Target Amount */}
       <p className="text-lg text-gray-700">
         <span className="text-teal-700 font-bold"> Target Amount:</span> £

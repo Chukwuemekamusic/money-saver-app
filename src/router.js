@@ -16,25 +16,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/landing',
-        element: <LandingPage />,
-        children: [
-            {
-                path: '/login',
-                element: <LoginForm />,
-            },
-            {
-                path: '/register',
-                element: <CreateUserForm />
-            },
-        ]
-    },
-    {
-        path: '/login',
-        element: <LoginForm />,
-    },
-    {
-        path: '/register',
-        element: <CreateUserForm />
+        element: <LandingPage />
     },
     {
         path: '/saving_plan',

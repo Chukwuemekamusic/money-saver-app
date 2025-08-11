@@ -3,20 +3,22 @@ import useHandleLogout from "../features/auth/utils/useHandleLogout";
 import { useSelector } from "react-redux";
 import { SelectToken, SelectIsAuthenticated } from "../features/auth/authSliceNew";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { useAuthModal } from "../contexts/AuthModalContext";
 
 const Navbar = () => {
   const token = useSelector(SelectToken);
   const isAuthenticated = useSelector(SelectIsAuthenticated);
   const { pathname } = useLocation();
   const handleLogout = useHandleLogout();
+  const { openLoginModal, openRegisterModal } = useAuthModal();
 
   return (
-    <header className="bg-white py-2 justify-center shadow-lg mb-10 bg-opacity-80 backdrop-blur-sm fixed top-0 left-0 right-0 w-fullz-100">
+    <header className="bg-white py-2 justify-center shadow-lg mb-10 bg-opacity-80 backdrop-blur-sm fixed top-0 left-0 right-0 w-full z-100">
       <div className="container mx-auto p-5 flex justify-between items-center">
         <div className="text-2xl font-bold">
           <Link to="/">MoneySaver</Link>
         </div>
-        <ul className="flex gap-2 md:gap-5 items-center">
+        <ul className="flex gap-2 md:gap-3 items-center">
           {(token || isAuthenticated) ? (
             <>
               <li>
@@ -28,33 +30,21 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <li className="" >
-                <GoogleLoginButton />
+              <li>
+                <button
+                  onClick={openRegisterModal}
+                  className="bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 text-sm md:text-base"
+                >
+                  Get Started
+                </button>
               </li>
               <li>
-                <Link
-                  className={`${
-                    pathname === "/landing/login"
-                      ? "bg-teal-600 hover:bg-teal-700/90"
-                      : "bg-teal-600/55 hover:bg-sky-700"
-                  } text-white text-sm md:text-base font-bold py-2 px-3 rounded-2xl`}
-                  to="/landing/login"
+                <button
+                  onClick={openLoginModal}
+                  className="border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 text-sm md:text-base"
                 >
-                  LogIn
-                </Link>
-              </li>
-             
-              <li>
-                <Link
-                  className={`${
-                    pathname === "/landing/register"
-                      ? "bg-teal-600 hover:bg-teal-700/90"
-                      : "bg-teal-600/45 hover:bg-sky-700"
-                  } text-white text-sm md:text-base font-bold py-2 px-3 rounded-2xl`}
-                  to="/landing/register"
-                >
-                  Register
-                </Link>
+                  Log In
+                </button>
               </li>
             </>
           )}

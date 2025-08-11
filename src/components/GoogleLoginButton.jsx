@@ -5,7 +5,7 @@ import { SelectUserInfo, SelectIsAuthenticated } from "../features/auth/authSlic
 import useCustomNavigation from '../utils/useCustomNavigation';
 import CustomGoogleButton from './CustomGoogleButton';
 
-const GoogleLoginButton = ({ showLabelOnSmallScreen = false }) => {
+const GoogleLoginButton = ({ showLabelOnSmallScreen = false, label = "Login with Google", fullWidth = false }) => {
     const dispatch = useDispatch();
     const { navigateHome } = useCustomNavigation();
     const userInfo = useSelector(SelectUserInfo);
@@ -35,8 +35,9 @@ const GoogleLoginButton = ({ showLabelOnSmallScreen = false }) => {
     return (
         <CustomGoogleButton 
             onClick={handleGoogleLogin} 
-            label="Login with Google" 
+            label={label} 
             showLabelOnSmallScreen={showLabelOnSmallScreen}
+            fullWidth={fullWidth}
         />
     );
     // return (

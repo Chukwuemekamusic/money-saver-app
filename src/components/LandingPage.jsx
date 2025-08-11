@@ -1,33 +1,86 @@
-import { Link, Outlet, useLocation} from "react-router-dom";
-import GoogleLoginButton from "./GoogleLoginButton";
+import { Outlet, useLocation} from "react-router-dom";
+import { useAuthModal } from "../contexts/AuthModalContext";
 
 const LandingPage = () => {
   const location = useLocation();
+  const { openLoginModal, openRegisterModal } = useAuthModal();
   
   // console.log('Current path:', location.pathname);
   return (
     <div className="container mx-auto px-4 py-4">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-2 ">
-        Welcome to Money Saver App
-      </h1>
-      <p className="text-lg text-gray-700 mb-4">
-      <span className="font-bold text-teal-700">Money Saver App</span> is your personal savings guide! Set your <span className="font-bold text-sky-700">{" "}financial goals</span> and track your progress with our tailored weekly savings plans.
-      </p>
-      <p><span className="font-bold text-sky-700">Our standout feature </span>encourages little weekly savings to achieve your
-  <span className="font-bold text-teal-700">{" "}dream goal</span>. Randomly generated buttons add up to your goal amount,
-  making saving fun and manageable. Ready to get started?</p>
-  <div className="flex flex-col items-center mt-4 mb-6 space-y-4">
-          <GoogleLoginButton showLabelOnSmallScreen={true} />
-          <div className="flex items-center space-x-2">
-            <span className={`${location.pathname === '/landing/login' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-sky-500 hover:bg-sky-700'} text-white font-bold py-2 px-4 rounded`}>
-              <Link to="login">Log in</Link>
-            </span>
-            <span>or</span>
-            <span className={`${location.pathname === '/landing/register' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-sky-500 hover:bg-sky-700'} text-white font-bold py-2 px-4 rounded`}>
-              <Link to="register">Register</Link>
-            </span>
+      {/* Enhanced Hero Section */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          Turn Your Savings 
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-sky-500"> Dreams </span>
+          Into Reality
+        </h1>
+        <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+          Set a goal, get fun weekly amounts, track your progress. 
+          Our random savings approach makes reaching your financial goals 
+          <span className="font-semibold text-teal-700"> enjoyable and achievable</span>.
+        </p>
+      </div>
+
+      {/* How It Works Section */}
+      <div className="mb-12">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+          How It Works
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          {/* Step 1 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-sky-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+              1
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Set Your Goal</h3>
+            <p className="text-gray-600">
+              Choose your savings target and timeline. Whether it's $500 for a vacation or $5000 for an emergency fund.
+            </p>
+          </div>
+          
+          {/* Step 2 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-sky-500 to-teal-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+              2
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Save Weekly</h3>
+            <p className="text-gray-600">
+              Get randomly generated weekly amounts that add up to your goal. Makes saving fun and unpredictable!
+            </p>
+          </div>
+          
+          {/* Step 3 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-sky-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+              3
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Track Progress</h3>
+            <p className="text-gray-600">
+              Mark weeks as complete and watch your progress grow. Get reminders and celebrate milestones!
+            </p>
           </div>
         </div>
+      </div>
+
+      {/* Call to Action Section */}
+      <div className="text-center mb-8">
+        <h3 className="text-xl font-semibold mb-6">Ready to start saving?</h3>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <button 
+            onClick={openRegisterModal}
+            className="bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white font-bold py-4 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl text-lg"
+          >
+            Get Started Free
+          </button>
+          <button 
+            onClick={openLoginModal}
+            className="border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200"
+          >
+            Log In
+          </button>
+        </div>
+      </div>
 
       <div>
         <Outlet />
