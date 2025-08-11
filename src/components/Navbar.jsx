@@ -1,14 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useHandleLogout from "../features/auth/utils/useHandleLogout";
 import { useSelector } from "react-redux";
-import { SelectToken, SelectIsAuthenticated } from "../features/auth/authSliceNew";
-import GoogleLoginButton from "./GoogleLoginButton";
+import {
+  SelectToken,
+  SelectIsAuthenticated,
+} from "../features/auth/authSliceNew";
 import { useAuthModal } from "../contexts/AuthModalContext";
 
 const Navbar = () => {
   const token = useSelector(SelectToken);
   const isAuthenticated = useSelector(SelectIsAuthenticated);
-  const { pathname } = useLocation();
   const handleLogout = useHandleLogout();
   const { openLoginModal, openRegisterModal } = useAuthModal();
 
@@ -19,12 +20,17 @@ const Navbar = () => {
           <Link to="/">MoneySaver</Link>
         </div>
         <ul className="flex gap-2 md:gap-3 items-center">
-          {(token || isAuthenticated) ? (
+          {token || isAuthenticated ? (
             <>
               <li>
-                <Link className="text-teal-600 hover:text-teal-700" to="/">Dashboard</Link>
+                <Link className="text-teal-600 hover:text-teal-700" to="/">
+                  Dashboard
+                </Link>
               </li>
-              <li className="cursor-pointer text-teal-600 hover:text-teal-700" onClick={handleLogout}>
+              <li
+                className="cursor-pointer text-teal-600 hover:text-teal-700"
+                onClick={handleLogout}
+              >
                 Log out
               </li>
             </>

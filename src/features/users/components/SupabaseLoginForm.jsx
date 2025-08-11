@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   loginWithSupabase,
   resetPassword,
@@ -59,7 +59,6 @@ const SupabaseLoginForm = ({ onSuccess = null }) => {
       dispatch(loginWithSupabase(formData));
     }
   };
-
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
@@ -143,8 +142,16 @@ const SupabaseLoginForm = ({ onSuccess = null }) => {
   }
 
   return (
-    <div className={`${onSuccess ? '' : 'max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md'}`}>
-      {!onSuccess && <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>}
+    <div
+      className={`${
+        onSuccess
+          ? ""
+          : "max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md"
+      }`}
+    >
+      {!onSuccess && (
+        <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>
+      )}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -210,8 +217,8 @@ const SupabaseLoginForm = ({ onSuccess = null }) => {
           </div>
         </div>
 
-        <GoogleLoginButton 
-          showLabelOnSmallScreen={true} 
+        <GoogleLoginButton
+          showLabelOnSmallScreen={true}
           label="Sign in with Google"
           fullWidth={true}
         />
@@ -219,7 +226,7 @@ const SupabaseLoginForm = ({ onSuccess = null }) => {
         <div className="text-center">
           <p className="text-gray-600">
             Don't have an account?{" "}
-            <button 
+            <button
               onClick={openRegisterModal}
               className="text-blue-500 hover:text-blue-700 underline"
             >
