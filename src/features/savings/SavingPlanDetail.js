@@ -16,7 +16,7 @@ const SavingPlanDetail = () => {
   const savingsData = useMemo(() => sData ?? [], [sData]);
 
   // Try to find the saving plan in existing data first
-  let savings = savingsData.filter((saving) => saving.id === id)[0];
+  let savings = savingsData.filter((saving) => saving.id === parseInt(id))[0];
 
   // If not found in existing data, we need to fetch it
   useEffect(() => {
