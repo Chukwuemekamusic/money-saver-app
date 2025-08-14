@@ -1,6 +1,6 @@
 // FastAPI backend URL - uses environment variable for flexibility
 export const baseURL =
-  (process.env.REACT_PUBLIC_API_URL || "http://localhost:8000/api/v1") + "/";
+  (process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1") + "/";
 
 // Legacy Django URLs (keeping for backward compatibility during transition)
 export const regsiterURL = baseURL + "auth/register"; // Note: keeping typo for compatibility
