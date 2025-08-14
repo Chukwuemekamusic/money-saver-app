@@ -15,9 +15,14 @@ export const listSavingPlan = createAsyncThunk(
         token = JSON.parse(localStorage.getItem("userToken")) ?? "";
       }
       
+      console.log("🔵 Making API request to:", listSavingPlanURL);
+      console.log("🔵 Token available:", !!token);
+      console.log("🔵 Token preview:", token ? token.substring(0, 20) + "..." : "NO TOKEN");
+      
       const { data } = await axios.get(listSavingPlanURL, getHeaders(token));
       return data;
     } catch (error) {
+      console.error("🔴 API request failed:", error);
       return thunkAPI.rejectWithValue(errorCheck(error));
     }
   }

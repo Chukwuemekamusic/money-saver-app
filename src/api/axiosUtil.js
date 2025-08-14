@@ -2,6 +2,10 @@
 export const baseURL =
   (process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1") + "/";
 
+// Debug: Log the actual URL being used
+console.log("🔵 API Base URL:", baseURL);
+console.log("🔵 Environment REACT_APP_API_URL:", process.env.REACT_APP_API_URL);
+
 // Legacy Django URLs (keeping for backward compatibility during transition)
 export const regsiterURL = baseURL + "auth/register"; // Note: keeping typo for compatibility
 export const loginURL = baseURL + "auth/login";
